@@ -9,35 +9,42 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
+    primary = Color(0xFFA31D1D),     // Rojo oscuro
+    secondary = Color(0xFFD84040),   // Rojo claro
+    tertiary = Color(0xFFB39D7F),    // Beige más apagado
+    background = Color(0xFF282727),  // Negro/gris oscuro
+    surface = Color(0xFF1E1E1E),     // Superficie oscura
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    onBackground = Color.White,
+    onSurface = Color.White
+)
+
+private val LightColorScheme = lightColorScheme(
+    primary = Color(0xFFD84040),     // Rojo claro (Botones, FAB, etc.)
+    secondary = Color(0xFFA31D1D),   // Rojo oscuro
+    tertiary = Color(0xFFECDCBF),    // Beige claro (Tarjetas, AppBars)
+    background = Color(0xFFF8F2DE),  // Fondo general de la app
+    surface = Color(0xFFECDCBF),     // Fondo de AppBar, Cards, etc.
+
+    onPrimary = Color.White,         // Texto sobre primary
+    onSecondary = Color.White,       // Texto sobre secondary
+    onTertiary = Color.Black,        // Texto sobre tertiary
+    onBackground = Color.Black,      // Texto sobre fondo
+    onSurface = Color.Black          // Texto sobre surface
 )
 
 @Composable
 fun MediaExplorerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
