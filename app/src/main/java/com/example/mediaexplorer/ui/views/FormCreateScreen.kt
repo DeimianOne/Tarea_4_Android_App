@@ -144,11 +144,13 @@ fun FormCreateScreen(navController: NavHostController) {
                         ),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.Transparent, // Fondo transparente
-                        contentColor = Color.White          // Texto blanco
+                        contentColor = MaterialTheme.colorScheme.onPrimary
                     ),
                     elevation = ButtonDefaults.buttonElevation(0.dp)
                 ) {
-                    Text(typeSelec?.displayName ?: "Selecciona una categoría")
+                    Text(
+                        typeSelec?.displayName ?: "Selecciona una categoría"
+                    )
                 }
 
                 DropdownMenu(
@@ -158,7 +160,9 @@ fun FormCreateScreen(navController: NavHostController) {
                 ) {
                     TypeContent.values().forEach { tipo ->
                         DropdownMenuItem(
-                            text = { Text(tipo.displayName) },
+                            text = {
+                                Text(tipo.displayName)
+                            },
                             onClick = {
                                 typeSelec = tipo
                                 expanded = false

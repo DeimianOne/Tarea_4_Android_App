@@ -1,3 +1,41 @@
 <resources>
     <string name="app_name">MediaExplorer</string>
+
+    <string name="SpiderManAcrosTheSpiderVerse">Spider-Man: Across the Spider-Verse</string>
+    <string name="SpiderManAcrosTheSpiderVerseSinopsis">Tras reencontrarse con Gwen Stacy, el amigable vecindario de Spider-Man de Brooklyn al completo es catapultado a través del Multiverso, donde se encuentra con un equipo de Spidermans encargados de proteger su propia existencia. Pero cuando los héroes se enfrentan sobre cómo manejar una nueva amenaza, Miles se encuentra enfrentado a las otras Arañas y debe redefinir lo que significa ser un héroe para poder salvar a la gente que más quiere</string>
+    <string name="SpiderManAcrosTheSpiderVerseDuracion">140</string>
+
+    <string name="SpiderManUnNuevoUniverso">Spider-Man: Un nuevo universo</string>
+    <string name="SpiderManUnNuevoUniversoSinopsis">En un universo paralelo donde Peter Parker ha muerto, un joven de secundaria llamado Miles Morales es el nuevo Spider-Man. Sin embargo, cuando el líder mafioso Wilson Fisk (a.k.a Kingpin) construye el "Super Colisionador" trae a una versión alternativa de Peter Parker que tratará de enseñarle a Miles como ser un mejor Spider-Man. Pero no será el único Spider Man en entrar a este universo, 4 versiones alternas de Spidey aparecerán y buscarán regresar a su universo antes de que toda la realidad colapse.</string>
+    <string name="SpiderManUnNuevoUniversoDuracion">117</string>
+
+    <string name="TheAvengers">The Avengers</string>
+    <string name="TheAvengersSinopsis">Cuando un enemigo inesperado surge como una gran amenaza para la seguridad mundial, Nick Fury, director de la Agencia SHIELD, decide reclutar a un equipo para salvar al mundo de un desastre casi seguro. Adaptación del cómic de Marvel "Los Vengadores", el legendario grupo de superhéroes formado por Ironman, Hulk, Thor y el Capitán América entre otros.</string>
+    <string name="TheAvengersDuracion">135</string>
+
+    <string name="AvengersAgeOfUltron">Avengers: Age of Ultron</string>
+    <string name="AvengersAgeOfUltronSinopsis">Cuando Tony Stark intenta reactivar un programa caído en desuso cuyo objetivo es mantener la paz, las cosas empiezan a torcerse y los héroes más poderosos de la Tierra, incluyendo a Iron Man, Capitán América, Thor, El Increíble Hulk, Viuda Negra y Ojo de Halcón, tendrán que afrontar la prueba definitiva cuando el destino del planeta se ponga en juego. Cuando el villano Ultrón emerge, le corresponderá a Los Vengadores detener sus terribles planes, que junto a incómodas alianzas llevarán a una inesperada acción que allanará el camino para una épica y única aventura.</string>
+    <string name="AvengersAgeOfUltronDuracion">141</string>
+
+    <string name="AvengersInfinityWar">Avengers: Infinity War</string>
+    <string name="AvengersInfinityWarSinopsis">El todopoderoso Thanos ha despertado con la promesa de arrasar con todo a su paso, portando el Guantelete del Infinito, que le confiere un poder incalculable. Los únicos capaces de pararle los pies son los Vengadores y el resto de superhéroes de la galaxia, que deberán estar dispuestos a sacrificarlo todo por un bien mayor. Capitán América e Ironman deberán limar sus diferencias, Black Panther apoyará con sus tropas desde Wakanda, Thor y los Guardianes de la Galaxia e incluso Spider-Man se unirán antes de que los planes de devastación y ruina pongan fin al universo. ¿Serán capaces de frenar el avance del titán del caos?</string>
+    <string name="AvengersInfinityWarDuracion">156</string>
+
+    <string name="AvengersEndgame">Avengers: Endgame</string>
+    <string name="AvengersEndgameSinopsis">Después de los eventos devastadores de Avengers: Infinity War, el universo está en ruinas debido a las acciones de Thanos, el Titán Loco. Con la ayuda de los aliados que quedaron, los Vengadores deberán reunirse una vez más para intentar deshacer sus acciones y restaurar el orden en el universo de una vez por todas, sin importar cuáles son las consecuencias... Cuarta y última entrega de la saga "Vengadores".</string>
+    <string name="AvengersEndgameDuracion">181</string>
+
+    <string name="IronMan2">Iron Man 2</string>
+    <string name="IronMan2Sinopsis">El mundo ya sabe que el multimillonario Tony Stark (Robert Downey Jr.) es Iron Man, el superhéroe enmascarado. A pesar de las presiones del gobierno, la prensa y la opinión pública para que comparta su tecnología con el ejército, Tony es reacio a desvelar los secretos de la armadura de Iron Man, porque teme que esa información caiga en en manos de irresponsables. Con Pepper Potts (Gwyneth Paltrow) y James “Rhodey” Rhodes (Don Cheadle) a su lado, Tony forja alianzas nuevas y se enfrenta a nuevas y poderosas fuerzas.</string>
+    <string name="IronMan2Duracion">124</string>
+
+    <string name="IronMan">Iron Man</string>
+    <string name="IronManSinopsis">El multimillonario fabricante de armas Tony Stark (Robert Downey Jr.) debe enfrentarse a su turbio pasado después de sufrir un accidente con una de sus armas. Equipado con una armadura de última generación tecnológica, se convierte en "El hombre de hierro", un héroe que se dedica a combatir el mal en todo el mundo.</string>
+    <string name="IronManDuracion">126</string>
+
+    <string name="IronMan3">Iron Man 3</string>
+    <string name="IronMan3Sinopsis">El descarado y brillante empresario Tony Stark/Iron Man se enfrentará a un enemigo cuyo poder no conoce límites. Cuando Stark comprende que su enemigo ha destruido su universo personal, se embarca en una angustiosa búsqueda para encontrar a los responsables. Este viaje pondrá a prueba su entereza una y otra vez. Acorralado, Stark tendrá que sobrevivir por sus propios medios, confiando en su ingenio y su instinto para proteger a las personas que quiere.</string>
+    <string name="IronMan3Duracion">130</string>
+
+
 </resources>

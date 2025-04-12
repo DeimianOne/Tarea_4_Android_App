@@ -33,7 +33,7 @@ private val LightColorScheme = lightColorScheme(
     background = Color(0xFFF8F2DE),  // Fondo general de la app
     surface = Color(0xFFECDCBF),     // Fondo de AppBar, Cards, etc.
 
-    onPrimary = Color.White,         // Texto sobre primary
+    onPrimary = Color.Black,         // Texto sobre primary
     onSecondary = Color.White,       // Texto sobre secondary
     onTertiary = Color.Black,        // Texto sobre tertiary
     onBackground = Color.Black,      // Texto sobre fondo
