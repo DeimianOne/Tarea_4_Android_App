@@ -1,5 +1,7 @@
 package com.example.mediaexplorer.ui.views
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -47,11 +49,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mediaexplorer.Home
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.DpOffset
+import com.example.mediaexplorer.Movies
 import com.example.mediaexplorer.TypeContent
+import java.io.File
+import java.io.FileOutputStream
+import java.util.Locale.Category
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -171,13 +178,134 @@ fun FormCreateScreen(navController: NavHostController) {
                     }
                 }
             }
-            DropMenu(typeSelec)
+            when (typeSelec) {
+                TypeContent.PELICULA ->{
+                    var name by remember { mutableStateOf("")}
+                    var information by remember { mutableStateOf("")}
+                    var duration by remember { mutableStateOf("")}
+
+                    OutlinedTextField(
+                        value = name,
+                        onValueChange = {name = it},
+                        label = { Text("Nombre Pelicula")},
+                        modifier = Modifier.padding(10.dp),
+                        textStyle = TextStyle(color = Color.White)
+                    )
+                    OutlinedTextField(
+                        value = information,
+                        onValueChange = {information = it},
+                        label = { Text("Sinopsis")},
+                        modifier = Modifier.padding(10.dp),
+                        textStyle = TextStyle(color = Color.White)
+                    )
+                    OutlinedTextField(
+                        value = duration,
+                        onValueChange = {duration = it},
+                        label = { Text("Duración (min)")},
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        modifier = Modifier.padding(10.dp),
+                        textStyle = TextStyle(color = Color.White)
+                    )
+                    val context = LocalContext.current
+                    val launcher = rememberLauncherForActivityResult(
+                        contract = ActivityResultContracts.GetContent(),
+                        onResult = { uri ->
+                            // Aquí recibes el URI de la imagen seleccionada
+                            if (uri != null) {
+                                val inputStream = context.contentResolver.openInputStream(uri)
+                                val file = File(context.filesDir, "imagenes") // carpeta interna
+                                if (!file.exists()) file.mkdirs()
+
+                                val outputFile = File(file, "imagen_${System.currentTimeMillis()}.jpg")
+                                val outputStream = FileOutputStream(outputFile)
+
+                                inputStream?.copyTo(outputStream)
+
+                                inputStream?.close()
+                                outputStream.close()
+                            }
+                        }
+
+                    )
+                    Button(onClick = { launcher.launch("image/*") }) {
+                        Text("Subir imagen")
+                    }
+                }
+
+                TypeContent.SERIE -> {
+                    var name by remember { mutableStateOf("")}
+                    var information by remember { mutableStateOf("")}
+                    var cantCap by remember { mutableStateOf("")}
+
+                    OutlinedTextField(
+                        value = name,
+                        onValueChange = {name = it},
+                        label = { Text("Nombre Serie")},
+                        modifier = Modifier.padding(10.dp),
+                        textStyle = TextStyle(color = Color.White)
+                    )
+                    OutlinedTextField(
+                        value = information,
+                        onValueChange = {information = it},
+                        label = { Text("Descripción")},
+                        modifier = Modifier.padding(10.dp),
+                        textStyle = TextStyle(color = Color.White)
+                    )
+                    OutlinedTextField(
+                        value = cantCap,
+                        onValueChange = {cantCap = it},
+                        label = { Text("Cantidad de Capítulos")},
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        modifier = Modifier.padding(10.dp),
+                        textStyle = TextStyle(color = Color.White)
+                    )
+                }
+                TypeContent.ANIME -> {
+                    var name by remember { mutableStateOf("")}
+                    var information by remember { mutableStateOf("")}
+                    var cantCap by remember { mutableStateOf("")}
+                    var typeGender by remember { mutableStateOf("")}
+
+                    OutlinedTextField(
+                        value = name,
+                        onValueChange = {name = it},
+                        label = { Text("Nombre Anime")},
+                        modifier = Modifier.padding(10.dp),
+                        textStyle = TextStyle(color = Color.White)
+                    )
+                    OutlinedTextField(
+                        value = information,
+                        onValueChange = {information = it},
+                        label = { Text("Descripción")},
+                        modifier = Modifier.padding(10.dp),
+                        textStyle = TextStyle(color = Color.White)
+                    )
+                    OutlinedTextField(
+                        value = cantCap,
+                        onValueChange = {cantCap = it},
+                        label = { Text("Cantidad de Capítulos")},
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        modifier = Modifier.padding(10.dp),
+                        textStyle = TextStyle(color = Color.White)
+                    )
+                    OutlinedTextField(
+                        value = typeGender,
+                        onValueChange = {typeGender = it},
+                        label = { Text("Género Anime")},
+                        modifier = Modifier.padding(10.dp),
+                        textStyle = TextStyle(color = Color.White)
+                    )
+                }
+                else -> {
+
+                }
+            }
 
         }
     }
 }
 
-@Composable
+/*@Composable
 fun DropMenu(typeSelec: TypeContent?) {
     when (typeSelec) {
         TypeContent.PELICULA ->{
@@ -207,6 +335,29 @@ fun DropMenu(typeSelec: TypeContent?) {
                 modifier = Modifier.padding(10.dp),
                 textStyle = TextStyle(color = Color.White)
             )
+            val context = LocalContext.current
+            val launcher = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.GetContent(),
+                onResult = { uri ->
+                    // Aquí recibes el URI de la imagen seleccionada
+                    if (uri != null) {
+                        val inputStream = context.contentResolver.openInputStream(uri)
+                        val file = File(context.filesDir, "imagenes") // carpeta interna
+                        if (!file.exists()) file.mkdirs()
+
+                        val outputFile = File(file, "imagen_${System.currentTimeMillis()}.jpg")
+                        val outputStream = FileOutputStream(outputFile)
+
+                        inputStream?.copyTo(outputStream)
+
+                        inputStream?.close()
+                        outputStream.close()
+                    }
+                }
+            )
+            Button(onClick = { launcher.launch("image/*") }) {
+                Text("Subir imagen")
+            }
         }
 
         TypeContent.SERIE -> {
@@ -278,3 +429,4 @@ fun DropMenu(typeSelec: TypeContent?) {
         }
     }
 }
+*/
