@@ -210,7 +210,6 @@ fun FormCreateScreen(navController: NavHostController) {
                     val launcher = rememberLauncherForActivityResult(
                         contract = ActivityResultContracts.GetContent(),
                         onResult = { uri ->
-                            // Aquí recibes el URI de la imagen seleccionada
                             if (uri != null) {
                                 val inputStream = context.contentResolver.openInputStream(uri)
                                 val file = File(context.filesDir, "imagenes") // carpeta interna
