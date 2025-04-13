@@ -189,14 +189,14 @@ fun FormCreateScreen(navController: NavHostController) {
                         onValueChange = {name = it},
                         label = { Text("Nombre Pelicula")},
                         modifier = Modifier.padding(10.dp),
-                        textStyle = TextStyle(color = Color.White)
+                        textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                     )
                     OutlinedTextField(
                         value = information,
                         onValueChange = {information = it},
                         label = { Text("Sinopsis")},
                         modifier = Modifier.padding(10.dp),
-                        textStyle = TextStyle(color = Color.White)
+                        textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                     )
                     OutlinedTextField(
                         value = duration,
@@ -204,7 +204,7 @@ fun FormCreateScreen(navController: NavHostController) {
                         label = { Text("Duración (min)")},
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         modifier = Modifier.padding(10.dp),
-                        textStyle = TextStyle(color = Color.White)
+                        textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                     )
                     val context = LocalContext.current
                     val launcher = rememberLauncherForActivityResult(
@@ -242,14 +242,14 @@ fun FormCreateScreen(navController: NavHostController) {
                         onValueChange = {name = it},
                         label = { Text("Nombre Serie")},
                         modifier = Modifier.padding(10.dp),
-                        textStyle = TextStyle(color = Color.White)
+                        textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                     )
                     OutlinedTextField(
                         value = information,
                         onValueChange = {information = it},
                         label = { Text("Descripción")},
                         modifier = Modifier.padding(10.dp),
-                        textStyle = TextStyle(color = Color.White)
+                        textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                     )
                     OutlinedTextField(
                         value = cantCap,
@@ -257,7 +257,7 @@ fun FormCreateScreen(navController: NavHostController) {
                         label = { Text("Cantidad de Capítulos")},
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         modifier = Modifier.padding(10.dp),
-                        textStyle = TextStyle(color = Color.White)
+                        textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                     )
                 }
                 TypeContent.ANIME -> {
@@ -271,14 +271,14 @@ fun FormCreateScreen(navController: NavHostController) {
                         onValueChange = {name = it},
                         label = { Text("Nombre Anime")},
                         modifier = Modifier.padding(10.dp),
-                        textStyle = TextStyle(color = Color.White)
+                        textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                     )
                     OutlinedTextField(
                         value = information,
                         onValueChange = {information = it},
                         label = { Text("Descripción")},
                         modifier = Modifier.padding(10.dp),
-                        textStyle = TextStyle(color = Color.White)
+                        textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                     )
                     OutlinedTextField(
                         value = cantCap,
@@ -286,14 +286,14 @@ fun FormCreateScreen(navController: NavHostController) {
                         label = { Text("Cantidad de Capítulos")},
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         modifier = Modifier.padding(10.dp),
-                        textStyle = TextStyle(color = Color.White)
+                        textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                     )
                     OutlinedTextField(
                         value = typeGender,
                         onValueChange = {typeGender = it},
                         label = { Text("Género Anime")},
                         modifier = Modifier.padding(10.dp),
-                        textStyle = TextStyle(color = Color.White)
+                        textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                     )
                 }
                 else -> {
