@@ -22,6 +22,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -45,7 +46,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mediaexplorer.FormCreate
-import com.example.mediaexplorer.ListMovies
 import com.example.mediaexplorer.Movies
 import com.example.mediaexplorer.R
 import com.example.mediaexplorer.SecondPage
@@ -67,27 +67,18 @@ fun HomeScreen(navController: NavHostController, listMovies: MutableList<Movies>
                 )
             )
         },
-        bottomBar = {
-            BottomAppBar(
-                containerColor = MaterialTheme.colorScheme.surface
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    navController.navigate(FormCreate)
+                },
+                shape = CircleShape,
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
             ) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    FloatingActionButton(
-                        onClick = {
-                            navController.navigate(FormCreate)
-                        },
-                        shape = CircleShape,
-                        modifier = Modifier.align(Alignment.BottomEnd),
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary
-                    ) {
-                        Icon(Icons.Filled.Add, "Floating action button.")
-                    }
-                }
+                Icon(Icons.Filled.Add, "Floating action button.")
             }
-        }
+        },
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -174,6 +165,5 @@ fun addPredeter(listMovies: MutableList<Movies>): MutableList<Movies> {
     listMovies.add(avengersAgeOfUltron)
     listMovies.add(avengersInfinityWar)
     listMovies.add(avengersEndgame)
-    ListMovies = listMovies
     return listMovies
 }

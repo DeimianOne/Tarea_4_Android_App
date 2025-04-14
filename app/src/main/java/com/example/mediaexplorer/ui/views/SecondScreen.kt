@@ -35,12 +35,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mediaexplorer.Home
-import com.example.mediaexplorer.ListMovies
 import com.example.mediaexplorer.Movies
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SecondScreen(navController: NavController, id: Int) {
+fun SecondScreen(navController: NavController, id: Int, ListMovies: MutableList<Movies>) {
     val movie: Movies? = ListMovies.find { it.id == id }
 
     Scaffold(modifier = Modifier.fillMaxSize(),
