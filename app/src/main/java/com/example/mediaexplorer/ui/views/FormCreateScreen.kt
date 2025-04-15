@@ -54,6 +54,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.DpOffset
+import com.example.mediaexplorer.CardCategory
 import com.example.mediaexplorer.Movies
 import com.example.mediaexplorer.TypeContent
 import java.io.File
@@ -62,7 +63,7 @@ import java.util.Locale.Category
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FormCreateScreen(navController: NavHostController) {
+fun FormCreateScreen(navController: NavHostController, category: MutableList<CardCategory>) {
 
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -138,7 +139,7 @@ fun FormCreateScreen(navController: NavHostController) {
             Spacer(modifier = Modifier.height(8.dp)) // Espacio entre texto y botón
 
             var expanded by remember { mutableStateOf(false) }
-            var typeSelec by remember { mutableStateOf<TypeContent?>(null) }
+            var typeSelec by remember { mutableStateOf<CardCategory?>(null) }
 
             Box {
                 Button(
@@ -156,7 +157,7 @@ fun FormCreateScreen(navController: NavHostController) {
                     elevation = ButtonDefaults.buttonElevation(0.dp)
                 ) {
                     Text(
-                        typeSelec?.displayName ?: "Selecciona una categoría"
+                        typeSelec?.name ?: "Selecciona una categoría"
                     )
                 }
 
@@ -165,10 +166,10 @@ fun FormCreateScreen(navController: NavHostController) {
                     onDismissRequest = { expanded = false },
                     offset = DpOffset(x = 120.dp, y = 0.dp) // prueba valores según el ancho
                 ) {
-                    TypeContent.values().forEach { tipo ->
+                    category.forEach { tipo ->
                         DropdownMenuItem(
                             text = {
-                                Text(tipo.displayName)
+                                Text(tipo.name)
                             },
                             onClick = {
                                 typeSelec = tipo
@@ -178,7 +179,7 @@ fun FormCreateScreen(navController: NavHostController) {
                     }
                 }
             }
-            when (typeSelec) {
+            when (typeSelec?.type) {
                 TypeContent.PELICULA ->{
                     var name by remember { mutableStateOf("")}
                     var information by remember { mutableStateOf("")}

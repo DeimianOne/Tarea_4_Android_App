@@ -43,16 +43,17 @@ class Anime(id:Int, name:String, information:String,category:TypeContent, imageR
 class OtherContent(id:Int, name:String, information:String,category:TypeContent, imageResId: Int , val typeContent:String): Content(id, name, information, category, imageResId)
 
 /*CONTENIDO PREDETERMINADO*/
-class CardCategory(val name: String, val image: Int)
+class CardCategory(val type: TypeContent, val name: String, val image: Int)
 
 //var ListMovies:MutableList<Movies> = mutableListOf()
 var ListSeries:MutableList<Series> = mutableListOf()
 var ListAnimes:MutableList<Anime> = mutableListOf()
 var ListOtherContent:MutableList<OtherContent> = mutableListOf()
 
-var pelicula = CardCategory(TypeContent.PELICULA.displayName, R.drawable.pelicula)
-var series = CardCategory(TypeContent.SERIE.displayName, R.drawable.series)
-var anime = CardCategory(TypeContent.ANIME.displayName, R.drawable.anime)
+var pelicula = CardCategory(TypeContent.PELICULA,TypeContent.PELICULA.displayName, R.drawable.pelicula)
+var series = CardCategory(TypeContent.SERIE,TypeContent.SERIE.displayName, R.drawable.series)
+var anime = CardCategory(TypeContent.ANIME,TypeContent.ANIME.displayName, R.drawable.anime)
+var otros = CardCategory(TypeContent.OTRO,TypeContent.OTRO.displayName, R.drawable.anime)
 
 @Composable
 fun Navigation(){
@@ -74,7 +75,7 @@ fun Navigation(){
         }
 
         composable<FormCreate>{
-            FormCreateScreen(navController = navController)
+            FormCreateScreen(navController = navController, category = Category)
         }
         composable<SecondPage>{ backStackEntry ->
             val args = backStackEntry.toRoute<SecondPage>()
