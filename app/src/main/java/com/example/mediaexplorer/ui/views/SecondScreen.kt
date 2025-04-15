@@ -32,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mediaexplorer.Home
@@ -114,13 +115,15 @@ fun SecondScreen(navController: NavController, id: Int, ListMovies: MutableList<
                 ){
                     item {
                         Text("Sinopsis: \n ${movie.information}",
-                            style = MaterialTheme.typography.titleLarge,
+                            textAlign = TextAlign.Justify,
+                            style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier
                                     .padding(start = 11.dp, top = 8.dp, bottom = 8.dp)
                         )
 
                         Text("Duración:      ${stringResource(movie.duration)} minutos",
-                            style = MaterialTheme.typography.titleLarge,
+                            textAlign = TextAlign.Justify,
+                            style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier
                                     .padding(start = 11.dp, top = 8.dp, bottom = 8.dp)
                         )

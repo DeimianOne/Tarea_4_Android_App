@@ -8,14 +8,26 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.example.mediaexplorer.ui.views.AnimeScreen
 import com.example.mediaexplorer.ui.views.HomeScreen
 import com.example.mediaexplorer.ui.views.FormCreateScreen
+import com.example.mediaexplorer.ui.views.MovieScreen
 import com.example.mediaexplorer.ui.views.SecondScreen
+import com.example.mediaexplorer.ui.views.SeriesScreen
 import kotlinx.serialization.Serializable
 import java.util.Locale.Category
 
 @Serializable
 object Home
+
+@Serializable
+object MovieSc
+
+@Serializable
+object SerieSc
+
+@Serializable
+object AnimeSc
 
 @Serializable
 object FormCreate
@@ -51,6 +63,16 @@ fun Navigation(){
         composable<Home>{
             HomeScreen(navController = navController, category = Category)
         }
+        composable<MovieSc>{
+            MovieScreen(navController = navController, movies = ListMovies)
+        }
+        composable<SerieSc>{
+            SeriesScreen(navController = navController)
+        }
+        composable<AnimeSc>{
+            AnimeScreen(navController = navController)
+        }
+
         composable<FormCreate>{
             FormCreateScreen(navController = navController)
         }

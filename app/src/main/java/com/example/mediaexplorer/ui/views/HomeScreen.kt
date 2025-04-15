@@ -53,12 +53,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.mediaexplorer.AnimeSc
 import com.example.mediaexplorer.CardCategory
 import com.example.mediaexplorer.FormCreate
-import com.example.mediaexplorer.Movies
+import com.example.mediaexplorer.MovieSc
 import com.example.mediaexplorer.R
 import com.example.mediaexplorer.SecondPage
+import com.example.mediaexplorer.SerieSc
 import com.example.mediaexplorer.TypeContent
+import com.example.mediaexplorer.Movies
 import java.util.Locale.Category
 
 
@@ -102,13 +105,13 @@ fun HomeScreen(navController: NavHostController, category: MutableList<CardCateg
                     .padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
                     .align(Alignment.Start)
             )
-            CategoryCard(category)
+            CategoryCard(navController, category)
         }
     }
 }
 
 @Composable
-fun CategoryCard(category:  MutableList<CardCategory>){
+fun CategoryCard(navController: NavHostController,category:  MutableList<CardCategory>){
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(20.dp),
@@ -116,7 +119,19 @@ fun CategoryCard(category:  MutableList<CardCategory>){
     ) {
         items(category) {
             Card(
-                onClick = {},
+                onClick = {
+                    when(it.name){
+                        TypeContent.PELICULA.displayName -> navController.navigate(MovieSc)
+
+                        TypeContent.SERIE.displayName -> navController.navigate(SerieSc)
+
+                        TypeContent.ANIME.displayName -> navController.navigate(AnimeSc)
+
+                        //TypeContent.OTRO.displayName -> navController.navigate()
+
+                        else -> {}
+                    }
+                },
                 colors = CardColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.surface,
@@ -153,63 +168,3 @@ fun CategoryCard(category:  MutableList<CardCategory>){
 
 
 
-@Composable
-fun MovieCard(navController: NavHostController, movie: Movies) {
-    Column(
-        modifier = Modifier
-            .width(140.dp)
-            .padding(bottom = 8.dp)
-    ){
-
-        Card(
-            onClick = {
-                navController.navigate(SecondPage(movie.id))
-            },
-            colors = CardDefaults.cardColors(
-                containerColor = Color.Transparent
-            )
-        ){
-            Image(
-                painter = painterResource(id = movie.imageResId),
-                contentDescription = movie.name,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .height(200.dp)
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(8.dp))
-            )
-
-            Text(
-                text = movie.name,
-                style = MaterialTheme.typography.bodyMedium,
-                maxLines = 1,
-                modifier = Modifier.padding(top = 4.dp)
-            )
-        }
-
-    }
-}
-
-@Composable
-fun addPredeter(listMovies: MutableList<Movies>): MutableList<Movies> {
-    val ironMan = Movies(1, stringResource(id = R.string.IronMan), stringResource(id = R.string.IronManSinopsis), TypeContent.PELICULA, R.drawable.iron_man, R.string.IronManDuracion)
-    val ironMan2 = Movies(2, stringResource(id = R.string.IronMan2), stringResource(id = R.string.IronMan2Sinopsis), TypeContent.PELICULA, R.drawable.iron_man_2, R.string.IronMan2Duracion)
-    val ironMan3 = Movies(3, stringResource(id = R.string.IronMan3), stringResource(id = R.string.IronMan3Sinopsis), TypeContent.PELICULA, R.drawable.iron_man_3, R.string.IronMan3Duracion)
-    val spiderManUnNuevoUniverso = Movies(4, stringResource(id = R.string.SpiderManUnNuevoUniverso), stringResource(id = R.string.SpiderManUnNuevoUniversoSinopsis), TypeContent.PELICULA, R.drawable.spider_man_into_the_spider_verse, R.string.SpiderManUnNuevoUniversoDuracion)
-    val spiderManAcrosTheSpiderVerse = Movies(5, stringResource(id = R.string.SpiderManAcrosTheSpiderVerse), stringResource(id = R.string.SpiderManAcrosTheSpiderVerseSinopsis), TypeContent.PELICULA, R.drawable.spider_man_across_the_spider_verse, R.string.SpiderManAcrosTheSpiderVerseDuracion)
-    val the_avengers = Movies(6, stringResource(id = R.string.TheAvengers), stringResource(id = R.string.TheAvengersSinopsis), TypeContent.PELICULA, R.drawable.the_avengers, R.string.TheAvengersDuracion)
-    val avengersAgeOfUltron = Movies(7, stringResource(id = R.string.AvengersAgeOfUltron), stringResource(id = R.string.AvengersAgeOfUltronSinopsis), TypeContent.PELICULA, R.drawable.avengers_age_of_ultron_the_avengers_2, R.string.AvengersAgeOfUltronDuracion)
-    val avengersInfinityWar = Movies(8, stringResource(id = R.string.AvengersInfinityWar), stringResource(id = R.string.AvengersInfinityWarSinopsis), TypeContent.PELICULA, R.drawable.avengers_infinity_war, R.string.AvengersInfinityWarDuracion)
-    val avengersEndgame = Movies(9, stringResource(id = R.string.AvengersEndgame), stringResource(id = R.string.AvengersEndgameSinopsis), TypeContent.PELICULA, R.drawable.avengers_endgame, R.string.AvengersEndgameDuracion)
-
-    listMovies.add(ironMan)
-    listMovies.add(ironMan2)
-    listMovies.add(ironMan3)
-    listMovies.add(spiderManUnNuevoUniverso)
-    listMovies.add(spiderManAcrosTheSpiderVerse)
-    listMovies.add(the_avengers)
-    listMovies.add(avengersAgeOfUltron)
-    listMovies.add(avengersInfinityWar)
-    listMovies.add(avengersEndgame)
-    return listMovies
-}
