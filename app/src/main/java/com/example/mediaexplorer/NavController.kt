@@ -1,5 +1,6 @@
 package com.example.mediaexplorer
 
+import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -11,6 +12,7 @@ import com.example.mediaexplorer.ui.views.HomeScreen
 import com.example.mediaexplorer.ui.views.FormCreateScreen
 import com.example.mediaexplorer.ui.views.SecondScreen
 import kotlinx.serialization.Serializable
+import java.util.Locale.Category
 
 @Serializable
 object Home
@@ -29,21 +31,25 @@ class Anime(id:Int, name:String, information:String,category:TypeContent, imageR
 class OtherContent(id:Int, name:String, information:String,category:TypeContent, imageResId: Int , val typeContent:String): Content(id, name, information, category, imageResId)
 
 /*CONTENIDO PREDETERMINADO*/
+class CardCategory(val name: String, val image: Int)
 
 //var ListMovies:MutableList<Movies> = mutableListOf()
 var ListSeries:MutableList<Series> = mutableListOf()
 var ListAnimes:MutableList<Anime> = mutableListOf()
 var ListOtherContent:MutableList<OtherContent> = mutableListOf()
 
-
+var pelicula = CardCategory(TypeContent.PELICULA.displayName, R.drawable.pelicula)
+var series = CardCategory(TypeContent.SERIE.displayName, R.drawable.series)
+var anime = CardCategory(TypeContent.ANIME.displayName, R.drawable.anime)
 
 @Composable
 fun Navigation(){
     var ListMovies = remember { mutableStateListOf<Movies>() }
+    var Category = remember{mutableStateListOf<CardCategory>(pelicula, series, anime)}
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Home){
         composable<Home>{
-            HomeScreen(navController = navController, listMovies = ListMovies)
+            HomeScreen(navController = navController, category = Category)
         }
         composable<FormCreate>{
             FormCreateScreen(navController = navController)
