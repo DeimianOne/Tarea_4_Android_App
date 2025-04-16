@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.mediaexplorer.ui.views.AnimeScreen
+import com.example.mediaexplorer.ui.views.CreateCategoryScreen
 import com.example.mediaexplorer.ui.views.HomeScreen
 import com.example.mediaexplorer.ui.views.FormCreateScreen
 import com.example.mediaexplorer.ui.views.MovieScreen
@@ -33,6 +34,9 @@ object AnimeSc
 object FormCreate
 
 @Serializable
+object CreateCategorySc
+
+@Serializable
 data class SecondPage(val id: Int)
 
 /*CREACION DE CLASES*/
@@ -43,7 +47,7 @@ class Anime(id:Int, name:String, information:String,category:TypeContent, imageR
 class OtherContent(id:Int, name:String, information:String,category:TypeContent, imageResId: Int , val typeContent:String): Content(id, name, information, category, imageResId)
 
 /*CONTENIDO PREDETERMINADO*/
-class CardCategory(val type: TypeContent, val name: String, val image: Int)
+class CardCategory(val type: TypeContent, val name: String, val image: Int? = null)
 
 //var ListMovies:MutableList<Movies> = mutableListOf()
 var ListSeries:MutableList<Series> = mutableListOf()
@@ -58,7 +62,7 @@ var otros = CardCategory(TypeContent.OTRO,TypeContent.OTRO.displayName, R.drawab
 @Composable
 fun Navigation(){
     var ListMovies = remember { mutableStateListOf<Movies>() }
-    var Category = remember{mutableStateListOf<CardCategory>(pelicula, series, anime)}
+    var Category = remember {mutableStateListOf<CardCategory>(pelicula, series, anime)}
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Home){
         composable<Home>{
@@ -77,6 +81,11 @@ fun Navigation(){
         composable<FormCreate>{
             FormCreateScreen(navController = navController, category = Category)
         }
+
+        composable<CreateCategorySc> {
+            CreateCategoryScreen(navController = navController, categoryList = Category)
+        }
+
         composable<SecondPage>{ backStackEntry ->
             val args = backStackEntry.toRoute<SecondPage>()
             SecondScreen(navController, args.id, ListMovies)

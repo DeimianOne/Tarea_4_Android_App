@@ -25,6 +25,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -55,6 +56,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mediaexplorer.AnimeSc
 import com.example.mediaexplorer.CardCategory
+import com.example.mediaexplorer.CreateCategorySc
 import com.example.mediaexplorer.FormCreate
 import com.example.mediaexplorer.MovieSc
 import com.example.mediaexplorer.R
@@ -77,6 +79,12 @@ fun HomeScreen(navController: NavHostController, category: MutableList<CardCateg
                     titleContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )
+            Button(
+                onClick = { navController.navigate(CreateCategorySc) },
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text("Crear nueva categoría")
+            }
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -127,8 +135,6 @@ fun CategoryCard(navController: NavHostController,category:  MutableList<CardCat
 
                         TypeContent.ANIME.displayName -> navController.navigate(AnimeSc)
 
-                        //TypeContent.OTRO.displayName -> navController.navigate()
-
                         else -> {}
                     }
                 },
@@ -151,7 +157,7 @@ fun CategoryCard(navController: NavHostController,category:  MutableList<CardCat
                 ) {
 
                     Icon(
-                        painter = painterResource(it.image),
+                        painter = painterResource(it.image ?: R.drawable.otros),
                         contentDescription = "Account Box",
                         modifier = Modifier.size(50.dp)
                     )
