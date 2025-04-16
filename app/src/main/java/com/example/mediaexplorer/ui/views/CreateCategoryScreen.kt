@@ -74,7 +74,6 @@ fun CreateCategoryScreen(navController: NavController, categoryList: SnapshotSta
                     }
                 }
             },
-
             contentPadding = PaddingValues(horizontal = 20.dp, vertical = 0.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primary,
@@ -85,7 +84,6 @@ fun CreateCategoryScreen(navController: NavController, categoryList: SnapshotSta
         }
     }
 }
-
 
 //if (name.isNotBlank() && categoryList.none {it.name.equals(name, ignoreCase = true)}) {
 //    val newCategory = CardCategory(

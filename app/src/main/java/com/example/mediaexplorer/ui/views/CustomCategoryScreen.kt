@@ -20,13 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.mediaexplorer.FormCreate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SeriesScreen(navController: NavHostController) {
-    //addPredeter(movies)
-    //var listMovies: MutableList<Movies> = movies
+fun CustomCategoryScreen(navController: NavHostController, customCategoryName: String){
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
@@ -40,7 +37,7 @@ fun SeriesScreen(navController: NavHostController) {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navController.navigate(FormCreate)
+                    //navController.navigate(FormCreate)
                 },
                 shape = CircleShape,
                 containerColor = MaterialTheme.colorScheme.primary,
@@ -58,7 +55,7 @@ fun SeriesScreen(navController: NavHostController) {
         ){
 
             Text(
-                text = "Series",
+                text = customCategoryName,
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier
                     .padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
