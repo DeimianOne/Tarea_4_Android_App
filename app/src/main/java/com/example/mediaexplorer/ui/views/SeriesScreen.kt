@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mediaexplorer.FormCreate
+import com.example.mediaexplorer.SecondPage
 import com.example.mediaexplorer.Series
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -96,7 +97,7 @@ fun SeriesScreen(navController: NavHostController, series: MutableList<Series>) 
 fun SerieCard(navController: NavHostController, serie: Series) {
     Card (
         onClick = {
-            //navController.navigate(SecondPage(serie.id))
+            navController.navigate(SecondPage(serie.id, serie.category.displayName))
         },
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent

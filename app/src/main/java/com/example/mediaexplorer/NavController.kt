@@ -39,13 +39,13 @@ object CreateCategorySc
 data class CustomCategorySc(val categoryName: String)
 
 @Serializable
-data class SecondPage(val id: Int)
+data class SecondPage(val id: Int, val category: String)
 
 /*CREACION DE CLASES*/
 open class Content(val id:Int, val name:String, val information:String, val category:TypeContent, val imageResId:Int)
 class Movies(id:Int, name:String, information:String, category:TypeContent, imageResId: Int, val duration:Int):Content(id, name, information, category, imageResId)
 class Series(id:Int, name:String, information:String, category:TypeContent, imageResId: Int, val cantCap:Int):Content(id, name, information, category, imageResId)
-class Anime(id:Int, name:String, information:String, category:TypeContent, imageResId: Int, val cantCap:Int, typeGender:String):Content(id, name, information, category, imageResId)
+class Anime(id:Int, name:String, information:String, category:TypeContent, imageResId: Int, val cantCap:Int, val typeGender:String):Content(id, name, information, category, imageResId)
 class OtherContent(id:Int, name:String, information:String, category:TypeContent, imageResId: Int, val typeContent:String):Content(id, name, information, category, imageResId)
 
 /*CONTENIDO PREDETERMINADO*/
@@ -58,7 +58,7 @@ var ListOtherContent:MutableList<OtherContent> = mutableListOf()
 
 var pelicula = CardCategory(TypeContent.PELICULA,TypeContent.PELICULA.displayName, R.drawable.pelicula)
 var series = CardCategory(TypeContent.SERIE,TypeContent.SERIE.displayName, R.drawable.series)
-var anime = CardCategory(TypeContent.ANIME,TypeContent.ANIME.displayName, R.drawable.anime)
+var anime = CardCategory(TypeContent.ANIME,TypeContent.ANIME.displayName, R.drawable.anime1)
 var otros = CardCategory(TypeContent.OTRO,TypeContent.OTRO.displayName, R.drawable.anime)
 
 @Composable
@@ -80,7 +80,7 @@ fun Navigation(){
             SeriesScreen(navController = navController, series = ListSeries)
         }
         composable<AnimeSc>{
-            AnimeScreen(navController = navController)
+            AnimeScreen(navController = navController, animes = ListAnimes)
         }
         composable<FormCreate>{
             FormCreateScreen(navController = navController, category = Category, ListMovies, ListSeries, ListAnimes, ListCustomCont)
@@ -90,11 +90,11 @@ fun Navigation(){
         }
         composable<CustomCategorySc> { backStackEntry ->
             val args = backStackEntry.toRoute<CustomCategorySc>()
-            CustomCategoryScreen(navController = navController, customCategoryName = args.categoryName)
+            CustomCategoryScreen(navController = navController, customCategoryName = args.categoryName, listCustomCont = ListCustomCont)
         }
         composable<SecondPage>{ backStackEntry ->
             val args = backStackEntry.toRoute<SecondPage>()
-            SecondScreen(navController, args.id, ListMovies, ListSeries)
+            SecondScreen(navController, args.id, args.category, ListMovies, ListSeries, ListAnimes, ListCustomCont)
         }
     }
 }

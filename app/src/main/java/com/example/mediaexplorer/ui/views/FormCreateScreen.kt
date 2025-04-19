@@ -45,6 +45,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.DpOffset
 import com.example.mediaexplorer.Anime
 import com.example.mediaexplorer.CardCategory
+import com.example.mediaexplorer.ListOtherContent
 import com.example.mediaexplorer.Movies
 import com.example.mediaexplorer.OtherContent
 import com.example.mediaexplorer.R
@@ -187,7 +188,7 @@ fun FormCreateScreen(
                                 TypeContent.OTRO -> {
                                     if (isValid){
                                         val custom = OtherContent(
-                                            id = ListAnimes.size + 1,
+                                            id = ListOtherContent.size + 1,
                                             name = name,
                                             information = information,
                                             category = TypeContent.OTRO,
