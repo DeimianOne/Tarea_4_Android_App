@@ -43,12 +43,7 @@ fun CreateCategoryScreen(navController: NavController, categoryList: SnapshotSta
         )
 
         if (errorMessage.isNotEmpty()) {
-            Text(
-                text = errorMessage,
-                color = Color.Red,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(top = 4.dp)
-            )
+            Text(text = errorMessage, color = Color.Red, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 4.dp))
         }
 
         Spacer(modifier = Modifier.padding(16.dp))
@@ -84,13 +79,3 @@ fun CreateCategoryScreen(navController: NavController, categoryList: SnapshotSta
         }
     }
 }
-
-//if (name.isNotBlank() && categoryList.none {it.name.equals(name, ignoreCase = true)}) {
-//    val newCategory = CardCategory(
-//        type = TypeContent.OTRO,
-//        name = name, //name del input al del objeto
-//        image = null,
-//    )
-//    categoryList.add(newCategory)
-//    navController.popBackStack()
-//}

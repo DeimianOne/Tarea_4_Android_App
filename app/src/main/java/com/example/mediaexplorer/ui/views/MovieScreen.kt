@@ -47,7 +47,6 @@ import com.example.mediaexplorer.TypeContent
 @Composable
 fun MovieScreen(navController: NavHostController, movies: MutableList<Movies>) {
     addPredeter(movies)
-    var listMovies: MutableList<Movies> = movies
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
@@ -75,7 +74,7 @@ fun MovieScreen(navController: NavHostController, movies: MutableList<Movies>) {
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxWidth(),
-            horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.CenterHorizontally,
         ){
 
             Text(
@@ -89,7 +88,7 @@ fun MovieScreen(navController: NavHostController, movies: MutableList<Movies>) {
                 modifier = Modifier
                     .padding(10.dp)
                     .fillMaxWidth(),
-                horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally
             ){
                 items(movies){
                     MovieCard(navController, it)

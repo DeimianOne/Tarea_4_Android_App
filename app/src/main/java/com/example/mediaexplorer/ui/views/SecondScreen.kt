@@ -1,15 +1,12 @@
 package com.example.mediaexplorer.ui.views
 
-import android.graphics.Movie
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,7 +15,6 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -27,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -37,10 +34,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.Movies
+import com.example.mediaexplorer.Series
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SecondScreen(navController: NavController, id: Int, ListMovies: MutableList<Movies>) {
+fun SecondScreen(
+    navController: NavController,
+    id: Int,
+    ListMovies: MutableList<Movies>,
+    ListSeries: SnapshotStateList<Series>
+) {
     val movie: Movies? = ListMovies.find { it.id == id }
 
     Scaffold(modifier = Modifier.fillMaxSize(),

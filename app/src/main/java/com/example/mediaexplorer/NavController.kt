@@ -64,6 +64,9 @@ var otros = CardCategory(TypeContent.OTRO,TypeContent.OTRO.displayName, R.drawab
 @Composable
 fun Navigation(){
     var ListMovies = remember { mutableStateListOf<Movies>() }
+    var ListSeries = remember { mutableStateListOf<Series>() }
+    var ListAnimes = remember { mutableStateListOf<Anime>() }
+    var ListCustomCont = remember { mutableStateListOf<OtherContent>() }
     var Category = remember {mutableStateListOf<CardCategory>(pelicula, series, anime)}
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Home){
@@ -74,13 +77,13 @@ fun Navigation(){
             MovieScreen(navController = navController, movies = ListMovies)
         }
         composable<SerieSc>{
-            SeriesScreen(navController = navController)
+            SeriesScreen(navController = navController, series = ListSeries)
         }
         composable<AnimeSc>{
             AnimeScreen(navController = navController)
         }
         composable<FormCreate>{
-            FormCreateScreen(navController = navController, category = Category)
+            FormCreateScreen(navController = navController, category = Category, ListMovies, ListSeries, ListAnimes, ListCustomCont)
         }
         composable<CreateCategorySc> {
             CreateCategoryScreen(navController = navController, categoryList = Category)
@@ -91,7 +94,7 @@ fun Navigation(){
         }
         composable<SecondPage>{ backStackEntry ->
             val args = backStackEntry.toRoute<SecondPage>()
-            SecondScreen(navController, args.id, ListMovies)
+            SecondScreen(navController, args.id, ListMovies, ListSeries)
         }
     }
 }
