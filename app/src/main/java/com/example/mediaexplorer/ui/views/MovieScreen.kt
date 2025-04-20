@@ -57,23 +57,29 @@ fun MovieScreen(navController: NavHostController, movies: MutableList<Movies>) {
         topBar = {
             TopAppBar(
                 title = {
-                    Button(
-                        onClick = {
-                            val popped = navController.popBackStack()
-                            if (!popped) navController.navigate(Home)
-                        },
-                        contentPadding = PaddingValues(horizontal = 20.dp, vertical = 0.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = MaterialTheme.colorScheme.onSurface
-                        )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
+                        Button(
+                            onClick = {
+                                val popped = navController.popBackStack()
+                                if (!popped) navController.navigate(Home)
+                            },
+                            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 0.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onSurface
+                            )
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "Back",
+                            )
+                        }
+                        Text("MediaExplorer", color = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.padding(horizontal = 20.dp, vertical = 0.dp),
                         )
                     }
-                    Text("MediaExplorer", color = MaterialTheme.colorScheme.onSurface)
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,

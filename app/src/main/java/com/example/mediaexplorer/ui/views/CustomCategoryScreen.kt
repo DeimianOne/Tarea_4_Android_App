@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,6 +18,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,7 +41,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.mediaexplorer.Movies
+import com.example.mediaexplorer.FormCreate
+import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.OtherContent
 import com.example.mediaexplorer.SecondPage
 
@@ -48,7 +53,31 @@ fun CustomCategoryScreen(navController: NavHostController, customCategoryName: S
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text("MediaExplorer", color = MaterialTheme.colorScheme.onSurface) },
+                title = {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Button(
+                            onClick = {
+                                val popped = navController.popBackStack()
+                                if (!popped) navController.navigate(Home)
+                            },
+                            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 0.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onSurface
+                            )
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "Back",
+                            )
+                        }
+                        Text("MediaExplorer", color = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.padding(horizontal = 20.dp, vertical = 0.dp),
+                        )
+                    }
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     titleContentColor = MaterialTheme.colorScheme.onSurface
@@ -58,7 +87,7 @@ fun CustomCategoryScreen(navController: NavHostController, customCategoryName: S
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    //navController.navigate(FormCreate)
+                    navController.navigate(FormCreate)
                 },
                 shape = CircleShape,
                 containerColor = MaterialTheme.colorScheme.primary,
@@ -87,7 +116,7 @@ fun CustomCategoryScreen(navController: NavHostController, customCategoryName: S
                 modifier = Modifier
                     .padding(10.dp)
                     .fillMaxWidth(),
-                horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally
             ){
                 items(listCustomCont) {
                     if (it.typeContent == customCategoryName){

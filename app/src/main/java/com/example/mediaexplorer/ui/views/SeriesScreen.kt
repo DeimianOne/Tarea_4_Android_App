@@ -3,6 +3,7 @@ package com.example.mediaexplorer.ui.views
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +17,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,6 +41,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mediaexplorer.FormCreate
+import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.SecondPage
 import com.example.mediaexplorer.Series
 
@@ -46,7 +51,31 @@ fun SeriesScreen(navController: NavHostController, series: MutableList<Series>) 
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text("MediaExplorer", color = MaterialTheme.colorScheme.onSurface) },
+                title = {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Button(
+                            onClick = {
+                                val popped = navController.popBackStack()
+                                if (!popped) navController.navigate(Home)
+                            },
+                            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 0.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onSurface
+                            )
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "Back",
+                            )
+                        }
+                        Text("MediaExplorer", color = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.padding(horizontal = 20.dp, vertical = 0.dp),
+                        )
+                    }
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     titleContentColor = MaterialTheme.colorScheme.onSurface

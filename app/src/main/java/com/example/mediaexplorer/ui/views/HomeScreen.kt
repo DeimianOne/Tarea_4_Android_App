@@ -59,12 +59,12 @@ fun HomeScreen(navController: NavHostController, category: MutableList<CardCateg
         floatingActionButton = {
             SmallFloatingActionButton(
                 onClick = {
-                    navController.navigate(FormCreate)
+                    navController.navigate(CreateCategorySc)
                 },
                 modifier = Modifier.padding(end = 6.dp),
                 shape = CircleShape,
                 containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
+                contentColor = MaterialTheme.colorScheme.onSecondary,
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -72,7 +72,7 @@ fun HomeScreen(navController: NavHostController, category: MutableList<CardCateg
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
                 ) {
                     Icon(Icons.Filled.Add, "Floating action button.")
-                    Text("Añadir registro de categoría")
+                    Text("Crear categoría")
                 }
             }
         },
@@ -92,26 +92,7 @@ fun HomeScreen(navController: NavHostController, category: MutableList<CardCateg
             )
             CategoryCard(navController, category)
         }
-        Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-            SmallFloatingActionButton(
-                onClick = {
-                    navController.navigate(CreateCategorySc)
-                },
-                modifier = Modifier.align(Alignment.BottomEnd).padding(end = 6.dp, bottom = 108.dp),
-                shape = CircleShape,
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
-                ) {
-                    Icon(Icons.Filled.Add, "Floating action button.")
-                    Text("Crear categoría")
-                }
-            }
-        }
+
     }
 }
 

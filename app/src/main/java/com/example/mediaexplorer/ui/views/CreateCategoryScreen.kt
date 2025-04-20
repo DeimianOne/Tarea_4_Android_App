@@ -118,7 +118,7 @@ fun CreateCategoryScreen(navController: NavController, categoryList: SnapshotSta
                         contentPadding = PaddingValues(horizontal = 20.dp, vertical = 0.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = MaterialTheme.colorScheme.onPrimary
+                            contentColor = MaterialTheme.colorScheme.onSecondary
                         )
                     ) {
                         Text("Guardar categoria")
