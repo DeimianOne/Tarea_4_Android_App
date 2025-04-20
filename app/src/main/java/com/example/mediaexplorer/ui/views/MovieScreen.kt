@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.integerResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -175,15 +176,15 @@ fun MovieCard(navController: NavHostController, movie: Movies) {
 
 @Composable
 fun addPredeter(listMovies: MutableList<Movies>): MutableList<Movies> {
-    val ironMan = Movies(1, stringResource(id = R.string.IronMan), stringResource(id = R.string.IronManSinopsis), TypeContent.PELICULA, R.drawable.iron_man, R.string.IronManDuracion)
-    val ironMan2 = Movies(2, stringResource(id = R.string.IronMan2), stringResource(id = R.string.IronMan2Sinopsis), TypeContent.PELICULA, R.drawable.iron_man_2, R.string.IronMan2Duracion)
-    val ironMan3 = Movies(3, stringResource(id = R.string.IronMan3), stringResource(id = R.string.IronMan3Sinopsis), TypeContent.PELICULA, R.drawable.iron_man_3, R.string.IronMan3Duracion)
-    val spiderManUnNuevoUniverso = Movies(4, stringResource(id = R.string.SpiderManUnNuevoUniverso), stringResource(id = R.string.SpiderManUnNuevoUniversoSinopsis), TypeContent.PELICULA, R.drawable.spider_man_into_the_spider_verse, R.string.SpiderManUnNuevoUniversoDuracion)
-    val spiderManAcrosTheSpiderVerse = Movies(5, stringResource(id = R.string.SpiderManAcrosTheSpiderVerse), stringResource(id = R.string.SpiderManAcrosTheSpiderVerseSinopsis), TypeContent.PELICULA, R.drawable.spider_man_across_the_spider_verse, R.string.SpiderManAcrosTheSpiderVerseDuracion)
-    val the_avengers = Movies(6, stringResource(id = R.string.TheAvengers), stringResource(id = R.string.TheAvengersSinopsis), TypeContent.PELICULA, R.drawable.the_avengers, R.string.TheAvengersDuracion)
-    val avengersAgeOfUltron = Movies(7, stringResource(id = R.string.AvengersAgeOfUltron), stringResource(id = R.string.AvengersAgeOfUltronSinopsis), TypeContent.PELICULA, R.drawable.avengers_age_of_ultron_the_avengers_2, R.string.AvengersAgeOfUltronDuracion)
-    val avengersInfinityWar = Movies(8, stringResource(id = R.string.AvengersInfinityWar), stringResource(id = R.string.AvengersInfinityWarSinopsis), TypeContent.PELICULA, R.drawable.avengers_infinity_war, R.string.AvengersInfinityWarDuracion)
-    val avengersEndgame = Movies(9, stringResource(id = R.string.AvengersEndgame), stringResource(id = R.string.AvengersEndgameSinopsis), TypeContent.PELICULA, R.drawable.avengers_endgame, R.string.AvengersEndgameDuracion)
+    val ironMan = Movies(1, stringResource(id = R.string.IronMan), stringResource(id = R.string.IronManSinopsis), TypeContent.PELICULA, R.drawable.iron_man, stringResource(R.string.IronManDuracion).toInt())
+    val ironMan2 = Movies(2, stringResource(id = R.string.IronMan2), stringResource(id = R.string.IronMan2Sinopsis), TypeContent.PELICULA, R.drawable.iron_man_2, stringResource(R.string.IronMan2Duracion).toInt())
+    val ironMan3 = Movies(3, stringResource(id = R.string.IronMan3), stringResource(id = R.string.IronMan3Sinopsis), TypeContent.PELICULA, R.drawable.iron_man_3, stringResource(R.string.IronMan3Duracion).toInt())
+    val spiderManUnNuevoUniverso = Movies(4, stringResource(id = R.string.SpiderManUnNuevoUniverso), stringResource(id = R.string.SpiderManUnNuevoUniversoSinopsis), TypeContent.PELICULA, R.drawable.spider_man_into_the_spider_verse, stringResource(R.string.SpiderManUnNuevoUniversoDuracion).toInt())
+    val spiderManAcrosTheSpiderVerse = Movies(5, stringResource(id = R.string.SpiderManAcrosTheSpiderVerse), stringResource(id = R.string.SpiderManAcrosTheSpiderVerseSinopsis), TypeContent.PELICULA, R.drawable.spider_man_across_the_spider_verse, stringResource(R.string.SpiderManAcrosTheSpiderVerseDuracion).toInt())
+    val the_avengers = Movies(6, stringResource(id = R.string.TheAvengers), stringResource(id = R.string.TheAvengersSinopsis), TypeContent.PELICULA, R.drawable.the_avengers, stringResource(R.string.TheAvengersDuracion).toInt())
+    val avengersAgeOfUltron = Movies(7, stringResource(id = R.string.AvengersAgeOfUltron), stringResource(id = R.string.AvengersAgeOfUltronSinopsis), TypeContent.PELICULA, R.drawable.avengers_age_of_ultron_the_avengers_2, stringResource(R.string.AvengersAgeOfUltronDuracion).toInt())
+    val avengersInfinityWar = Movies(8, stringResource(id = R.string.AvengersInfinityWar), stringResource(id = R.string.AvengersInfinityWarSinopsis), TypeContent.PELICULA, R.drawable.avengers_infinity_war, stringResource(R.string.AvengersInfinityWarDuracion).toInt())
+    val avengersEndgame = Movies(9, stringResource(id = R.string.AvengersEndgame), stringResource(id = R.string.AvengersEndgameSinopsis), TypeContent.PELICULA, R.drawable.avengers_endgame, stringResource(R.string.AvengersEndgameDuracion).toInt())
 
     listMovies.add(ironMan)
     listMovies.add(ironMan2)

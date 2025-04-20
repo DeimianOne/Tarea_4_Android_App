@@ -51,15 +51,9 @@ class OtherContent(id:Int, name:String, information:String, category:TypeContent
 /*CONTENIDO PREDETERMINADO*/
 class CardCategory(val type: TypeContent, val name: String, val image: Int? = null)
 
-//var ListMovies:MutableList<Movies> = mutableListOf()
-var ListSeries:MutableList<Series> = mutableListOf()
-var ListAnimes:MutableList<Anime> = mutableListOf()
-var ListOtherContent:MutableList<OtherContent> = mutableListOf()
-
 var pelicula = CardCategory(TypeContent.PELICULA,TypeContent.PELICULA.displayName, R.drawable.pelicula)
 var series = CardCategory(TypeContent.SERIE,TypeContent.SERIE.displayName, R.drawable.series)
 var anime = CardCategory(TypeContent.ANIME,TypeContent.ANIME.displayName, R.drawable.anime1)
-var otros = CardCategory(TypeContent.OTRO,TypeContent.OTRO.displayName, R.drawable.anime)
 
 @Composable
 fun Navigation(){

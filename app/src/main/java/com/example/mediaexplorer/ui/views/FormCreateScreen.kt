@@ -1,8 +1,5 @@
 package com.example.mediaexplorer.ui.views
 
-import android.util.Log
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -40,20 +37,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mediaexplorer.Home
 import androidx.compose.runtime.*
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.DpOffset
 import com.example.mediaexplorer.Anime
 import com.example.mediaexplorer.CardCategory
-import com.example.mediaexplorer.ListOtherContent
 import com.example.mediaexplorer.Movies
 import com.example.mediaexplorer.OtherContent
 import com.example.mediaexplorer.R
 import com.example.mediaexplorer.Series
 import com.example.mediaexplorer.TypeContent
-import java.io.File
-import java.io.FileOutputStream
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -83,7 +76,8 @@ fun FormCreateScreen(
     var errorExtra by remember { mutableStateOf("") }
     var errorExtra2 by remember { mutableStateOf("") }
 
-    Scaffold(modifier = Modifier.fillMaxSize(),
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = {
@@ -208,6 +202,7 @@ fun FormCreateScreen(
                             containerColor = MaterialTheme.colorScheme.primary,
                             contentColor = MaterialTheme.colorScheme.onPrimary
                         )
+
                     ) {
                         Text("Guardar")
                     }
@@ -227,7 +222,7 @@ fun FormCreateScreen(
                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 5.dp)
             )
 
-            Spacer(modifier = Modifier.height(8.dp)) // Espacio entre texto y botón
+            Spacer(modifier = Modifier.height(8.dp))
 
             Box {
                 Button(
@@ -239,7 +234,7 @@ fun FormCreateScreen(
                             shape = RoundedCornerShape(4.dp)
                         ),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Transparent, // Fondo transparente
+                        containerColor = Color.Transparent,
                         contentColor = MaterialTheme.colorScheme.onPrimary
                     ),
                     elevation = ButtonDefaults.buttonElevation(0.dp)
@@ -301,29 +296,6 @@ fun FormCreateScreen(
                         )
                         if (errorExtra.isNotEmpty()) {
                             Text(text = errorExtra, color = Color.Red, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 4.dp))
-                        }
-                        val context = LocalContext.current
-                        val launcher = rememberLauncherForActivityResult(
-                            contract = ActivityResultContracts.GetContent(),
-                            onResult = { uri ->
-                                if (uri != null) {
-                                    val inputStream = context.contentResolver.openInputStream(uri)
-                                    val file = File(context.filesDir, "imagenes") // carpeta interna
-                                    if (!file.exists()) file.mkdirs()
-
-                                    val outputFile = File(file, "imagen_${System.currentTimeMillis()}.jpg")
-                                    val outputStream = FileOutputStream(outputFile)
-
-                                    inputStream?.copyTo(outputStream)
-
-                                    inputStream?.close()
-                                    outputStream.close()
-                                }
-                            }
-
-                        )
-                        Button(onClick = { launcher.launch("image/*") }) {
-                            Text("Subir imagen")
                         }
                     }
                     TypeContent.SERIE -> {
