@@ -90,7 +90,7 @@ fun Navigation(){
         }
         composable<CustomCategorySc> { backStackEntry ->
             val args = backStackEntry.toRoute<CustomCategorySc>()
-            CustomCategoryScreen(navController = navController, customCategoryName = args.categoryName, listCustomCont = ListCustomCont)
+            CustomCategoryScreen(navController = navController, customCategoryName = args.categoryName,ListCustomCont)
         }
         composable<SecondPage>{ backStackEntry ->
             val args = backStackEntry.toRoute<SecondPage>()

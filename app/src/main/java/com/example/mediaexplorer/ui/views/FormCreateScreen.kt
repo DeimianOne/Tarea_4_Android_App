@@ -1,5 +1,6 @@
 package com.example.mediaexplorer.ui.views
 
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.border
@@ -188,7 +189,7 @@ fun FormCreateScreen(
                                 TypeContent.OTRO -> {
                                     if (isValid){
                                         val custom = OtherContent(
-                                            id = ListOtherContent.size + 1,
+                                            id = ListCustomCont.size + 1,
                                             name = name,
                                             information = information,
                                             category = TypeContent.OTRO,
