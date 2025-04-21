@@ -1,7 +1,6 @@
 package com.example.mediaexplorer.ui.views
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
@@ -12,7 +11,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,16 +22,15 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mediaexplorer.Anime
-import com.example.mediaexplorer.CardCategory
 import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.Movies
 import com.example.mediaexplorer.OtherContent
@@ -83,7 +80,7 @@ fun SecondScreen(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxWidth(),
-            horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.CenterHorizontally,
         )
         {
             when (category) {
@@ -103,7 +100,6 @@ fun SecondScreen(
                     val other: OtherContent? = ListCustomCont.find { it.id == id }
                     Ocard(other)
                 }
-
             }
         }
     }
@@ -119,7 +115,7 @@ fun Mcard(movie:Movies?){
             contentDescription = movie.name,
             contentScale = ContentScale.Fit,
             modifier = Modifier
-                .aspectRatio(12f / 9f) // Puedes ajustar a 4f / 3f, etc.
+                .aspectRatio(12f / 9f)
                 .clip(RoundedCornerShape(8.dp))
         )
         Text(
@@ -132,7 +128,7 @@ fun Mcard(movie:Movies?){
             modifier = Modifier
                 .padding(10.dp)
                 .fillMaxWidth(),
-            horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
                 Text(
@@ -164,7 +160,7 @@ fun Scard(serie:Series?){
             contentDescription = serie.name,
             contentScale = ContentScale.Fit,
             modifier = Modifier
-                .aspectRatio(12f / 9f) // Puedes ajustar a 4f / 3f, etc.
+                .aspectRatio(12f / 9f)
                 .clip(RoundedCornerShape(8.dp))
         )
         Text(
@@ -177,7 +173,7 @@ fun Scard(serie:Series?){
             modifier = Modifier
                 .padding(10.dp)
                 .fillMaxWidth(),
-            horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
                 Text(
@@ -189,7 +185,7 @@ fun Scard(serie:Series?){
                 )
 
                 Text(
-                    "Cantidad de Capitulos:      ${serie.cantCap} minutos",
+                    "Cantidad de Capitulos:      ${serie.cantCap} capítulos",
                     textAlign = TextAlign.Justify,
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier
@@ -209,7 +205,7 @@ fun Acard(anime:Anime?){
             contentDescription = anime.name,
             contentScale = ContentScale.Fit,
             modifier = Modifier
-                .aspectRatio(12f / 9f) // Puedes ajustar a 4f / 3f, etc.
+                .aspectRatio(12f / 9f)
                 .clip(RoundedCornerShape(8.dp))
         )
         Text(
@@ -222,7 +218,7 @@ fun Acard(anime:Anime?){
             modifier = Modifier
                 .padding(10.dp)
                 .fillMaxWidth(),
-            horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
                 Text(
@@ -260,7 +256,7 @@ fun Ocard(other:OtherContent?){
             contentDescription = other.name,
             contentScale = ContentScale.Fit,
             modifier = Modifier
-                .aspectRatio(12f / 9f) // Puedes ajustar a 4f / 3f, etc.
+                .aspectRatio(12f / 9f)
                 .clip(RoundedCornerShape(8.dp))
         )
         Text(
@@ -273,7 +269,7 @@ fun Ocard(other:OtherContent?){
             modifier = Modifier
                 .padding(10.dp)
                 .fillMaxWidth(),
-            horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
                 Text(
@@ -283,7 +279,6 @@ fun Ocard(other:OtherContent?){
                     modifier = Modifier
                         .padding(start = 11.dp, top = 8.dp, bottom = 8.dp)
                 )
-
             }
         }
     }

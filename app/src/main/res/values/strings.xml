@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">MediaExplorer</string>
+    <string name="app_categories">Categorías</string>
+    <string name="create_category">Crear Categoría</string>
+    <string name="select_category">Seleccione una categoría</string>
+    <string name="category_name">Nombre</string>
+    <string name="save_btn">Guardar</string>
+    <string name="content_type">¿Tipo de Contenido?</string>
+    <string name="content_info">Descripción</string>
+    <string name="add_content">Agregue Contenido</string>
+    <string name="movies">Peliculas</string>
+    <string name="animes">Animes</string>
+    <string name="series">Series</string>
 
     <string name="SpiderManAcrosTheSpiderVerse">Spider-Man: Across the Spider-Verse</string>
     <string name="SpiderManAcrosTheSpiderVerseSinopsis">Tras reencontrarse con Gwen Stacy, el amigable vecindario de Spider-Man de Brooklyn al completo es catapultado a través del Multiverso, donde se encuentra con un equipo de Spidermans encargados de proteger su propia existencia. Pero cuando los héroes se enfrentan sobre cómo manejar una nueva amenaza, Miles se encuentra enfrentado a las otras Arañas y debe redefinir lo que significa ser un héroe para poder salvar a la gente que más quiere</string>

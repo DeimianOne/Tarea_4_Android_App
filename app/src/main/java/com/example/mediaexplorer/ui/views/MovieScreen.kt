@@ -1,27 +1,20 @@
 package com.example.mediaexplorer.ui.views
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -33,21 +26,15 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.integerResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mediaexplorer.FormCreate
 import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.Movies
 import com.example.mediaexplorer.R
-import com.example.mediaexplorer.SecondPage
 import com.example.mediaexplorer.TypeContent
+import com.example.mediaexplorer.ui.components.ContentCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,7 +63,7 @@ fun MovieScreen(navController: NavHostController, movies: MutableList<Movies>) {
                                 contentDescription = "Back",
                             )
                         }
-                        Text("MediaExplorer", color = MaterialTheme.colorScheme.onSurface,
+                        Text(text = stringResource(R.string.app_name), color = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.padding(horizontal = 20.dp, vertical = 0.dp),
                         )
                     }
@@ -108,7 +95,7 @@ fun MovieScreen(navController: NavHostController, movies: MutableList<Movies>) {
         ){
 
             Text(
-                text = "Peliculas",
+                text = stringResource(R.string.movies),
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier
                     .padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
@@ -121,62 +108,10 @@ fun MovieScreen(navController: NavHostController, movies: MutableList<Movies>) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
                 items(movies){
-                    MovieCard(navController, it)
+                    ContentCard(navController, it)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun MovieCard(navController: NavHostController, movie: Movies) {
-    Card (
-        onClick = {
-            navController.navigate(SecondPage(movie.id, movie.category.displayName))
-        },
-        colors = CardDefaults.cardColors(
-            containerColor = Color.Transparent
-        ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 8.dp)
-    ){
-
-        Row(modifier = Modifier.padding(8.dp)) {
-
-            // Imagen chica a la izquierda
-            Image(
-                painter = painterResource(id = movie.imageResId),
-                contentDescription = movie.name,
-                contentScale = ContentScale.Fit, // 👈 se ajusta sin recortar
-                modifier = Modifier
-                    .size(80.dp)
-                    .clip(RoundedCornerShape(4.dp))
-            )
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            // Título y descripción a la derecha
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = movie.name,
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-
-                Text(
-                    text = movie.information,
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 3,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-        }
-
     }
 }
 

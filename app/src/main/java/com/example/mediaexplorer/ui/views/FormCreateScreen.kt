@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mediaexplorer.Home
 import androidx.compose.runtime.*
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.DpOffset
@@ -101,7 +102,7 @@ fun FormCreateScreen(
                             )
                         }
                         Text(
-                            "Agregue Contenido",
+                            text = stringResource(R.string.add_content),
                             modifier = Modifier.padding(horizontal = 20.dp, vertical = 0.dp)
                         )
 
@@ -135,7 +136,6 @@ fun FormCreateScreen(
                                 errorExtra = { errorExtra = it },
                                 errorExtra2 = { errorExtra2 = it }
                             )
-
                             when (typeSelec?.type) {
                                 TypeContent.PELICULA -> {
                                     if (isValid){
@@ -204,7 +204,7 @@ fun FormCreateScreen(
                         ),
                         modifier = Modifier.padding(horizontal = 20.dp, vertical = 0.dp),
                     ) {
-                        Text("Guardar")
+                        Text(text = stringResource(R.string.save_btn))
                     }
                 }
             }
@@ -217,7 +217,7 @@ fun FormCreateScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                "¿Tipo de Contenido?",
+                text = stringResource(R.string.content_type),
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 5.dp)
             )
@@ -240,14 +240,14 @@ fun FormCreateScreen(
                     elevation = ButtonDefaults.buttonElevation(0.dp)
                 ) {
                     Text(
-                        typeSelec?.name ?: "Selecciona una categoría"
+                        typeSelec?.name ?: stringResource(R.string.select_category)
                     )
                 }
 
                 DropdownMenu(
                     expanded = expanded,
                     onDismissRequest = { expanded = false },
-                    offset = DpOffset(x = 120.dp, y = 0.dp) // prueba valores según el ancho
+                    offset = DpOffset(x = 120.dp, y = 0.dp) // probar valores según el ancho
                 ) {
                     category.forEach { tipo ->
                         DropdownMenuItem(
@@ -269,7 +269,7 @@ fun FormCreateScreen(
                         OutlinedTextField(
                             value = name,
                             onValueChange = {name = it},
-                            label = { Text("Nombre Pelicula")},
+                            label = { Text(text = stringResource(R.string.category_name) + " ${typeSelec?.name?.lowercase() ?: "del contenido"}")},
                             modifier = Modifier.padding(10.dp),
                             textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                         )
@@ -279,7 +279,7 @@ fun FormCreateScreen(
                         OutlinedTextField(
                             value = information,
                             onValueChange = {information = it},
-                            label = { Text("Sinopsis")},
+                            label = { Text(text = stringResource(R.string.content_info))},
                             modifier = Modifier.padding(10.dp),
                             textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                         )
@@ -302,7 +302,7 @@ fun FormCreateScreen(
                         OutlinedTextField(
                             value = name,
                             onValueChange = {name = it},
-                            label = { Text("Nombre Serie")},
+                            label = { Text(text = stringResource(R.string.category_name) + " ${typeSelec?.name?.lowercase() ?: "del contenido"}")},
                             modifier = Modifier.padding(10.dp),
                             textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                         )
@@ -312,7 +312,7 @@ fun FormCreateScreen(
                         OutlinedTextField(
                             value = information,
                             onValueChange = {information = it},
-                            label = { Text("Descripción")},
+                            label = { Text(text = stringResource(R.string.content_info))},
                             modifier = Modifier.padding(10.dp),
                             textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                         )
@@ -335,7 +335,7 @@ fun FormCreateScreen(
                         OutlinedTextField(
                             value = name,
                             onValueChange = {name = it},
-                            label = { Text("Nombre Anime")},
+                            label = { Text(text = stringResource(R.string.category_name) + " ${typeSelec?.name?.lowercase() ?: "del contenido"}")},
                             modifier = Modifier.padding(10.dp),
                             textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                         )
@@ -345,7 +345,7 @@ fun FormCreateScreen(
                         OutlinedTextField(
                             value = information,
                             onValueChange = {information = it},
-                            label = { Text("Descripción")},
+                            label = { Text(text = stringResource(R.string.content_info))},
                             modifier = Modifier.padding(10.dp),
                             textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                         )
@@ -378,7 +378,7 @@ fun FormCreateScreen(
                         OutlinedTextField(
                             value = name,
                             onValueChange = {name = it},
-                            label = { Text("Nombre ${typeSelec?.name?.lowercase() ?: "del contenido"}")},
+                            label = { Text(text = stringResource(R.string.category_name) + " ${typeSelec?.name?.lowercase() ?: "del contenido"}")},
                             modifier = Modifier.padding(10.dp),
                             textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                         )
@@ -388,7 +388,7 @@ fun FormCreateScreen(
                         OutlinedTextField(
                             value = information,
                             onValueChange = {information = it},
-                            label = { Text("Descripción")},
+                            label = { Text(text = stringResource(R.string.content_info))},
                             modifier = Modifier.padding(10.dp),
                             textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
                         )

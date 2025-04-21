@@ -3,7 +3,6 @@ package com.example.mediaexplorer.ui.views
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -31,13 +30,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mediaexplorer.AnimeSc
 import com.example.mediaexplorer.CardCategory
 import com.example.mediaexplorer.CreateCategorySc
 import com.example.mediaexplorer.CustomCategorySc
-import com.example.mediaexplorer.FormCreate
 import com.example.mediaexplorer.MovieSc
 import com.example.mediaexplorer.R
 import com.example.mediaexplorer.SerieSc
@@ -49,7 +48,7 @@ fun HomeScreen(navController: NavHostController, category: MutableList<CardCateg
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text("MediaExplorer", color = MaterialTheme.colorScheme.onSurface) },
+                title = { Text(text = stringResource(R.string.app_name), color = MaterialTheme.colorScheme.onSurface) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     titleContentColor = MaterialTheme.colorScheme.onSurface
@@ -72,7 +71,7 @@ fun HomeScreen(navController: NavHostController, category: MutableList<CardCateg
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
                 ) {
                     Icon(Icons.Filled.Add, "Floating action button.")
-                    Text("Crear categoría")
+                    Text(text = stringResource(R.string.create_category))
                 }
             }
         },
@@ -84,7 +83,7 @@ fun HomeScreen(navController: NavHostController, category: MutableList<CardCateg
             horizontalAlignment = Alignment.CenterHorizontally,
         ){
             Text(
-                text = "Categorias",
+                text = stringResource(R.string.app_categories),
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier
                     .padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
@@ -92,7 +91,6 @@ fun HomeScreen(navController: NavHostController, category: MutableList<CardCateg
             )
             CategoryCard(navController, category)
         }
-
     }
 }
 
@@ -149,6 +147,7 @@ fun CategoryCard(navController: NavHostController,category:  MutableList<CardCat
         }
     }
 }
+
 
 
 

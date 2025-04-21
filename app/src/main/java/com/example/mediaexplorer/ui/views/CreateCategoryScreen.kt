@@ -30,16 +30,13 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.mediaexplorer.Anime
 import com.example.mediaexplorer.CardCategory
 import com.example.mediaexplorer.Home
-import com.example.mediaexplorer.Movies
-import com.example.mediaexplorer.OtherContent
 import com.example.mediaexplorer.R
-import com.example.mediaexplorer.Series
 import com.example.mediaexplorer.TypeContent
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,7 +44,6 @@ import com.example.mediaexplorer.TypeContent
 fun CreateCategoryScreen(navController: NavController, categoryList: SnapshotStateList<CardCategory>){
     var name by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf("") }
-
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -74,7 +70,7 @@ fun CreateCategoryScreen(navController: NavController, categoryList: SnapshotSta
                             )
                         }
                         Text(
-                            "Crear Categoria",
+                            text = stringResource(R.string.create_category),
                             modifier = Modifier.padding(horizontal = 20.dp, vertical = 0.dp)
                         )
 
@@ -119,9 +115,10 @@ fun CreateCategoryScreen(navController: NavController, categoryList: SnapshotSta
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.primary,
                             contentColor = MaterialTheme.colorScheme.onSecondary
-                        )
+                        ),
+                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 0.dp),
                     ) {
-                        Text("Guardar categoria")
+                        Text(text = stringResource(R.string.save_btn))
                     }
                 }
             }
@@ -133,7 +130,7 @@ fun CreateCategoryScreen(navController: NavController, categoryList: SnapshotSta
             OutlinedTextField(
                 value = name,
                 onValueChange = {name = it},
-                label = { Text("Nombre categoria")},
+                label = { Text(text = stringResource(R.string.category_name) + " categoría")},
                 modifier = Modifier.padding(10.dp),
                 textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary),
             )
@@ -141,9 +138,7 @@ fun CreateCategoryScreen(navController: NavController, categoryList: SnapshotSta
             if (errorMessage.isNotEmpty()) {
                 Text(text = errorMessage, color = Color.Red, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 4.dp))
             }
-
             Spacer(modifier = Modifier.padding(16.dp))
-
         }
     }
 }

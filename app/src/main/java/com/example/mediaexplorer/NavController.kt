@@ -99,3 +99,4 @@ enum class TypeContent(val displayName: String) {
     ANIME("Anime"),
     OTRO("Otro")
 }
+
