@@ -5,7 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.example.mediaexplorer.ui.views.CreateCategoryScreen
+import com.example.mediaexplorer.ui.views.category.CreateCategoryScreen
 import com.example.mediaexplorer.ui.views.CategoryScreen
 import com.example.mediaexplorer.ui.views.HomeScreen
 import com.example.mediaexplorer.ui.views.CreateContentScreen
@@ -40,7 +40,11 @@ fun Navigation(){
         }
         composable<CategorySc> { backStackEntry ->
             val args = backStackEntry.toRoute<CategorySc>()
-            CategoryScreen(navController = navController, categoryId = args.categoryId, categoryName = args.categoryName)
+            CategoryScreen(
+                navController = navController,
+                categoryId = args.categoryId,
+                categoryName = args.categoryName
+            )
         }
         composable<CreateContentSc>{ backStackEntry ->
             val args = backStackEntry.toRoute<CreateContentSc>()

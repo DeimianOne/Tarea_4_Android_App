@@ -36,10 +36,25 @@ import androidx.navigation.NavHostController
 import com.example.mediaexplorer.CreateCategorySc
 import com.example.mediaexplorer.CategorySc
 import com.example.mediaexplorer.R
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.mediaexplorer.ui.views.category.CategoryEntryViewModel
+import com.example.mediaexplorer.ui.views.AppViewModelProvider
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.stateIn
+import androidx.compose.runtime.collectAsState
+import coil.compose.AsyncImage
+import android.net.Uri
+import androidx.compose.runtime.getValue
+import com.example.mediaexplorer.data.entity.Category
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HomeScreen(
+    navController: NavHostController,
+    viewModel: CategoryEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
+) {
+    val categories by viewModel.categories.collectAsState(initial = emptyList())
+
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
@@ -84,57 +99,114 @@ fun HomeScreen(navController: NavHostController) {
                     .padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
                     .align(Alignment.Start)
             )
-            CategoryCard(navController)
+            CategoryCardList(categories, navController)
         }
     }
 }
 
 @Composable
-fun CategoryCard(navController: NavHostController){
+fun CategoryCardList(
+    categories: List<Category>,
+    navController: NavHostController
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(20.dp),
         modifier = Modifier.fillMaxWidth(),
     ) {
-//        items(category) {
-//            Card(
-//                onClick = {
-//                    navController.navigate(contentRoute(it.id, it.nombre))
-//                },
-//                colors = CardColors(
-//                    containerColor = MaterialTheme.colorScheme.primary,
-//                    contentColor = MaterialTheme.colorScheme.surface,
-//                    disabledContentColor = Color.White,
-//                    disabledContainerColor = Color.White
-//                ),
-//                modifier = Modifier
-//                    .padding(10.dp),
-//            ) {
-//                Column(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .fillMaxHeight()
-//                        .padding(start = 20.dp, end = 20.dp, top = 15.dp, bottom = 30.dp),
-//                    horizontalAlignment = Alignment.CenterHorizontally,
-//                    verticalArrangement = Arrangement.Bottom
-//                ) {
-//
-//                    Icon(
-//                        painter = painterResource(it.image ?: R.drawable.otros),
-//                        contentDescription = "Account Box",
-//                        modifier = Modifier.size(50.dp)
-//                    )
-//                    Text(
-//                        text = it.name,
-//                        color = Color.White,
-//                        modifier = Modifier.padding(top = 10.dp)
-//                    )
-//                }
-//            }
-//        }
+        items(categories) { category ->
+            CategoryCardItem(category, navController)
+        }
     }
 }
 
+@Composable
+fun CategoryCardItem(
+    category: Category,
+    navController: NavHostController
+) {
+    Card(
+        onClick = {
+            navController.navigate(CategorySc(category.id, category.name))
+        },
+        colors = CardColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.surface,
+            disabledContentColor = Color.White,
+            disabledContainerColor = Color.White
+        ),
+        modifier = Modifier.padding(10.dp),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .padding(start = 20.dp, end = 20.dp, top = 15.dp, bottom = 30.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            if (category.categoryImageUri != null) {
+                AsyncImage(
+                    model = Uri.parse(category.categoryImageUri),
+                    contentDescription = null,
+                    modifier = Modifier.size(50.dp)
+                )
+            } else {
+                Icon(
+                    painter = painterResource(R.drawable.otros),
+                    contentDescription = null,
+                    modifier = Modifier.size(50.dp)
+                )
+            }
 
+            Text(
+                text = category.name,
+                color = Color.White,
+                modifier = Modifier.padding(top = 10.dp)
+            )
+        }
+    }
+}
 
+/*
+@Composable
+fun CategoryCard(navController: NavHostController){
+        items(category) {
+            Card(
+                onClick = {
+                    navController.navigate(contentRoute(it.id, it.nombre))
+                },
+                colors = CardColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.surface,
+                    disabledContentColor = Color.White,
+                    disabledContainerColor = Color.White
+                ),
+                modifier = Modifier
+                    .padding(10.dp),
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight()
+                        .padding(start = 20.dp, end = 20.dp, top = 15.dp, bottom = 30.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Bottom
+                ) {
 
+                    Icon(
+                        painter = painterResource(it.image ?: R.drawable.otros),
+                        contentDescription = "Account Box",
+                        modifier = Modifier.size(50.dp)
+                    )
+                    Text(
+                        text = it.name,
+                        color = Color.White,
+                        modifier = Modifier.padding(top = 10.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+*/
