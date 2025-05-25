@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -28,15 +27,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.mediaexplorer.FormCreate
+import com.example.mediaexplorer.CreateContentSc
 import com.example.mediaexplorer.Home
-import com.example.mediaexplorer.OtherContent
 import com.example.mediaexplorer.R
 import com.example.mediaexplorer.ui.components.ContentCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomCategoryScreen(navController: NavHostController, customCategoryName: String, listCustomCont: MutableList<OtherContent>){
+fun CategoryScreen(navController: NavHostController, categoryId: Int, categoryName: String){
 
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -75,7 +73,7 @@ fun CustomCategoryScreen(navController: NavHostController, customCategoryName: S
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navController.navigate(FormCreate)
+//                    navController.navigate(CreateContentSc)
                 },
                 shape = CircleShape,
                 containerColor = MaterialTheme.colorScheme.primary,
@@ -93,7 +91,7 @@ fun CustomCategoryScreen(navController: NavHostController, customCategoryName: S
         ){
 
             Text(
-                text = customCategoryName,
+                text = categoryName,
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier
                     .padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
@@ -106,11 +104,11 @@ fun CustomCategoryScreen(navController: NavHostController, customCategoryName: S
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
-                items(listCustomCont) {
-                    if (it.typeContent == customCategoryName){
-                        ContentCard(navController, it)
-                    }
-                }
+//                items(listCustomCont) {
+//                    if (it.typeContent == categoryName){
+//                        ContentCard(navController, it)
+//                    }
+//                }
             }
         }
     }

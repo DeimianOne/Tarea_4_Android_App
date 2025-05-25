@@ -33,18 +33,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.mediaexplorer.AnimeSc
-import com.example.mediaexplorer.CardCategory
 import com.example.mediaexplorer.CreateCategorySc
-import com.example.mediaexplorer.CustomCategorySc
-import com.example.mediaexplorer.MovieSc
+import com.example.mediaexplorer.CategorySc
 import com.example.mediaexplorer.R
-import com.example.mediaexplorer.SerieSc
-import com.example.mediaexplorer.TypeContent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavHostController, category: MutableList<CardCategory>) {
+fun HomeScreen(navController: NavHostController) {
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
@@ -89,62 +84,54 @@ fun HomeScreen(navController: NavHostController, category: MutableList<CardCateg
                     .padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
                     .align(Alignment.Start)
             )
-            CategoryCard(navController, category)
+            CategoryCard(navController)
         }
     }
 }
 
 @Composable
-fun CategoryCard(navController: NavHostController,category:  MutableList<CardCategory>){
+fun CategoryCard(navController: NavHostController){
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(20.dp),
         modifier = Modifier.fillMaxWidth(),
     ) {
-        items(category) {
-            Card(
-                onClick = {
-                    when(it.name){
-                        TypeContent.PELICULA.displayName -> navController.navigate(MovieSc)
-
-                        TypeContent.SERIE.displayName -> navController.navigate(SerieSc)
-
-                        TypeContent.ANIME.displayName -> navController.navigate(AnimeSc)
-
-                        else -> navController.navigate(CustomCategorySc(it.name))
-                    }
-                },
-                colors = CardColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.surface,
-                    disabledContentColor = Color.White,
-                    disabledContainerColor = Color.White
-                ),
-                modifier = Modifier
-                    .padding(10.dp),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight()
-                        .padding(start = 20.dp, end = 20.dp, top = 15.dp, bottom = 30.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Bottom
-                ) {
-
-                    Icon(
-                        painter = painterResource(it.image ?: R.drawable.otros),
-                        contentDescription = "Account Box",
-                        modifier = Modifier.size(50.dp)
-                    )
-                    Text(
-                        text = it.name,
-                        color = Color.White,
-                        modifier = Modifier.padding(top = 10.dp)
-                    )
-                }
-            }
-        }
+//        items(category) {
+//            Card(
+//                onClick = {
+//                    navController.navigate(contentRoute(it.id, it.nombre))
+//                },
+//                colors = CardColors(
+//                    containerColor = MaterialTheme.colorScheme.primary,
+//                    contentColor = MaterialTheme.colorScheme.surface,
+//                    disabledContentColor = Color.White,
+//                    disabledContainerColor = Color.White
+//                ),
+//                modifier = Modifier
+//                    .padding(10.dp),
+//            ) {
+//                Column(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .fillMaxHeight()
+//                        .padding(start = 20.dp, end = 20.dp, top = 15.dp, bottom = 30.dp),
+//                    horizontalAlignment = Alignment.CenterHorizontally,
+//                    verticalArrangement = Arrangement.Bottom
+//                ) {
+//
+//                    Icon(
+//                        painter = painterResource(it.image ?: R.drawable.otros),
+//                        contentDescription = "Account Box",
+//                        modifier = Modifier.size(50.dp)
+//                    )
+//                    Text(
+//                        text = it.name,
+//                        color = Color.White,
+//                        modifier = Modifier.padding(top = 10.dp)
+//                    )
+//                }
+//            }
+//        }
     }
 }
 

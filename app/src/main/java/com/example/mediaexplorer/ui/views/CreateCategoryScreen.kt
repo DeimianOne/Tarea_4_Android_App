@@ -34,14 +34,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.mediaexplorer.CardCategory
 import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.R
 import com.example.mediaexplorer.TypeContent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateCategoryScreen(navController: NavController, categoryList: SnapshotStateList<CardCategory>){
+fun CreateCategoryScreen(navController: NavController){
     var name by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf("") }
 
@@ -93,23 +92,23 @@ fun CreateCategoryScreen(navController: NavController, categoryList: SnapshotSta
                     Button(
                         onClick = {
                             errorMessage = ""
-                            when {
-                                name.isBlank() -> {
-                                    errorMessage = "El nombre no puede estar vacío"
-                                }
-                                categoryList.any { it.name.equals(name, ignoreCase = true) } -> {
-                                    errorMessage = "Ya existe una categoría con ese nombre"
-                                }
-                                else -> {
-                                    val newCategory = CardCategory(
-                                        type = TypeContent.OTRO,
-                                        name = name, //name del input al del objeto
-                                        image = null,
-                                    )
-                                    categoryList.add(newCategory)
-                                    navController.popBackStack()
-                                }
-                            }
+//                            when {
+//                                name.isBlank() -> {
+//                                    errorMessage = "El nombre no puede estar vacío"
+//                                }
+//                                categoryList.any { it.name.equals(name, ignoreCase = true) } -> {
+//                                    errorMessage = "Ya existe una categoría con ese nombre"
+//                                }
+//                                else -> {
+//                                    val newCategory = CardCategory(
+//                                        type = TypeContent.OTRO,
+//                                        name = name, //name del input al del objeto
+//                                        image = null,
+//                                    )
+//                                    categoryList.add(newCategory)
+//                                    navController.popBackStack()
+//                                }
+//                            }
                         },
                         contentPadding = PaddingValues(horizontal = 20.dp, vertical = 0.dp),
                         colors = ButtonDefaults.buttonColors(

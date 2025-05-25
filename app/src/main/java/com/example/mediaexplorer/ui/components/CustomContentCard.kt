@@ -23,18 +23,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.mediaexplorer.Anime
-import com.example.mediaexplorer.Content
-import com.example.mediaexplorer.Movies
-import com.example.mediaexplorer.OtherContent
-import com.example.mediaexplorer.SecondPage
-import com.example.mediaexplorer.Series
+import com.example.mediaexplorer.ContentSc
+import com.example.mediaexplorer.R
 
 @Composable
-fun ContentCard(navController: NavHostController, content: Content) {
+fun ContentCard(navController: NavHostController) {
     Card(
         onClick = {
-            navController.navigate(SecondPage(content.id, content.category.displayName))
+//            navController.navigate(ContentSc(contentId = content.id, content.category.displayName))
         },
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
@@ -45,8 +41,8 @@ fun ContentCard(navController: NavHostController, content: Content) {
     ) {
         Row(modifier = Modifier.padding(8.dp)) {
             Image(
-                painter = painterResource(id = content.imageResId),
-                contentDescription = content.name,
+                painter = painterResource(R.drawable.otros),
+                contentDescription = "content.name",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(80.dp)
@@ -60,26 +56,26 @@ fun ContentCard(navController: NavHostController, content: Content) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = content.name,
+                    text = "content.name",
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
 
                 Text(
-                    text = content.information,
+                    text = "content.information",
                     style = MaterialTheme.typography.bodyMedium,
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis
                 )
 
                 //datos adicionales por tipo
-                when (content) {
-                    is Movies -> Text("Duración: ${content.duration} min", style = MaterialTheme.typography.bodySmall)
-                    is Series -> Text("Capítulos: ${content.cantCap}", style = MaterialTheme.typography.bodySmall)
-                    is Anime -> Text("Capítulos: ${content.cantCap}, Género: ${content.typeGender}", style = MaterialTheme.typography.bodySmall)
-                    is OtherContent -> Text("Tipo: ${content.typeContent}", style = MaterialTheme.typography.bodySmall)
-                }
+//                when (content) {
+//                    is Movies -> Text("Duración: ${content.duration} min", style = MaterialTheme.typography.bodySmall)
+//                    is Series -> Text("Capítulos: ${content.cantCap}", style = MaterialTheme.typography.bodySmall)
+//                    is Anime -> Text("Capítulos: ${content.cantCap}, Género: ${content.typeGender}", style = MaterialTheme.typography.bodySmall)
+//                    is OtherContent -> Text("Tipo: ${content.typeContent}", style = MaterialTheme.typography.bodySmall)
+//                }
             }
         }
     }

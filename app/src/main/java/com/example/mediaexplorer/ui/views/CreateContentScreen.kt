@@ -41,26 +41,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.DpOffset
-import com.example.mediaexplorer.Anime
-import com.example.mediaexplorer.CardCategory
-import com.example.mediaexplorer.Movies
-import com.example.mediaexplorer.OtherContent
 import com.example.mediaexplorer.R
-import com.example.mediaexplorer.Series
 import com.example.mediaexplorer.TypeContent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FormCreateScreen(
+fun CreateContentScreen(
     navController: NavHostController,
-    category: MutableList<CardCategory>,
-    ListMovies: MutableList<Movies>,
-    ListSeries: MutableList<Series>,
-    ListAnimes: MutableList<Anime>,
-    ListCustomCont: MutableList<OtherContent>
+    categoryId: Int,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var typeSelec by remember { mutableStateOf<CardCategory?>(null) }
+    var typeSelec by remember { mutableStateOf<TypeContent?>(null) }
 
     //genericos
     var name by remember { mutableStateOf("") }
@@ -69,7 +60,7 @@ fun FormCreateScreen(
     //especificos
     var duration by remember { mutableStateOf("") }
     var cantCap by remember { mutableStateOf("") }
-    var typeGender by remember { mutableStateOf("") }
+    var typeGenre by remember { mutableStateOf("") }
 
     //validaciones
     var errorName by remember { mutableStateOf("") }
@@ -130,72 +121,72 @@ fun FormCreateScreen(
                                 information = information,
                                 duration = duration,
                                 cantCap = cantCap,
-                                typeGender = typeGender,
+                                typeGenre = typeGenre,
                                 errorName = { errorName = it },
                                 errorInfo = { errorInfo = it },
                                 errorExtra = { errorExtra = it },
                                 errorExtra2 = { errorExtra2 = it }
                             )
-                            when (typeSelec?.type) {
-                                TypeContent.PELICULA -> {
-                                    if (isValid){
-                                        val movie = Movies(
-                                            id = ListMovies.size + 1,
-                                            name = name,
-                                            information = information,
-                                            category = TypeContent.PELICULA,
-                                            imageResId = R.drawable.placeholder,
-                                            duration = duration.toIntOrNull() ?: 0,
-                                        )
-                                        ListMovies.add(movie)
-                                        navController.popBackStack()
-                                    }
-                                }
-                                TypeContent.SERIE -> {
-                                    if (isValid){
-                                        val serie = Series(
-                                            id = ListSeries.size + 1,
-                                            name = name,
-                                            information = information,
-                                            category = TypeContent.SERIE,
-                                            imageResId = R.drawable.placeholder,
-                                            cantCap = cantCap.toIntOrNull() ?: 0,
-                                        )
-                                        ListSeries.add(serie)
-                                        navController.popBackStack()
-                                    }
-                                }
-                                TypeContent.ANIME -> {
-                                    if (isValid){
-                                        val anime = Anime(
-                                            id = ListAnimes.size + 1,
-                                            name = name,
-                                            information = information,
-                                            category = TypeContent.ANIME,
-                                            imageResId = R.drawable.placeholder,
-                                            cantCap = cantCap.toIntOrNull() ?: 0,
-                                            typeGender = typeGender,
-                                        )
-                                        ListAnimes.add(anime)
-                                        navController.popBackStack()
-                                    }
-                                }
-                                TypeContent.OTRO -> {
-                                    if (isValid){
-                                        val custom = OtherContent(
-                                            id = ListCustomCont.size + 1,
-                                            name = name,
-                                            information = information,
-                                            category = TypeContent.OTRO,
-                                            imageResId = R.drawable.placeholder,
-                                            typeContent = typeSelec?.name ?: "Otro",
-                                        )
-                                        ListCustomCont.add(custom)
-                                        navController.popBackStack()
-                                    }
-                                }
-                                else -> {  }
-                            }
+//                            when (typeSelec?.type) {
+//                                TypeContent.PELICULA -> {
+//                                    if (isValid){
+//                                        val movie = Movies(
+//                                            id = ListMovies.size + 1,
+//                                            name = name,
+//                                            information = information,
+//                                            category = TypeContent.PELICULA,
+//                                            imageResId = R.drawable.placeholder,
+//                                            duration = duration.toIntOrNull() ?: 0,
+//                                        )
+//                                        ListMovies.add(movie)
+//                                        navController.popBackStack()
+//                                    }
+//                                }
+//                                TypeContent.SERIE -> {
+//                                    if (isValid){
+//                                        val serie = Series(
+//                                            id = ListSeries.size + 1,
+//                                            name = name,
+//                                            information = information,
+//                                            category = TypeContent.SERIE,
+//                                            imageResId = R.drawable.placeholder,
+//                                            cantCap = cantCap.toIntOrNull() ?: 0,
+//                                        )
+//                                        ListSeries.add(serie)
+//                                        navController.popBackStack()
+//                                    }
+//                                }
+//                                TypeContent.ANIME -> {
+//                                    if (isValid){
+//                                        val anime = Anime(
+//                                            id = ListAnimes.size + 1,
+//                                            name = name,
+//                                            information = information,
+//                                            category = TypeContent.ANIME,
+//                                            imageResId = R.drawable.placeholder,
+//                                            cantCap = cantCap.toIntOrNull() ?: 0,
+//                                            typeGenre = typeGenre,
+//                                        )
+//                                        ListAnimes.add(anime)
+//                                        navController.popBackStack()
+//                                    }
+//                                }
+//                                TypeContent.OTRO -> {
+//                                    if (isValid){
+//                                        val custom = OtherContent(
+//                                            id = ListCustomCont.size + 1,
+//                                            name = name,
+//                                            information = information,
+//                                            category = TypeContent.OTRO,
+//                                            imageResId = R.drawable.placeholder,
+//                                            typeContent = typeSelec?.name ?: "Otro",
+//                                        )
+//                                        ListCustomCont.add(custom)
+//                                        navController.popBackStack()
+//                                    }
+//                                }
+//                                else -> {  }
+//                            }
                         },
                         contentPadding = PaddingValues(horizontal = 20.dp, vertical = 0.dp),
                         colors = ButtonDefaults.buttonColors(
@@ -249,7 +240,7 @@ fun FormCreateScreen(
                     onDismissRequest = { expanded = false },
                     offset = DpOffset(x = 120.dp, y = 0.dp) // probar valores según el ancho
                 ) {
-                    category.forEach { tipo ->
+                    TypeContent.values().forEach { tipo ->
                         DropdownMenuItem(
                             text = {
                                 Text(tipo.name)
@@ -264,7 +255,7 @@ fun FormCreateScreen(
             }
 
             if (typeSelec!=null) {
-                when (typeSelec?.type) {
+                when (typeSelec) {
                     TypeContent.PELICULA ->{
                         OutlinedTextField(
                             value = name,
@@ -364,8 +355,8 @@ fun FormCreateScreen(
                             Text(text = errorExtra, color = Color.Red, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 4.dp))
                         }
                         OutlinedTextField(
-                            value = typeGender,
-                            onValueChange = {typeGender = it},
+                            value = typeGenre,
+                            onValueChange = {typeGenre = it},
                             label = { Text("Género Anime")},
                             modifier = Modifier.padding(10.dp),
                             textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
@@ -403,12 +394,12 @@ fun FormCreateScreen(
 }
 
 fun validateForm(
-    typeSelec: CardCategory?,
+    typeSelec: TypeContent?,
     name: String,
     information: String,
     duration: String = "",
     cantCap: String = "",
-    typeGender: String = "",
+    typeGenre: String = "",
     errorName: (String) -> Unit,
     errorInfo: (String) -> Unit,
     errorExtra: (String) -> Unit,
@@ -431,7 +422,7 @@ fun validateForm(
         isValid = false
     }
 
-    when (typeSelec?.type) {
+    when (typeSelec) {
         TypeContent.PELICULA -> {
             if (duration.isBlank()) {
                 errorExtra("La duración es obligatoria")
@@ -450,7 +441,7 @@ fun validateForm(
                 isValid = false
             }
 
-            if (typeSelec.type == TypeContent.ANIME && typeGender.isBlank()) {
+            if (typeSelec == TypeContent.ANIME && typeGenre.isBlank()) {
                 errorExtra2("El género del anime es obligatorio")
                 isValid = false
             }
