@@ -17,7 +17,8 @@ import androidx.room.PrimaryKey
     indices = [Index(value = ["category_name"])]
 )
 data class Content(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
 
     // Título del contenido (película, serie, anime...)
     val name: String,
