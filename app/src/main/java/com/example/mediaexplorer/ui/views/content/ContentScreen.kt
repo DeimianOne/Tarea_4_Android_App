@@ -1,4 +1,4 @@
-package com.example.mediaexplorer.ui.views
+package com.example.mediaexplorer.ui.views.content
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues

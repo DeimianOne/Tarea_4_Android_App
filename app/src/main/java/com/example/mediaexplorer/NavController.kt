@@ -6,10 +6,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.mediaexplorer.ui.views.category.CreateCategoryScreen
-import com.example.mediaexplorer.ui.views.CategoryScreen
+import com.example.mediaexplorer.ui.views.category.CategoryScreen
 import com.example.mediaexplorer.ui.views.HomeScreen
-import com.example.mediaexplorer.ui.views.CreateContentScreen
-import com.example.mediaexplorer.ui.views.ContentScreen
+import com.example.mediaexplorer.ui.views.content.ContentEntryScreen
+import com.example.mediaexplorer.ui.views.content.ContentScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -46,9 +46,9 @@ fun Navigation(){
                 categoryName = args.categoryName
             )
         }
-        composable<CreateContentSc>{ backStackEntry ->
+        composable<CreateContentSc> { backStackEntry ->
             val args = backStackEntry.toRoute<CreateContentSc>()
-            CreateContentScreen(navController = navController, categoryId = args.categoryId)
+            ContentEntryScreen(navController = navController, categoryId = args.categoryId)
         }
         composable<ContentSc>{ backStackEntry ->
             val args = backStackEntry.toRoute<ContentSc>()
