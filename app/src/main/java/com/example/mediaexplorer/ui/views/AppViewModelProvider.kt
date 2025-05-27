@@ -44,6 +44,13 @@ object AppViewModelProvider {
                 mediaExplorerApplication().container.contentRepository
             )
         }
+        initializer {
+            InitialLoadViewModel(
+                mediaExplorerApplication().container.contentRepository,
+                mediaExplorerApplication().container.categoryRepository
+            )
+        }
+
 
         // Aquí podrías añadir otros ViewModels si los necesitas, como por ejemplo:
         // initializer {

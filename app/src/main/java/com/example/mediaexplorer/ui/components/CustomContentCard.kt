@@ -78,8 +78,8 @@ fun ContentCard(
                     overflow = TextOverflow.Ellipsis
                 )
 
-                when (content.typeContent) {
-                    "Pelicula" -> Text("Duración: ${content.duration} min", style = MaterialTheme.typography.bodySmall)
+                when (content.categoryName) {
+                    "Película" -> Text("Duración: ${content.duration} min", style = MaterialTheme.typography.bodySmall)
                     "Series" -> Text("Capítulos: ${content.cantCap}", style = MaterialTheme.typography.bodySmall)
                     "Anime"-> Text("Capítulos: ${content.cantCap}, Género: ${content.typeGender}", style = MaterialTheme.typography.bodySmall)
                     else -> { Text("Tipo: ${content.typeContent}", style = MaterialTheme.typography.bodySmall)}
