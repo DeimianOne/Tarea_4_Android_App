@@ -1,6 +1,7 @@
 package com.example.mediaexplorer.ui.views.content
 
 import android.net.Uri
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,11 +14,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.mediaexplorer.Home
+import com.example.mediaexplorer.R
 import com.example.mediaexplorer.data.entity.Content
 import com.example.mediaexplorer.ui.views.AppViewModelProvider
 import kotlinx.coroutines.launch
@@ -177,6 +180,15 @@ fun GenericCard(imageUri: String?, name: String, information: String, extra: Str
             if (imageUri != null) {
                 AsyncImage(
                     model = Uri.parse(imageUri),
+                    contentDescription = name,
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .aspectRatio(12f / 9f)
+                        .clip(RoundedCornerShape(8.dp))
+                )
+            }else {
+                Image(
+                    painter = painterResource(R.drawable.placeholder),
                     contentDescription = name,
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
