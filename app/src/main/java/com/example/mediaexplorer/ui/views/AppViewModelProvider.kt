@@ -9,7 +9,7 @@ import com.example.mediaexplorer.ui.views.category.CategoryEntryViewModel
 import com.example.mediaexplorer.ui.views.category.CategoryScreenViewModel
 import com.example.mediaexplorer.ui.views.content.ContentEntryViewModel
 import com.example.mediaexplorer.ui.views.content.ContentScreenViewModel
-
+import com.example.mediaexplorer.ui.views.content.ContentEditViewModel
 
 /**
  * Este objeto contiene una fábrica centralizada de ViewModels,
@@ -46,7 +46,6 @@ object AppViewModelProvider {
             )
         }
 
-
         initializer {
             ContentEntryViewModel(
                 mediaExplorerApplication().container.contentRepository,
@@ -59,6 +58,14 @@ object AppViewModelProvider {
                 mediaExplorerApplication().container.contentRepository
             )
         }
+
+        initializer {
+            ContentEditViewModel(
+                mediaExplorerApplication().container.contentRepository,
+                mediaExplorerApplication().container.categoryRepository
+            )
+        }
+
         // Aquí podrías añadir otros ViewModels si los necesitas, como por ejemplo:
         // initializer {
         //     ContentEntryViewModel(

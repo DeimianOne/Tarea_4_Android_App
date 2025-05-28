@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.mediaexplorer.CreateContentSc
+import com.example.mediaexplorer.EditContentSc
 import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.R
 import com.example.mediaexplorer.data.entity.Content
@@ -77,7 +79,9 @@ fun ContentScreen(
                                 DropdownMenuItem(
                                     text = { Text("Editar") },
                                     onClick = {
-                                        // Navegación futura a edición
+                                        content?.let {
+                                            navController.navigate(EditContentSc(contentId = it.id))
+                                        }
                                         showMenu = false
                                     }
                                 )

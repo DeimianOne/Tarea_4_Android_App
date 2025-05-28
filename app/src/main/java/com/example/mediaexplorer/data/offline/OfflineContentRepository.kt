@@ -17,4 +17,6 @@ class OfflineContentRepository(private val contentDao: ContentDao) : ContentRepo
     override suspend fun deleteContent(content: Content) = contentDao.delete(content)
 
     override suspend fun updateContent(content: Content) = contentDao.update(content)
+
+    override suspend fun getContentById(id: Int): Content? = contentDao.getContentById(id)
 }

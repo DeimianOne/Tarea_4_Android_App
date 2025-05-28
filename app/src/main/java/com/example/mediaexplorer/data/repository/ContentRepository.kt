@@ -13,4 +13,6 @@ interface ContentRepository {
     suspend fun deleteContent(content: Content)
 
     suspend fun updateContent(content: Content)
+
+    suspend fun getContentById(id: Int): Content?
 }

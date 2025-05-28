@@ -26,4 +26,7 @@ interface ContentDao {
 
     @Query("SELECT * FROM content WHERE id = :id")
     fun getById(id: Int): Flow<Content?>
+
+    @Query("SELECT * FROM content WHERE id = :id")
+    suspend fun getContentById(id: Int): Content?
 }
