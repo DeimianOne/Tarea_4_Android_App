@@ -27,7 +27,8 @@ fun ContentCard(
  {
     Card(
         onClick = {
-            navController.navigate(ContentSc(contentId = content.id, contentTitle = content.name))
+            navController.navigate(ContentSc(content.id, content.categoryName))
+
         },
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
@@ -48,7 +49,7 @@ fun ContentCard(
                 )
             } else {
                 Image(
-                    painter = painterResource(R.drawable.otros),
+                    painter = painterResource(R.drawable.placeholder),
                     contentDescription = content.name,
                     contentScale = ContentScale.Fit,
                     modifier = Modifier

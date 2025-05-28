@@ -1,5 +1,6 @@
 package com.example.mediaexplorer.ui.views.category
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,6 +12,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -55,11 +58,21 @@ fun CategoryScreen(
                         ) {
                             Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                         }
+                        Image(
+                            painter = painterResource(R.drawable.media_explorer_letras),
+                            contentDescription = "logo mediaexplorer",
+                            contentScale = ContentScale.FillHeight, // Para que aproveche mejor el alto sin deformarse
+                            modifier = Modifier
+                                .height(60.dp) // Alto más grande
+                                .padding(horizontal = 8.dp)
+                        )
+                        /*
                         Text(
                             text = stringResource(R.string.app_name),
                             modifier = Modifier.padding(start = 20.dp),
                             color = MaterialTheme.colorScheme.onSurface
                         )
+                        */
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(

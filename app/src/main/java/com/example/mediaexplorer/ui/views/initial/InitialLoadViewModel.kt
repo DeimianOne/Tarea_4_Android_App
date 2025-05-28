@@ -28,19 +28,19 @@ class InitialLoadViewModel(
             if (!categoryExists) {
                 val pkgC = context.packageName
                 categoryRepository.insertCategory(
-                    Category(name = "Película", categoryImageUri = "android.resource://$pkgC/${R.drawable.pelicula}")
+                    Category(name = "Película", categoryImageUri = "android.resource://$pkgC/${R.drawable.pelicula_ico}")
                 )
             }
             if (!categoryExists) {
                 val pkgC = context.packageName
                 categoryRepository.insertCategory(
-                    Category(name = "Serie", categoryImageUri = "android.resource://$pkgC/${R.drawable.series}")
+                    Category(name = "Serie", categoryImageUri = "android.resource://$pkgC/${R.drawable.serie_ico}")
                 )
             }
             if (!categoryExists) {
                 val pkgC = context.packageName
                 categoryRepository.insertCategory(
-                    Category(name = "Anime", categoryImageUri = "android.resource://$pkgC/${R.drawable.anime1}")
+                    Category(name = "Anime", categoryImageUri = "android.resource://$pkgC/${R.drawable.anime_ico}")
                 )
             }
 

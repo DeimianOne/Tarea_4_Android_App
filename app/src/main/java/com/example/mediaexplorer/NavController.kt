@@ -25,7 +25,8 @@ data class CategorySc(val categoryId: Int, val categoryName: String)
 data class CreateContentSc(val categoryId: Int)
 
 @Serializable
-data class ContentSc(val contentId: Int, val contentTitle: String)
+data class ContentSc(val contentId: Int, val categoryName: String)
+
 
 @Composable
 fun Navigation(){
@@ -50,9 +51,13 @@ fun Navigation(){
             val args = backStackEntry.toRoute<CreateContentSc>()
             ContentEntryScreen(navController = navController, categoryId = args.categoryId)
         }
-        composable<ContentSc>{ backStackEntry ->
+        composable<ContentSc> { backStackEntry ->
             val args = backStackEntry.toRoute<ContentSc>()
-            ContentScreen(navController, contentId = args.contentId)
+            ContentScreen(
+                navController = navController,
+                contentId = args.contentId,
+                categoryName = args.categoryName
+            )
         }
     }
 }

@@ -8,6 +8,7 @@ import com.example.mediaexplorer.MediaExplorerApplication
 import com.example.mediaexplorer.ui.views.category.CategoryEntryViewModel
 import com.example.mediaexplorer.ui.views.category.CategoryScreenViewModel
 import com.example.mediaexplorer.ui.views.content.ContentEntryViewModel
+import com.example.mediaexplorer.ui.views.content.ContentScreenViewModel
 
 
 /**
@@ -26,11 +27,25 @@ object AppViewModelProvider {
          * Inicializador para el ViewModel de ingreso de categorías.
          * Aquí se obtiene el repositorio desde el contenedor de dependencias (AppContainer).
          */
+
+        initializer {
+            InitialLoadViewModel(
+                mediaExplorerApplication().container.contentRepository,
+                mediaExplorerApplication().container.categoryRepository
+            )
+        }
+
         initializer {
             CategoryEntryViewModel(
                 mediaExplorerApplication().container.categoryRepository
             )
         }
+        initializer {
+            CategoryScreenViewModel(
+                mediaExplorerApplication().container.contentRepository
+            )
+        }
+
 
         initializer {
             ContentEntryViewModel(
@@ -40,18 +55,10 @@ object AppViewModelProvider {
         }
 
         initializer {
-            CategoryScreenViewModel(
+            ContentScreenViewModel(
                 mediaExplorerApplication().container.contentRepository
             )
         }
-        initializer {
-            InitialLoadViewModel(
-                mediaExplorerApplication().container.contentRepository,
-                mediaExplorerApplication().container.categoryRepository
-            )
-        }
-
-
         // Aquí podrías añadir otros ViewModels si los necesitas, como por ejemplo:
         // initializer {
         //     ContentEntryViewModel(

@@ -44,7 +44,12 @@ import kotlinx.coroutines.flow.stateIn
 import androidx.compose.runtime.collectAsState
 import coil.compose.AsyncImage
 import android.net.Uri
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import com.example.mediaexplorer.data.entity.Category
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,7 +63,17 @@ fun HomeScreen(
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(R.string.app_name), color = MaterialTheme.colorScheme.onSurface) },
+                title = {
+                    Image(
+                        painter = painterResource(R.drawable.media_explorer),
+                        contentDescription = "logo mediaexplorer",
+                        contentScale = ContentScale.FillHeight, // Para que aproveche mejor el alto sin deformarse
+                        modifier = Modifier
+                            .height(50.dp) // Alto más grande
+                            .padding(horizontal = 8.dp)
+                    )
+                    //Text(text = stringResource(R.string.app_name), color = MaterialTheme.colorScheme.onSurface)
+                        },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     titleContentColor = MaterialTheme.colorScheme.onSurface

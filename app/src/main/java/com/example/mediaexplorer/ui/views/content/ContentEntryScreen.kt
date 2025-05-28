@@ -277,7 +277,7 @@ fun ImagePickerSection(
         )
     } else {
         Image(
-            painter = painterResource(id = R.drawable.otros),
+            painter = painterResource(id = R.drawable.placeholder),
             contentDescription = null,
             modifier = Modifier.size(100.dp)
         )
