@@ -48,28 +48,36 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.layout.ContentScale
 import com.example.mediaexplorer.EditCategorySc
 import com.example.mediaexplorer.data.entity.Category
+import com.example.mediaexplorer.ui.views.category.CategoryScreenViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    viewModel: CategoryEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    categoryEntryViewModel: CategoryEntryViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    categoryScreenViewModel: CategoryScreenViewModel = viewModel(factory = AppViewModelProvider.Factory),
 ) {
-    val categories by viewModel.categories.collectAsState(initial = emptyList())
+    val categories by categoryEntryViewModel.categories.collectAsState(initial = emptyList())
     val sheetState = rememberModalBottomSheetState()
     var showSheet by remember { mutableStateOf(false) }
     var selectedCategory by remember { mutableStateOf<Category?>(null) }
+    val coroutineScope = rememberCoroutineScope()
+    var showDeleteDialog by remember { mutableStateOf(false) }
 
         Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -159,6 +167,7 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(
                     onClick = {
+                        showDeleteDialog = true
                         showSheet = false
                     },
                     modifier = Modifier.fillMaxWidth(),
@@ -173,6 +182,32 @@ fun HomeScreen(
                 }
             }
         }
+    }
+
+    if (showDeleteDialog) {
+        AlertDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            title = { Text("Confirmar eliminación") },
+            text = { Text("¿Estás seguro que quieres eliminar este contenido? Todos los elementos pertenecientes a esta categoria tambien seran eliminados.") },
+            confirmButton = {
+                TextButton(onClick = {
+                    selectedCategory?.let {
+                        coroutineScope.launch {
+                            categoryScreenViewModel.deleteCategory(it)
+                            showDeleteDialog = false
+                            navController.popBackStack()
+                        }
+                    }
+                }) {
+                    Text("Sí")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteDialog = false }) {
+                    Text("No")
+                }
+            }
+        )
     }
 }
 
@@ -248,46 +283,3 @@ fun CategoryCardItem(
         }
     }
 }
-
-/*
-@Composable
-fun CategoryCard(navController: NavHostController){
-        items(category) {
-            Card(
-                onClick = {
-                    navController.navigate(contentRoute(it.id, it.nombre))
-                },
-                colors = CardColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.surface,
-                    disabledContentColor = Color.White,
-                    disabledContainerColor = Color.White
-                ),
-                modifier = Modifier
-                    .padding(10.dp),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight()
-                        .padding(start = 20.dp, end = 20.dp, top = 15.dp, bottom = 30.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Bottom
-                ) {
-
-                    Icon(
-                        painter = painterResource(it.image ?: R.drawable.otros),
-                        contentDescription = "Account Box",
-                        modifier = Modifier.size(50.dp)
-                    )
-                    Text(
-                        text = it.name,
-                        color = Color.White,
-                        modifier = Modifier.padding(top = 10.dp)
-                    )
-                }
-            }
-        }
-    }
-}
-*/

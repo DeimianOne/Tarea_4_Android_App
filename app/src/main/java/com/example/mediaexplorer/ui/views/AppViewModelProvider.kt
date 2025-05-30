@@ -45,7 +45,8 @@ object AppViewModelProvider {
 
         initializer {
             CategoryScreenViewModel(
-                mediaExplorerApplication().container.contentRepository
+                mediaExplorerApplication().container.contentRepository,
+                mediaExplorerApplication().container.categoryRepository,
             )
         }
 
