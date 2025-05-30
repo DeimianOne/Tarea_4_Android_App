@@ -11,6 +11,7 @@ import com.example.mediaexplorer.ui.views.content.ContentEntryViewModel
 import com.example.mediaexplorer.ui.views.content.ContentScreenViewModel
 import com.example.mediaexplorer.ui.views.content.ContentEditViewModel
 
+
 /**
  * Este objeto contiene una fábrica centralizada de ViewModels,
  * lo que permite inicializarlos en Compose u otras capas con acceso
@@ -46,26 +47,24 @@ object AppViewModelProvider {
             )
         }
 
+
         initializer {
             ContentEntryViewModel(
                 mediaExplorerApplication().container.contentRepository,
                 mediaExplorerApplication().container.categoryRepository
             )
         }
-
         initializer {
             ContentScreenViewModel(
                 mediaExplorerApplication().container.contentRepository
             )
         }
-
         initializer {
             ContentEditViewModel(
                 mediaExplorerApplication().container.contentRepository,
                 mediaExplorerApplication().container.categoryRepository
             )
         }
-
         // Aquí podrías añadir otros ViewModels si los necesitas, como por ejemplo:
         // initializer {
         //     ContentEntryViewModel(

@@ -28,7 +28,6 @@ fun ContentCard(
     Card(
         onClick = {
             navController.navigate(ContentSc(content.id, content.categoryName))
-
         },
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
@@ -81,26 +80,26 @@ fun ContentCard(
 
                 when (content.categoryName) {
                     "Película" -> Text("Duración: ${content.duration} min", style = MaterialTheme.typography.bodySmall)
-                    "Series" -> Text("Capítulos: ${content.cantCap}", style = MaterialTheme.typography.bodySmall)
+                    "Serie" -> Text("Capítulos: ${content.cantCap}", style = MaterialTheme.typography.bodySmall)
                     "Anime"-> Text("Capítulos: ${content.cantCap}, Género: ${content.typeGender}", style = MaterialTheme.typography.bodySmall)
                     else -> { Text("Tipo: ${content.typeContent}", style = MaterialTheme.typography.bodySmall)}
                 }
                 /*
-                content.duration?.let {
-                    Text("Duración: ${it} min", style = MaterialTheme.typography.bodySmall)
-                }
+                    content.duration?.let {
+                        Text("Duración: ${it} min", style = MaterialTheme.typography.bodySmall)
+                    }
 
-                content.cantCap?.let {
-                    Text("Capítulos: $it", style = MaterialTheme.typography.bodySmall)
-                }
+                    content.cantCap?.let {
+                        Text("Capítulos: $it", style = MaterialTheme.typography.bodySmall)
+                    }
 
-                content.typeGender?.let {
-                    Text("Género: $it", style = MaterialTheme.typography.bodySmall)
-                }
+                    content.typeGender?.let {
+                        Text("Género: $it", style = MaterialTheme.typography.bodySmall)
+                    }
 
-                content.typeContent?.let {
-                    Text("Tipo: $it", style = MaterialTheme.typography.bodySmall)
-                }
+                    content.typeContent?.let {
+                        Text("Tipo: $it", style = MaterialTheme.typography.bodySmall)
+                    }
                 */
             }
         }

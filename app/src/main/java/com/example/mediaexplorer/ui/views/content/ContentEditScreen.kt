@@ -1,5 +1,6 @@
 package com.example.mediaexplorer.ui.views.content
 
+import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
@@ -9,6 +10,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -37,10 +39,22 @@ fun ContentEditScreen(
         viewModel.loadContentById(contentId)
     }
 
+    val context = LocalContext.current
+
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument(),
-        onResult = { uri -> uri?.let { viewModel.onImageUriChanged(it.toString()) } }
+        onResult = { uri ->
+            uri?.let {
+                // Tomar permiso persistente
+                context.contentResolver.takePersistableUriPermission(
+                    it,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+                viewModel.onImageUriChanged(it.toString())
+            }
+        }
     )
+
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),

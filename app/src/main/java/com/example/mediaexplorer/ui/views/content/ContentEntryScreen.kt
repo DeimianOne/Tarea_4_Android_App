@@ -1,5 +1,6 @@
 package com.example.mediaexplorer.ui.views.content
 
+import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,6 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -55,9 +57,20 @@ fun ContentEntryScreen(
         }
     }
     // Launcher para seleccionar imagen desde almacenamiento
+    val context = LocalContext.current
+
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument(),
-        onResult = { uri -> uri?.let { viewModel.onImageUriChanged(it.toString()) } }
+        onResult = { uri ->
+            uri?.let {
+                // Tomar permiso persistente
+                context.contentResolver.takePersistableUriPermission(
+                    it,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+                viewModel.onImageUriChanged(it.toString())
+            }
+        }
     )
 
     Scaffold(
