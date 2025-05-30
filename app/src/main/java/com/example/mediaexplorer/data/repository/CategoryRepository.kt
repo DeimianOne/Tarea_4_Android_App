@@ -1,11 +1,10 @@
 package com.example.mediaexplorer.data.repository
 
-
 import com.example.mediaexplorer.data.entity.Category
+import com.example.mediaexplorer.data.entity.Content
 import kotlinx.coroutines.flow.Flow
 
 interface CategoryRepository {
-
     fun getAllCategoriesStream(): Flow<List<Category>>
 
     fun getCategoryStream(id: Int): Flow<Category?>
@@ -16,4 +15,5 @@ interface CategoryRepository {
 
     suspend fun updateCategory(category: Category)
 
+    suspend fun getCategoryById(id: Int): Category?
 }

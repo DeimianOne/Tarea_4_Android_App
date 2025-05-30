@@ -55,7 +55,6 @@ fun ContentEditScreen(
         }
     )
 
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {

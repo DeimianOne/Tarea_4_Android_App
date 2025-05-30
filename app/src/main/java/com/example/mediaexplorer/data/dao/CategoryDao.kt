@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.mediaexplorer.data.entity.Category
+import com.example.mediaexplorer.data.entity.Content
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -26,5 +27,8 @@ interface CategoryDao {
 
     @Query("SELECT * FROM category WHERE id = :id")
     fun getById(id: Int): Flow<Category?>
+
+    @Query("SELECT * FROM category WHERE id = :id")
+    suspend fun getCategoryById(id: Int): Category?
 
 }

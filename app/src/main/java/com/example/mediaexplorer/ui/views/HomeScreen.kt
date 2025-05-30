@@ -38,18 +38,26 @@ import com.example.mediaexplorer.CategorySc
 import com.example.mediaexplorer.R
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mediaexplorer.ui.views.category.CategoryEntryViewModel
-import com.example.mediaexplorer.ui.views.AppViewModelProvider
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.stateIn
 import androidx.compose.runtime.collectAsState
 import coil.compose.AsyncImage
 import android.net.Uri
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.draw.clip
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.layout.ContentScale
+import com.example.mediaexplorer.EditCategorySc
 import com.example.mediaexplorer.data.entity.Category
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,8 +67,11 @@ fun HomeScreen(
     viewModel: CategoryEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val categories by viewModel.categories.collectAsState(initial = emptyList())
+    val sheetState = rememberModalBottomSheetState()
+    var showSheet by remember { mutableStateOf(false) }
+    var selectedCategory by remember { mutableStateOf<Category?>(null) }
 
-    Scaffold(modifier = Modifier.fillMaxSize(),
+        Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = {
@@ -114,7 +125,53 @@ fun HomeScreen(
                     .padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
                     .align(Alignment.Start)
             )
-            CategoryCardList(categories, navController)
+            CategoryCardList(
+                categories,
+                navController,
+                onLongPress = { category ->
+                    selectedCategory = category
+                    showSheet = true
+                }
+            )
+        }
+    }
+
+    if (showSheet && selectedCategory != null) {
+        ModalBottomSheet(
+            onDismissRequest = { showSheet = false },
+            sheetState = sheetState,
+        ) {
+            Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+                Button(
+                    onClick = {
+                        navController.navigate(EditCategorySc(selectedCategory!!.id))
+                        showSheet = false
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onSecondary,
+                    )
+                ) {
+                    Icon(Icons.Filled.Edit, "Floating action button.")
+                    Text("Editar categoría")
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(
+                    onClick = {
+                        showSheet = false
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onSecondary,
+                    )
+
+                ) {
+                    Icon(Icons.Filled.Delete, "Floating action button.")
+                    Text("Eliminar categoría")
+                }
+            }
         }
     }
 }
@@ -122,7 +179,8 @@ fun HomeScreen(
 @Composable
 fun CategoryCardList(
     categories: List<Category>,
-    navController: NavHostController
+    navController: NavHostController,
+    onLongPress: (Category) -> Unit,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -130,27 +188,35 @@ fun CategoryCardList(
         modifier = Modifier.fillMaxWidth(),
     ) {
         items(categories) { category ->
-            CategoryCardItem(category, navController)
+            CategoryCardItem(category, navController, onLongPress)
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CategoryCardItem(
     category: Category,
-    navController: NavHostController
+    navController: NavHostController,
+    onLongPress: (Category) -> Unit
 ) {
     Card(
-        onClick = {
-            navController.navigate(CategorySc(category.id, category.name))
-        },
+        modifier = Modifier
+            .padding(10.dp)
+            .combinedClickable(
+                onClick = {
+                    navController.navigate(CategorySc(category.id, category.name))
+                },
+                onLongClick = {
+                    onLongPress(category)
+                }
+            ),
         colors = CardColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.surface,
             disabledContentColor = Color.White,
             disabledContainerColor = Color.White
         ),
-        modifier = Modifier.padding(10.dp),
     ) {
         Column(
             modifier = Modifier

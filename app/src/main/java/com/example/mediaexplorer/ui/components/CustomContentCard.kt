@@ -82,7 +82,7 @@ fun ContentCard(
                     "Película" -> Text("Duración: ${content.duration} min", style = MaterialTheme.typography.bodySmall)
                     "Serie" -> Text("Capítulos: ${content.cantCap}", style = MaterialTheme.typography.bodySmall)
                     "Anime"-> Text("Capítulos: ${content.cantCap}, Género: ${content.typeGender}", style = MaterialTheme.typography.bodySmall)
-                    else -> { Text("Tipo: ${content.typeContent}", style = MaterialTheme.typography.bodySmall)}
+                    else -> { Text("Tipo: ${content.categoryName}", style = MaterialTheme.typography.bodySmall)}
                 }
                 /*
                     content.duration?.let {

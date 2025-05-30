@@ -7,6 +7,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.mediaexplorer.MediaExplorerApplication
 import com.example.mediaexplorer.ui.views.category.CategoryEntryViewModel
 import com.example.mediaexplorer.ui.views.category.CategoryScreenViewModel
+import com.example.mediaexplorer.ui.views.category.CategoryEditViewModel
 import com.example.mediaexplorer.ui.views.content.ContentEntryViewModel
 import com.example.mediaexplorer.ui.views.content.ContentScreenViewModel
 import com.example.mediaexplorer.ui.views.content.ContentEditViewModel
@@ -41,12 +42,18 @@ object AppViewModelProvider {
                 mediaExplorerApplication().container.categoryRepository
             )
         }
+
         initializer {
             CategoryScreenViewModel(
                 mediaExplorerApplication().container.contentRepository
             )
         }
 
+        initializer {
+            CategoryEditViewModel(
+                mediaExplorerApplication().container.categoryRepository
+            )
+        }
 
         initializer {
             ContentEntryViewModel(
@@ -54,23 +61,19 @@ object AppViewModelProvider {
                 mediaExplorerApplication().container.categoryRepository
             )
         }
+
         initializer {
             ContentScreenViewModel(
                 mediaExplorerApplication().container.contentRepository
             )
         }
+
         initializer {
             ContentEditViewModel(
                 mediaExplorerApplication().container.contentRepository,
                 mediaExplorerApplication().container.categoryRepository
             )
         }
-        // Aquí podrías añadir otros ViewModels si los necesitas, como por ejemplo:
-        // initializer {
-        //     ContentEntryViewModel(
-        //         mediaExplorerApplication().container.contentRepository
-        //     )
-        // }
 
     }
 }

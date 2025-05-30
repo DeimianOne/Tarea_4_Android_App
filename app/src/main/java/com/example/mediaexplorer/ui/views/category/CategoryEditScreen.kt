@@ -22,56 +22,53 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.R
 import com.example.mediaexplorer.ui.views.AppViewModelProvider
-import coil.compose.AsyncImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateCategoryScreen(
+fun CategoryEditScreen(
     navController: NavController,
-    viewModel: CategoryEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    categoryId: Int,
+    viewModel: CategoryEditViewModel = viewModel(factory = AppViewModelProvider.Factory),
 ) {
     val name by viewModel.name.collectAsState()
     val imageUri by viewModel.imageUri.collectAsState()
     val errorMessage by viewModel.errorMessage.collectAsState()
 
+    LaunchedEffect(categoryId) {
+        viewModel.loadCategoryById(categoryId)
+    }
 
-    // Launcher para seleccionar imagen
     val context = LocalContext.current
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument(),
         onResult = { uri ->
             uri?.let {
-                // ✅ Guardar permiso persistente
+                // Tomar permiso persistente
                 context.contentResolver.takePersistableUriPermission(
                     it,
                     Intent.FLAG_GRANT_READ_URI_PERMISSION
                 )
-
                 viewModel.onImageUriChanged(it.toString())
             }
         }
@@ -97,7 +94,10 @@ fun CreateCategoryScreen(
                         ) {
                             Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                         }
-                        Text(text = stringResource(R.string.create_category), modifier = Modifier.padding(start = 20.dp))
+                        Text(
+                            text = "Editar Contenido",
+                            modifier = Modifier.padding(start = 20.dp)
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -113,7 +113,7 @@ fun CreateCategoryScreen(
                 ) {
                     Button(
                         onClick = {
-                            viewModel.saveCategory()
+                            viewModel.updateCategory()
                             navController.popBackStack()
                         },
                         contentPadding = PaddingValues(horizontal = 20.dp),
@@ -122,7 +122,7 @@ fun CreateCategoryScreen(
                         ),
                         modifier = Modifier.padding(20.dp)
                     ) {
-                        Text(text = stringResource(R.string.save_btn))
+                        Text("Guardar Cambios")
                     }
                 }
             }
@@ -135,7 +135,7 @@ fun CreateCategoryScreen(
             CategoryForm(
                 name = name,
                 onNameChange = viewModel::onNameChanged,
-                onSubmit = viewModel::saveCategory,
+                onSubmit = viewModel::updateCategory,
                 errorMessage = errorMessage
             )
 
@@ -171,41 +171,6 @@ fun CreateCategoryScreen(
                     modifier = Modifier.size(100.dp)
                 )
             }
-
-        }
-    }
-}
-
-// AQUI MODIFICAR PARA EL FORMULARIO
-@Composable
-fun CategoryForm(
-    name: String,
-    onNameChange: (String) -> Unit,
-    onSubmit: () -> Unit,
-    errorMessage: String,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        OutlinedTextField(
-            value = name,
-            onValueChange = onNameChange,
-            label = { Text(text = stringResource(R.string.category_name) + " categoría") },
-            modifier = Modifier.fillMaxWidth(),
-            textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
-        )
-
-        if (errorMessage.isNotEmpty()) {
-            Text(
-                text = errorMessage,
-                color = Color.Red,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(top = 4.dp)
-            )
         }
     }
 }

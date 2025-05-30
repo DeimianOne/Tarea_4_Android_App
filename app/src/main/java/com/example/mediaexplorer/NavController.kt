@@ -8,6 +8,7 @@ import androidx.navigation.toRoute
 import com.example.mediaexplorer.ui.views.category.CreateCategoryScreen
 import com.example.mediaexplorer.ui.views.category.CategoryScreen
 import com.example.mediaexplorer.ui.views.HomeScreen
+import com.example.mediaexplorer.ui.views.category.CategoryEditScreen
 import com.example.mediaexplorer.ui.views.content.ContentEditScreen
 import com.example.mediaexplorer.ui.views.content.ContentEntryScreen
 import com.example.mediaexplorer.ui.views.content.ContentScreen
@@ -21,6 +22,9 @@ object CreateCategorySc
 
 @Serializable
 data class CategorySc(val categoryId: Int, val categoryName: String)
+
+@Serializable
+data class EditCategorySc(val categoryId: Int)
 
 @Serializable
 data class CreateContentSc(val categoryId: Int)
@@ -48,6 +52,13 @@ fun Navigation(){
                 navController = navController,
                 categoryId = args.categoryId,
                 categoryName = args.categoryName
+            )
+        }
+        composable<EditCategorySc> { backStackEntry ->
+            val args = backStackEntry.toRoute<EditCategorySc>()
+            CategoryEditScreen(
+                navController = navController,
+                categoryId = args.categoryId,
             )
         }
         composable<CreateContentSc> { backStackEntry ->
