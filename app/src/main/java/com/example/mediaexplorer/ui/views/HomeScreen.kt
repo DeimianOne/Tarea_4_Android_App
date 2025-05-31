@@ -169,7 +169,7 @@ fun HomeScreen(
                     )
                 ) {
                     Icon(Icons.Filled.Edit, "Floating action button.")
-                    Text("Editar categoría")
+                    Text(stringResource(R.string.edit_category))
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(
@@ -185,7 +185,7 @@ fun HomeScreen(
 
                 ) {
                     Icon(Icons.Filled.Delete, "Floating action button.")
-                    Text("Eliminar categoría")
+                    Text(stringResource(R.string.delete_category))
                 }
             }
         }
@@ -194,8 +194,8 @@ fun HomeScreen(
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
-            title = { Text("Confirmar eliminación") },
-            text = { Text("¿Estás seguro que quieres eliminar este contenido? Todos los elementos pertenecientes a esta categoria tambien seran eliminados.") },
+            title = { Text(stringResource(R.string.confirm_delete)) },
+            text = { Text(stringResource(R.string.question_delete)) },
             confirmButton = {
                 TextButton(onClick = {
                     selectedCategory?.let {
@@ -205,12 +205,12 @@ fun HomeScreen(
                         }
                     }
                 }) {
-                    Text("Sí")
+                    Text(stringResource(R.string.yes))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteDialog = false }) {
-                    Text("No")
+                    Text(stringResource(R.string.no))
                 }
             }
         )
@@ -267,6 +267,7 @@ fun CategoryCardItem(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
+
             if (category.categoryImageUri != null) {
                 AsyncImage(
                     model = Uri.parse(category.categoryImageUri),
@@ -286,6 +287,7 @@ fun CategoryCardItem(
                 color = Color.White,
                 modifier = Modifier.padding(top = 10.dp)
             )
+
         }
     }
 }

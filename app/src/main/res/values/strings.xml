@@ -1,23 +1,41 @@
 <resources>
     <string name="app_name">MediaExplorerRoom</string>
+
     <string name="app_categories">Categorías</string>
     <string name="create_category">Crear Categoría</string>
     <string name="select_category">Seleccione una categoría</string>
     <string name="category_name">Nombre</string>
-    <string name="save_btn">Guardar</string>
+    <string name="edit_category">Editar categoría</string>
+    <string name="delete_category">Eliminar categoría</string>
+
+
     <string name="content_type">¿Tipo de Contenido?</string>
     <string name="content_info">Descripción</string>
     <string name="add_content">Agregue Contenido</string>
-    <string name="movies">Películas</string>
-    <string name="animes">Animes</string>
-    <string name="series">Series</string>
+    <string name="question_delete_content">¿Estás seguro que quieres eliminar este contenido?</string>
+
+    <string name="save_btn">Guardar</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Eliminar</string>
+    <string name="confirm_delete">Confirmar eliminación</string>
+    <string name="question_delete">¿Estás seguro que quieres eliminar este contenido? Todos los elementos pertenecientes a esta categoria tambien seran eliminados.</string>
+
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+
+    <string name="description">Descripción: </string>
+    <string name= "chapters">Capítulos: </string>
+    <string name= "duration">Duración: </string>
+    <string name="genero">Género: </string>
+    <string name="type">Tipo: </string>
+
+    <string name="IronMan">Iron Man</string>
+    <string name="IronManSinopsis">El multimillonario fabricante de armas Tony Stark (Robert Downey Jr.) debe enfrentarse a su turbio pasado después de sufrir un accidente con una de sus armas. Equipado con una armadura de última generación tecnológica, se convierte en "El hombre de hierro", un héroe que se dedica a combatir el mal en todo el mundo.</string>
+    <string name="IronManDuracion">126</string>
 
     <string name="IronMan2">Iron Man 2</string>
     <string name="IronMan2Sinopsis">El mundo ya sabe que el multimillonario Tony Stark (Robert Downey Jr.) es Iron Man, el superhéroe enmascarado. A pesar de las presiones del gobierno, la prensa y la opinión pública para que comparta su tecnología con el ejército, Tony es reacio a desvelar los secretos de la armadura de Iron Man, porque teme que esa información caiga en en manos de irresponsables. Con Pepper Potts (Gwyneth Paltrow) y James “Rhodey” Rhodes (Don Cheadle) a su lado, Tony forja alianzas nuevas y se enfrenta a nuevas y poderosas fuerzas.</string>
     <string name="IronMan2Duracion">124</string>
 
-    <string name="IronMan">Iron Man</string>
-    <string name="IronManSinopsis">El multimillonario fabricante de armas Tony Stark (Robert Downey Jr.) debe enfrentarse a su turbio pasado después de sufrir un accidente con una de sus armas. Equipado con una armadura de última generación tecnológica, se convierte en "El hombre de hierro", un héroe que se dedica a combatir el mal en todo el mundo.</string>
-    <string name="IronManDuracion">126</string>
 
     </resources>

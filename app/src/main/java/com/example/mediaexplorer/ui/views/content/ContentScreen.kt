@@ -15,11 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.mediaexplorer.CreateContentSc
 import com.example.mediaexplorer.EditContentSc
 import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.R
@@ -77,7 +80,7 @@ fun ContentScreen(
                                 onDismissRequest = { showMenu = false }
                             ) {
                                 DropdownMenuItem(
-                                    text = { Text("Editar") },
+                                    text = { Text(stringResource(R.string.edit)) },
                                     onClick = {
                                         content?.let {
                                             navController.navigate(EditContentSc(contentId = it.id))
@@ -86,7 +89,7 @@ fun ContentScreen(
                                     }
                                 )
                                 DropdownMenuItem(
-                                    text = { Text("Eliminar") },
+                                    text = { Text(stringResource(R.string.delete)) },
                                     onClick = {
                                         showDeleteDialog = true
                                         showMenu = false
@@ -113,22 +116,22 @@ fun ContentScreen(
                 when (categoryName) {
                     "Película" -> {
                         content?.let {
-                            PeliculaCard(it)
+                            PeliculaCard(it,categoryName)
                         }
                     }
                     "Serie" -> {
                         content?.let {
-                            SerieCard(it)
+                            SerieCard(it,categoryName)
                         }
                     }
                     "Anime" -> {
                         content?.let {
-                            AnimeCard(it)
+                            AnimeCard(it,categoryName)
                         }
                     }
                     else -> {
                         content?.let {
-                            OtroCard(it)
+                            OtroCard(it,categoryName)
                         }
                     }
                 }
@@ -140,8 +143,8 @@ fun ContentScreen(
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
-            title = { Text("Confirmar eliminación") },
-            text = { Text("¿Estás seguro que quieres eliminar este contenido?") },
+            title = { Text(stringResource(R.string.confirm_delete)) },
+            text = { Text(stringResource(R.string.question_delete_content)) },
             confirmButton = {
                 TextButton(onClick = {
                     coroutineScope.launch {
@@ -150,12 +153,12 @@ fun ContentScreen(
                     }
                     showDeleteDialog = false
                 }) {
-                    Text("Sí")
+                    Text(stringResource(R.string.yes))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteDialog = false }) {
-                    Text("No")
+                    Text(stringResource(R.string.no))
                 }
             }
         )
@@ -163,17 +166,18 @@ fun ContentScreen(
 }
 
 @Composable
-fun PeliculaCard(content: Content) {
+fun PeliculaCard(content: Content, categoryName: String) {
     GenericCard(
         imageUri = content.contentImageUri,
         name = content.name,
         information = content.information,
-        extra = "Duración: ${content.duration ?: "N/A"} minutos"
+        extra = "${content.duration ?: "N/A"} minutos",
+        categoryName
     )
 }
 
 @Composable
-fun GenericCard(imageUri: String?, name: String, information: String, extra: String) {
+fun GenericCard(imageUri: String?, name: String, information: String, extra: String, categoryName: String) {
     LazyColumn(
         modifier = Modifier
             .padding(10.dp)
@@ -204,53 +208,118 @@ fun GenericCard(imageUri: String?, name: String, information: String, extra: Str
             Text(
                 text = name,
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(8.dp)
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.secondary,
+                modifier = Modifier
+                    .padding(8.dp)
             )
-
             Text(
-                text = "Sinopsis: \n$information",
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(8.dp)
+                text = stringResource(R.string.description),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary,
+                textAlign = TextAlign.Start,
+                modifier = Modifier.fillMaxWidth()
             )
-
             Text(
-                text = extra,
+                text = "$information",
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp).fillMaxWidth()
             )
+            when(categoryName){
+                "Película"-> {
+                    Text(
+                        stringResource(R.string.duration),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Text(
+                        text = extra,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
+                "Serie" -> {
+                    Text(
+                        stringResource(R.string.chapters),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Text(
+                        text = extra,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
+                "Anime" -> {
+                    Text(
+                        stringResource(R.string.chapters),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    val con = extra.split(" ")
+                    Text(
+                        text = con[0],
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                    Text(
+                        stringResource(R.string.genero),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Text(
+                        text = con[1],
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
+            }
+
         }
     }
 }
 
 
 @Composable
-fun SerieCard(content: Content) {
+fun SerieCard(content: Content, categoryName: String) {
     GenericCard(
         imageUri = content.contentImageUri,
         name = content.name,
         information = content.information,
-        extra = "Capítulos: ${content.cantCap ?: "N/A"}"
+        extra = "${content.cantCap ?: "N/A"}",
+        categoryName
     )
 }
 
 @Composable
-fun AnimeCard(content: Content) {
+fun AnimeCard(content: Content, categoryName: String) {
     val genero = content.typeGender ?: "Sin género"
     val caps = content.cantCap ?: "N/A"
     GenericCard(
         imageUri = content.contentImageUri,
         name = content.name,
         information = content.information,
-        extra = "Capítulos: $caps | Género: $genero"
+        extra = "$caps $genero",
+        categoryName
     )
 }
 
 @Composable
-fun OtroCard(content: Content) {
+fun OtroCard(content: Content, categoryName: String) {
     GenericCard(
         imageUri = content.contentImageUri,
         name = content.name,
         information = content.information,
-        extra = "Tipo: ${content.categoryName ?: "Desconocido"}"
+        extra = "Tipo: ${content.categoryName ?: "Desconocido"}",
+        categoryName
     )
 }
