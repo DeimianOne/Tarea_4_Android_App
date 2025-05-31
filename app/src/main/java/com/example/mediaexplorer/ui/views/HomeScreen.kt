@@ -43,6 +43,7 @@ import coil.compose.AsyncImage
 import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -67,6 +68,10 @@ import com.example.mediaexplorer.EditCategorySc
 import com.example.mediaexplorer.data.entity.Category
 import com.example.mediaexplorer.ui.views.category.CategoryScreenViewModel
 import kotlinx.coroutines.launch
+import androidx.compose.material.icons.filled.Info
+
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -82,20 +87,39 @@ fun HomeScreen(
     val coroutineScope = rememberCoroutineScope()
     var showDeleteDialog by remember { mutableStateOf(false) }
 
+    var showHelpDialog by remember { mutableStateOf(false) }
+
         Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = {
-                    Image(
-                        painter = painterResource(R.drawable.media_explorer),
-                        contentDescription = "logo mediaexplorer",
-                        contentScale = ContentScale.FillHeight, // Para que aproveche mejor el alto sin deformarse
-                        modifier = Modifier
-                            .height(50.dp) // Alto más grande
-                            .padding(horizontal = 8.dp)
-                    )
-                    //Text(text = stringResource(R.string.app_name), color = MaterialTheme.colorScheme.onSurface)
-                        },
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.media_explorer),
+                            contentDescription = "logo mediaexplorer",
+                            contentScale = ContentScale.FillHeight,
+                            modifier = Modifier
+                                .height(50.dp)
+                                .padding(horizontal = 8.dp)
+                        )
+                        // Icono de ayuda
+                        Icon(
+                            painter = painterResource(id = R.drawable.interrogacion), // tu imagen en drawable
+                            contentDescription = "Ayuda",
+                            modifier = Modifier
+                                .padding(end = 16.dp)
+                                .size(28.dp)
+                                .clickable {
+                                    showHelpDialog = true
+                                },
+                            tint = MaterialTheme.colorScheme.secondary
+                        )
+                    }
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     titleContentColor = MaterialTheme.colorScheme.onSurface
@@ -150,6 +174,12 @@ fun HomeScreen(
             )
         }
     }
+
+    // Popup de Ayuda
+    PopupHelpDialog(
+        showDialog = showHelpDialog,
+        onDismiss = { showHelpDialog = false }
+    )
 
     if (showSheet && selectedCategory != null) {
         ModalBottomSheet(
@@ -289,5 +319,50 @@ fun CategoryCardItem(
             )
 
         }
+    }
+}
+
+
+
+
+/**
+ * Muestra un popup de ayuda con un título y un mensaje explicativo.
+ *
+ * @param showDialog Estado para controlar si el diálogo se muestra o no.
+ * @param onDismiss Función que se llama cuando el usuario cierra el diálogo.
+ */
+@Composable
+fun PopupHelpDialog(
+    showDialog: Boolean,
+    onDismiss: () -> Unit
+) {
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = onDismiss,
+            title = {
+                Text(
+                    text = "Ayuda",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Text(
+                    text = "Bienvenido a Media Explorer. Aquí puedes crear y gestionar tus categorías de contenido multimedia.\n\n" +
+                            "• Para crear una nueva categoría, presiona el botón '+' en la parte inferior.\n" +
+                            "• Haz click en una categoría para ver su contenido.\n" +
+                            "• Mantén presionado para editar o eliminar una categoría.\n\n" +
+                            "¡Esperamos que disfrutes usando la aplicación!\n\n\n"+
+                            "Desarrollado por estudiantes de la UCSC: Pablo, Damián.\nCréditos a nuestro profesor B.\n\n\n© 2025. Todos los derechos reservados."
+                    ,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = onDismiss) {
+                    Text("Cerrar")
+                }
+            }
+        )
     }
 }

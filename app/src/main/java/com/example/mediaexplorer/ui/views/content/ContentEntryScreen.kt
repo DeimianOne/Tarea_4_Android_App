@@ -75,6 +75,18 @@ fun ContentEntryScreen(
         }
     )
 
+    val isFormValid by remember(name, information, cantCap, typeGenre, selectedCategory) {
+        derivedStateOf {
+            when (selectedCategory?.name) {
+                "Película" -> name.isNotBlank() && information.isNotBlank() && duration.isNotBlank()
+                "Serie" -> name.isNotBlank() && information.isNotBlank() && cantCap.isNotBlank()
+                "Anime" -> name.isNotBlank() && information.isNotBlank() && cantCap.isNotBlank() && typeGenre.isNotBlank()
+                else -> name.isNotBlank() && information.isNotBlank()
+            }
+        }
+    }
+
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -115,6 +127,7 @@ fun ContentEntryScreen(
                             }
                         },
                         contentPadding = PaddingValues(horizontal = 20.dp),
+                        enabled = isFormValid,
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                         modifier = Modifier.padding(20.dp)
                     ) {

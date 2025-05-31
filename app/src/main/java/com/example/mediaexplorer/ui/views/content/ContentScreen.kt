@@ -72,6 +72,14 @@ fun ContentScreen(
                                 contentDescription = "Back",
                             )
                         }
+                        Image(
+                            painter = painterResource(R.drawable.media_explorer_letras),
+                            contentDescription = "logo mediaexplorer",
+                            contentScale = ContentScale.FillHeight, // Para que aproveche mejor el alto sin deformarse
+                            modifier = Modifier
+                                .height(60.dp) // Alto más grande
+                                .padding(horizontal = 8.dp)
+                        )
                         Spacer(Modifier.weight(1f))
                         IconButton(onClick = { showMenu = true }) {
                             Icon(Icons.Default.MoreVert, contentDescription = "Opciones")
@@ -238,6 +246,7 @@ fun GenericCard(imageUri: String?, name: String, information: String, extra: Str
                     Text(
                         text = extra,
                         style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(8.dp)
                     )
                 }
@@ -252,6 +261,7 @@ fun GenericCard(imageUri: String?, name: String, information: String, extra: Str
                     Text(
                         text = extra,
                         style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(8.dp)
                     )
                 }
@@ -267,6 +277,7 @@ fun GenericCard(imageUri: String?, name: String, information: String, extra: Str
                     Text(
                         text = con[0],
                         style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(8.dp)
                     )
                     Text(
@@ -279,6 +290,7 @@ fun GenericCard(imageUri: String?, name: String, information: String, extra: Str
                     Text(
                         text = con[1],
                         style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(8.dp)
                     )
                 }
