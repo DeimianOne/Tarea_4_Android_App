@@ -1,5 +1,6 @@
 package com.example.mediaexplorer
 
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,7 +22,7 @@ object Home
 object CreateCategorySc
 
 @Serializable
-data class CategorySc(val categoryId: Int, val categoryName: String)
+data class CategorySc(val categoryId: Int, val categoryName: String, val categoryImageUri: String)
 
 @Serializable
 data class EditCategorySc(val categoryId: Int)
@@ -51,7 +52,8 @@ fun Navigation(){
             CategoryScreen(
                 navController = navController,
                 categoryId = args.categoryId,
-                categoryName = args.categoryName
+                categoryName = args.categoryName,
+                categoryUri = args.categoryImageUri
             )
         }
         composable<EditCategorySc> { backStackEntry ->

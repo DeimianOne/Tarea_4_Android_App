@@ -1,5 +1,6 @@
 package com.example.mediaexplorer.ui.views.category
 
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,9 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import com.example.mediaexplorer.CreateContentSc
 import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.R
@@ -30,10 +34,11 @@ fun CategoryScreen(
     navController: NavHostController,
     categoryId: Int,
     categoryName: String,
+    categoryUri: String,
     viewModel: CategoryScreenViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val contents by viewModel.contents.collectAsState()
-
+    var isNavigating by remember { mutableStateOf(false) }
     // Cargar contenidos al iniciar
     LaunchedEffect(Unit) {
         viewModel.loadContentByCategory(categoryName)
@@ -47,6 +52,7 @@ fun CategoryScreen(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Button(
                             onClick = {
+                                viewModel.clearContents()
                                 val popped = navController.popBackStack()
                                 if (!popped) navController.navigate(Home)
                             },
@@ -99,13 +105,33 @@ fun CategoryScreen(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text(
-                text = categoryName,
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier
-                    .padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
-                    .align(Alignment.Start)
-            )
+            Row (
+                Modifier.align(Alignment.Start)
+            ){
+                Text(
+                    text = categoryName,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.secondary,
+                    modifier = Modifier
+                        .padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
+                )
+                if (categoryUri != null) {
+                    AsyncImage(
+                        model = Uri.parse(categoryUri),
+                        contentDescription = null,
+                        modifier = Modifier.size(50.dp).padding(start = 8.dp, top = 2.dp, bottom = 2.dp)
+                    )
+                } else {
+                    Icon(
+                        painter = painterResource(R.drawable.otros),
+                        contentDescription = null,
+                        modifier = Modifier.size(50.dp)
+                    )
+                }
+            }
+
 
             LazyColumn(
                 modifier = Modifier
@@ -120,3 +146,5 @@ fun CategoryScreen(
         }
     }
 }
+
+

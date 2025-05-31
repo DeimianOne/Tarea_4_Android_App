@@ -60,6 +60,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import com.example.mediaexplorer.EditCategorySc
 import com.example.mediaexplorer.data.entity.Category
 import com.example.mediaexplorer.ui.views.category.CategoryScreenViewModel
@@ -129,9 +131,12 @@ fun HomeScreen(
             Text(
                 text = stringResource(R.string.app_categories),
                 style = MaterialTheme.typography.titleLarge,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier
                     .padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
-                    .align(Alignment.Start)
+                    .align(Alignment.CenterHorizontally)
             )
             CategoryCardList(
                 categories,
@@ -239,7 +244,7 @@ fun CategoryCardItem(
             .padding(10.dp)
             .combinedClickable(
                 onClick = {
-                    navController.navigate(CategorySc(category.id, category.name))
+                    navController.navigate(CategorySc(category.id, category.name, category.categoryImageUri.toString()))
                 },
                 onLongClick = {
                     onLongPress(category)

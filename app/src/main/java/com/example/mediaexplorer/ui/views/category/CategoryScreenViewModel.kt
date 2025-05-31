@@ -35,4 +35,9 @@ class CategoryScreenViewModel(
             categoryRepository.deleteCategory(category)
         }
     }
+
+    fun clearContents() {
+        _contents.value = emptyList()
+    }
+
 }
