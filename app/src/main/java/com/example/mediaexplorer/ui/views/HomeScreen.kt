@@ -195,7 +195,6 @@ fun HomeScreen(
                         coroutineScope.launch {
                             categoryScreenViewModel.deleteCategory(it)
                             showDeleteDialog = false
-                            navController.popBackStack()
                         }
                     }
                 }) {
