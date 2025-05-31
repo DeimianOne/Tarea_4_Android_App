@@ -14,11 +14,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +35,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -156,20 +160,29 @@ fun CategoryEditScreen(
 
             // Mostrar imagen si se seleccionó
             Spacer(modifier = Modifier.height(16.dp))
-
-            if (imageUri != null) {
-                AsyncImage(
-                    model = Uri.parse(imageUri),
-                    contentDescription = "Icono categoría",
-                    modifier = Modifier.size(100.dp)
+            Card(
+                onClick = {
+                    launcher.launch(arrayOf("image/*"))
+                },
+                shape = RoundedCornerShape(16.dp), // Bordes redondeados
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.Transparent // Fondo transparente de la tarjeta
                 )
-            } else {
-                // Imagen por defecto desde drawable
-                androidx.compose.foundation.Image(
-                    painter = painterResource(id = R.drawable.otros),
-                    contentDescription = "Imagen por defecto",
-                    modifier = Modifier.size(100.dp)
-                )
+            ){
+                if (imageUri != null) {
+                    AsyncImage(
+                        model = Uri.parse(imageUri),
+                        contentDescription = "Icono categoría",
+                        modifier = Modifier.size(100.dp)
+                    )
+                } else {
+                    // Imagen por defecto desde drawable
+                    androidx.compose.foundation.Image(
+                        painter = painterResource(id = R.drawable.otros2),
+                        contentDescription = "Imagen por defecto",
+                        modifier = Modifier.size(100.dp)
+                    )
+                }
             }
         }
     }

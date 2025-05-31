@@ -60,6 +60,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.mediaexplorer.EditCategorySc
@@ -131,6 +132,7 @@ fun HomeScreen(
             Text(
                 text = stringResource(R.string.app_categories),
                 style = MaterialTheme.typography.titleLarge,
+                fontFamily = FontFamily.Monospace,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.secondary,
@@ -272,8 +274,8 @@ fun CategoryCardItem(
                     modifier = Modifier.size(50.dp)
                 )
             } else {
-                Icon(
-                    painter = painterResource(R.drawable.otros),
+                Image(
+                    painter = painterResource(R.drawable.otros2),
                     contentDescription = null,
                     modifier = Modifier.size(50.dp)
                 )

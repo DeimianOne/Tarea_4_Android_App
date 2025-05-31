@@ -273,6 +273,7 @@ fun ImagePickerSection(
     imageUri: String?,
     onPickImage: () -> Unit
 ) {
+
     Button(
         onClick = onPickImage,
         modifier = Modifier.padding(16.dp)
@@ -281,19 +282,26 @@ fun ImagePickerSection(
     }
 
     Spacer(modifier = Modifier.height(8.dp))
-
-    if (imageUri != null) {
-        AsyncImage(
-            model = Uri.parse(imageUri),
-            contentDescription = null,
-            modifier = Modifier.size(100.dp)
+    Card(
+        onClick = onPickImage,
+        shape = RoundedCornerShape(16.dp), // Bordes redondeados
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Transparent // Fondo transparente de la tarjeta
         )
-    } else {
-        Image(
-            painter = painterResource(id = R.drawable.placeholder),
-            contentDescription = null,
-            modifier = Modifier.size(100.dp)
-        )
+    ){
+        if (imageUri != null) {
+            AsyncImage(
+                model = Uri.parse(imageUri),
+                contentDescription = null,
+                modifier = Modifier.size(100.dp)
+            )
+        } else {
+            Image(
+                painter = painterResource(id = R.drawable.placeholder),
+                contentDescription = null,
+                modifier = Modifier.size(100.dp)
+            )
+        }
     }
 }
 
