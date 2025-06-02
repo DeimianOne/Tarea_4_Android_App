@@ -99,7 +99,6 @@ class ContentEditViewModel(
                 typeGender = if (isAnime) typeGenre.value else null,
                 typeContent = if (isCustom) selectedCategoryName else null
             )
-
             contentRepository.updateContent(updatedContent)
         }
     }

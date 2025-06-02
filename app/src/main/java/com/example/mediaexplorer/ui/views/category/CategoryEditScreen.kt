@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.BottomAppBar
@@ -60,6 +61,7 @@ fun CategoryEditScreen(
     val name by viewModel.name.collectAsState()
     val imageUri by viewModel.imageUri.collectAsState()
     val errorMessage by viewModel.errorMessage.collectAsState()
+    val updatedSuccessfully by viewModel.updatedSuccessfully.collectAsState()
 
     LaunchedEffect(categoryId) {
         viewModel.loadCategoryById(categoryId)
@@ -80,6 +82,14 @@ fun CategoryEditScreen(
             }
         }
     )
+
+    // cambiar pantalla solo si guardó con éxito
+    LaunchedEffect(updatedSuccessfully) {
+        if (updatedSuccessfully) {
+            navController.popBackStack()
+            viewModel.resetUpdatedFlag()
+        }
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -121,15 +131,15 @@ fun CategoryEditScreen(
                     Button(
                         onClick = {
                             viewModel.updateCategory()
-                            navController.popBackStack()
                         },
                         contentPadding = PaddingValues(horizontal = 20.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onSecondary,
                         ),
                         modifier = Modifier.padding(20.dp)
                     ) {
-                        Text("Guardar Cambios")
+                        Text(text = stringResource(R.string.save_btn))
                     }
                 }
             }
@@ -157,11 +167,12 @@ fun CategoryEditScreen(
                     launcher.launch(arrayOf("image/*"))
                 },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onSecondary,
                 ),
                 modifier = Modifier.padding(16.dp)
             ) {
-                Text("Seleccionar Ícono")
+                Text(stringResource(R.string.select_icon))
             }
 
             // Mostrar imagen si se seleccionó
@@ -183,7 +194,7 @@ fun CategoryEditScreen(
                     )
                 } else {
                     // Imagen por defecto desde drawable
-                    androidx.compose.foundation.Image(
+                    Image(
                         painter = painterResource(id = R.drawable.otros2),
                         contentDescription = "Imagen por defecto",
                         modifier = Modifier.size(100.dp)

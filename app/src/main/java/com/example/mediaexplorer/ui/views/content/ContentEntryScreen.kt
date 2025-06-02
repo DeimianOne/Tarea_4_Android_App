@@ -86,7 +86,6 @@ fun ContentEntryScreen(
         }
     }
 
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -128,7 +127,10 @@ fun ContentEntryScreen(
                         },
                         contentPadding = PaddingValues(horizontal = 20.dp),
                         enabled = isFormValid,
-                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onSecondary,
+                        ),
                         modifier = Modifier.padding(20.dp)
                     ) {
                         Text(text = stringResource(R.string.save_btn))
@@ -294,6 +296,10 @@ fun ImagePickerSection(
 
     Button(
         onClick = onPickImage,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onSecondary,
+        ),
         modifier = Modifier.padding(16.dp)
     ) {
         Text("Seleccionar Imagen")

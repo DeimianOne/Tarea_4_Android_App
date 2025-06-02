@@ -101,7 +101,6 @@ class ContentEntryViewModel(
                 typeGender = if (isAnime) typeGenre.value else null,
                 typeContent = if (isCustom) categoryName else null // solo para categorías personalizadas
             )
-
             contentRepository.insertContent(newContent)
         }
     }

@@ -4,12 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mediaexplorer.data.entity.Category
 import com.example.mediaexplorer.data.repository.CategoryRepository
+import com.example.mediaexplorer.ui.components_utils.validateCategoryName
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
 
 class CategoryEntryViewModel(
     private val repository: CategoryRepository
@@ -28,6 +29,10 @@ class CategoryEntryViewModel(
     private val _errorMessage = MutableStateFlow("")
     val errorMessage: StateFlow<String> = _errorMessage
 
+    // variable para comprobar si se guardo correctamente
+    private val _savedSuccessfully = MutableStateFlow(false)
+    val savedSuccessfully: StateFlow<Boolean> = _savedSuccessfully
+
     // Métodos para actualizar valores desde la UI
     fun onNameChanged(newName: String) {
         _name.value = newName
@@ -44,14 +49,15 @@ class CategoryEntryViewModel(
 
             // Obtener las categorías existentes
             val existing = repository.getAllCategoriesStream().first()
+            val error = validateCategoryName(nameTrimmed, existing)
 
-            // Verificar duplicados
-            if (existing.any { it.name.equals(nameTrimmed, ignoreCase = true) }) {
-                _errorMessage.value = "Ya existe una categoría con ese nombre"
+            if (error != null) {
+                _errorMessage.value = error
+                _savedSuccessfully.value = false
                 return@launch
             }
 
-            // Si no hay duplicado, guardar
+            // Si pasa la validacion, guardar
             val category = Category(
                 name = nameTrimmed,
                 categoryImageUri = imageUri.value
@@ -62,7 +68,13 @@ class CategoryEntryViewModel(
             _name.value = ""
             _imageUri.value = null
             _errorMessage.value = ""
+            _savedSuccessfully.value = true
+
         }
     }
 
+    // resetear el flag tras la navegación
+    fun resetSavedFlag() {
+        _savedSuccessfully.value = false
+    }
 }

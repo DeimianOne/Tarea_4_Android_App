@@ -2,7 +2,6 @@ package com.example.mediaexplorer.data.offline
 
 import com.example.mediaexplorer.data.dao.CategoryDao
 import com.example.mediaexplorer.data.entity.Category
-import com.example.mediaexplorer.data.entity.Content
 import com.example.mediaexplorer.data.repository.CategoryRepository
 import kotlinx.coroutines.flow.Flow
 

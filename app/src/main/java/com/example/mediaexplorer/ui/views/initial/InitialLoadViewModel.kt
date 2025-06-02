@@ -68,7 +68,6 @@ class InitialLoadViewModel(
 
                 contents.forEach { contentRepository.insertContent(it) }
             }
-
             prefs.edit().putBoolean("initial_data_loaded", true).apply()
         }
     }

@@ -34,11 +34,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -63,7 +61,7 @@ fun CreateCategoryScreen(
     val name by viewModel.name.collectAsState()
     val imageUri by viewModel.imageUri.collectAsState()
     val errorMessage by viewModel.errorMessage.collectAsState()
-
+    val savedSuccessfully by viewModel.savedSuccessfully.collectAsState()
 
     // Launcher para seleccionar imagen
     val context = LocalContext.current
@@ -72,16 +70,23 @@ fun CreateCategoryScreen(
         contract = ActivityResultContracts.OpenDocument(),
         onResult = { uri ->
             uri?.let {
-                // ✅ Guardar permiso persistente
+                // permiso persistente
                 context.contentResolver.takePersistableUriPermission(
                     it,
                     Intent.FLAG_GRANT_READ_URI_PERMISSION
                 )
-
                 viewModel.onImageUriChanged(it.toString())
             }
         }
     )
+
+    // cambiar pantalla solo si guardó con éxito
+    LaunchedEffect(savedSuccessfully) {
+        if (savedSuccessfully) {
+            navController.popBackStack()
+            viewModel.resetSavedFlag()
+        }
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -120,11 +125,11 @@ fun CreateCategoryScreen(
                     Button(
                         onClick = {
                             viewModel.saveCategory()
-                            navController.popBackStack()
                         },
                         contentPadding = PaddingValues(horizontal = 20.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onSecondary,
                         ),
                         modifier = Modifier.padding(20.dp)
                     ) {
@@ -155,11 +160,12 @@ fun CreateCategoryScreen(
                     launcher.launch(arrayOf("image/*"))
                 },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onSecondary,
                 ),
                 modifier = Modifier.padding(16.dp)
             ) {
-                Text("Seleccionar Ícono")
+                Text(stringResource(R.string.select_icon))
             }
 
             // Mostrar imagen si se seleccionó
@@ -213,7 +219,8 @@ fun CategoryForm(
             onValueChange = onNameChange,
             label = { Text(text = stringResource(R.string.category_name) + " categoría") },
             modifier = Modifier.fillMaxWidth(),
-            textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
+            textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary),
+            isError = errorMessage.isNotEmpty(),
         )
 
         if (errorMessage.isNotEmpty()) {

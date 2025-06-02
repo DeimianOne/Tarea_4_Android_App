@@ -1,4 +1,4 @@
-package com.example.mediaexplorer.ui.components
+package com.example.mediaexplorer.ui.components_utils
 
 import android.net.Uri
 import androidx.compose.foundation.Image
@@ -30,7 +30,10 @@ fun ContentCard(
  {
     Card(
         onClick = {
-            navController.navigate(ContentSc(content.id, content.categoryName))
+            navController.navigate(ContentSc(content.id, content.categoryName)) {
+                launchSingleTop = true
+                restoreState = true
+            }
         },
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
@@ -143,23 +146,6 @@ fun ContentCard(
                         Text("${content.categoryName}", style = MaterialTheme.typography.bodySmall)
                     }
                 }
-                /*
-                    content.duration?.let {
-                        Text("Duración: ${it} min", style = MaterialTheme.typography.bodySmall)
-                    }
-
-                    content.cantCap?.let {
-                        Text("Capítulos: $it", style = MaterialTheme.typography.bodySmall)
-                    }
-
-                    content.typeGender?.let {
-                        Text("Género: $it", style = MaterialTheme.typography.bodySmall)
-                    }
-
-                    content.typeContent?.let {
-                        Text("Tipo: $it", style = MaterialTheme.typography.bodySmall)
-                    }
-                */
             }
         }
     }

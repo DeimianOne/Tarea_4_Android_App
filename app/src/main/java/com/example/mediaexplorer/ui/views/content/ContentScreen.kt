@@ -331,7 +331,7 @@ fun OtroCard(content: Content, categoryName: String) {
         imageUri = content.contentImageUri,
         name = content.name,
         information = content.information,
-        extra = "Tipo: ${content.categoryName ?: "Desconocido"}",
+        extra = "Tipo: ${content.categoryName}",
         categoryName
     )
 }

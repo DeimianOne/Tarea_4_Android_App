@@ -1,17 +1,14 @@
 package com.example.mediaexplorer.ui.views.category
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mediaexplorer.data.entity.Category
-import com.example.mediaexplorer.data.entity.Content
 import com.example.mediaexplorer.data.repository.CategoryRepository
+import com.example.mediaexplorer.ui.components_utils.validateCategoryName
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.SharingStarted
 
 class CategoryEditViewModel(
     private val categoryRepository: CategoryRepository
@@ -27,6 +24,10 @@ class CategoryEditViewModel(
 
     private val _errorMessage = MutableStateFlow("")
     val errorMessage: StateFlow<String> = _errorMessage
+
+    // variable para comprobar si se guardo correctamente
+    private val _updatedSuccessfully = MutableStateFlow(false)
+    val updatedSuccessfully: StateFlow<Boolean> = _updatedSuccessfully
 
     // Cargar contenido para edición
     fun loadCategory(category: Category) {
@@ -49,15 +50,13 @@ class CategoryEditViewModel(
         viewModelScope.launch {
             val nameTrimmed = name.value.trim()
 
-            if (nameTrimmed.isBlank()) {
-                _errorMessage.value = "El nombre no puede estar vacío"
-                return@launch
-            }
-
-            // Verificar duplicados
+            // Aquí se usa el categoryId para que no se detecte como duplicado a sí misma
             val existing = categoryRepository.getAllCategoriesStream().first()
-            if (existing.any { it.name.equals(nameTrimmed, ignoreCase = true) && it.id != categoryId }) {
-                _errorMessage.value = "Ya existe una categoría con ese nombre"
+            val error = validateCategoryName(nameTrimmed, existing, categoryId)
+
+            if (error != null) {
+                _errorMessage.value = error
+                _updatedSuccessfully.value = false
                 return@launch
             }
 
@@ -67,9 +66,15 @@ class CategoryEditViewModel(
                 categoryImageUri = imageUri.value,
             )
             categoryRepository.updateCategory(updatedCategory)
-            // Log para depuración (se muestra en Logcat)
-            Log.d("CategoryEditViewModel", "Categoría actualizada: ID=${updatedCategory.id}, Nombre=${updatedCategory.name}")
+            // log para depuración
+//            Log.d("CategoryEditViewModel", "Categoría actualizada: ID=${updatedCategory.id}, Nombre=${updatedCategory.name}")
             _errorMessage.value = ""
+            _updatedSuccessfully.value = true
         }
+    }
+
+    // resetear el flag tras la navegación
+    fun resetUpdatedFlag() {
+        _updatedSuccessfully.value = false
     }
 }

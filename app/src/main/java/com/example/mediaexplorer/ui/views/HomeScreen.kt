@@ -68,10 +68,6 @@ import com.example.mediaexplorer.EditCategorySc
 import com.example.mediaexplorer.data.entity.Category
 import com.example.mediaexplorer.ui.views.category.CategoryScreenViewModel
 import kotlinx.coroutines.launch
-import androidx.compose.material.icons.filled.Info
-
-
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -321,9 +317,6 @@ fun CategoryCardItem(
         }
     }
 }
-
-
-
 
 /**
  * Muestra un popup de ayuda con un título y un mensaje explicativo.

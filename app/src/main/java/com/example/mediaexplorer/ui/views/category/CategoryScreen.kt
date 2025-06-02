@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -26,7 +25,7 @@ import coil.compose.AsyncImage
 import com.example.mediaexplorer.CreateContentSc
 import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.R
-import com.example.mediaexplorer.ui.components.ContentCard
+import com.example.mediaexplorer.ui.components_utils.ContentCard
 import com.example.mediaexplorer.ui.views.AppViewModelProvider
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -73,13 +72,6 @@ fun CategoryScreen(
                                 .height(60.dp) // Alto más grande
                                 .padding(horizontal = 8.dp)
                         )
-                        /*
-                        Text(
-                            text = stringResource(R.string.app_name),
-                            modifier = Modifier.padding(start = 20.dp),
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        */
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -94,7 +86,7 @@ fun CategoryScreen(
                 },
                 shape = CircleShape,
                 containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
+                contentColor = MaterialTheme.colorScheme.onSecondary,
             ) {
                 Icon(Icons.Filled.Add, contentDescription = "Agregar contenido")
             }
@@ -133,7 +125,6 @@ fun CategoryScreen(
                     )
                 }
             }
-
 
             LazyColumn(
                 modifier = Modifier

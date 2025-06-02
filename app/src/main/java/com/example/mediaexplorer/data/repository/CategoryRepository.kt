@@ -1,7 +1,6 @@
 package com.example.mediaexplorer.data.repository
 
 import com.example.mediaexplorer.data.entity.Category
-import com.example.mediaexplorer.data.entity.Content
 import kotlinx.coroutines.flow.Flow
 
 interface CategoryRepository {
