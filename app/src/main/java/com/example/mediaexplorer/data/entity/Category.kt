@@ -1,19 +1,14 @@
 package com.example.mediaexplorer.data.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
-@Entity(
-    tableName = "category",
-    indices = [Index(value = ["name"], unique = true)]
-)
 data class Category(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val id: Int = 0,
 
-    @ColumnInfo(name = "name") val name: String,
+    val name: String,
 
-    @ColumnInfo(name = "category_image_uri") val categoryImageUri: String?
+    @SerializedName("category_image_uri")
+    val categoryImageUri: String?
 )
+
 

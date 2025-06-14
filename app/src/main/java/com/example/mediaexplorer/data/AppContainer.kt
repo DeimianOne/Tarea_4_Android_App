@@ -1,19 +1,29 @@
 package com.example.mediaexplorer.data
 
-import android.content.Context
-import com.example.mediaexplorer.data.offline.OfflineCategoryRepository
-import com.example.mediaexplorer.data.offline.OfflineContentRepository
+import com.example.mediaexplorer.data.services.CategoryService
+import com.example.mediaexplorer.data.services.ContentService
+import com.example.mediaexplorer.data.remote_repository.RemoteCategoryRepository
+import com.example.mediaexplorer.data.remote_repository.RemoteContentRepository
 import com.example.mediaexplorer.data.repository.CategoryRepository
 import com.example.mediaexplorer.data.repository.ContentRepository
 
-class AppContainer(private val context: Context) {
+interface AppContainer {
+    val categoryRepository: CategoryRepository
+    val contentRepository: ContentRepository
+}
 
-    // Repositorios: se crean solo si se usan
-    val categoryRepository: CategoryRepository by lazy {
-        OfflineCategoryRepository(AppDatabase.getDatabase(context).categoryDao())
+class MediaExplorerAppContainer : AppContainer {
+
+    private val retrofit = ApiClient.create()
+
+    override val categoryRepository: CategoryRepository by lazy {
+        val service = retrofit.create(CategoryService::class.java)
+        RemoteCategoryRepository(service)
     }
 
-    val contentRepository: ContentRepository by lazy {
-        OfflineContentRepository(AppDatabase.getDatabase(context).contentDao())
+    override val contentRepository: ContentRepository by lazy {
+        val service = retrofit.create(ContentService::class.java)
+        RemoteContentRepository(service)
     }
+
 }

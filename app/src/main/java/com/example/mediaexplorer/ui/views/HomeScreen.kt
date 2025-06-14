@@ -43,6 +43,7 @@ import coil.compose.AsyncImage
 import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Spacer
@@ -143,32 +144,37 @@ fun HomeScreen(
             }
         },
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ){
-            Text(
-                text = stringResource(R.string.app_categories),
-                style = MaterialTheme.typography.titleLarge,
-                fontFamily = FontFamily.Monospace,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.secondary,
+            Column(
                 modifier = Modifier
-                    .padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
-                    .align(Alignment.CenterHorizontally)
-            )
-            CategoryCardList(
-                categories,
-                navController,
-                onLongPress = { category ->
-                    selectedCategory = category
-                    showSheet = true
+                    .padding(innerPadding)
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = stringResource(R.string.app_categories),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.secondary,
+                    modifier = Modifier
+                        .padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
+                        .align(Alignment.CenterHorizontally)
+                )
+
+                if (categories.isNotEmpty()) {
+                    CategoryCardList(
+                        categories,
+                        navController,
+                        onLongPress = { category ->
+                            selectedCategory = category
+                            showSheet = true
+                        }
+                    )
                 }
-            )
-        }
+                // Si está vacío, no se muestra nada. Solo el fondo con el título.
+            }
     }
 
     // Popup de Ayuda

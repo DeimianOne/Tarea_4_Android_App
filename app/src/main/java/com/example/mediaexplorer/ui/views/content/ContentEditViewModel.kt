@@ -1,5 +1,6 @@
 package com.example.mediaexplorer.ui.views.content
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mediaexplorer.data.entity.Category
@@ -14,6 +15,8 @@ class ContentEditViewModel(
     private val contentRepository: ContentRepository,
     private val categoryRepository: CategoryRepository
 ) : ViewModel() {
+
+    private val TAG = "ContentEditVM"
 
     private var contentId: Int? = null
 
@@ -42,15 +45,18 @@ class ContentEditViewModel(
     val selectedCategory: StateFlow<Category?> = _selectedCategory
 
     init {
-        // Obtener todas las categorías
         viewModelScope.launch {
-            categoryRepository.getAllCategoriesStream().collect {
-                _categories.value = it
+            try {
+                categoryRepository.getAllCategoriesStream().collect {
+                    _categories.value = it
+                    Log.d(TAG, "Categorías cargadas: ${it.size}")
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error al cargar categorías: ${e.message}", e)
             }
         }
     }
 
-    // Cargar contenido para edición
     fun loadContent(content: Content) {
         contentId = content.id
         _name.value = content.name
@@ -59,15 +65,21 @@ class ContentEditViewModel(
         _duration.value = content.duration?.toString() ?: ""
         _cantCap.value = content.cantCap?.toString() ?: ""
         _typeGenre.value = content.typeGender ?: ""
-
-        val category = _categories.value.find { it.name == content.categoryName }
-        _selectedCategory.value = category
+        _selectedCategory.value = _categories.value.find { it.name == content.categoryName }
+        Log.d(TAG, "Contenido cargado: ${content.name}")
     }
 
     fun loadContentById(contentId: Int) {
         viewModelScope.launch {
-            val content = contentRepository.getContentById(contentId)
-            content?.let { loadContent(it) }
+            try {
+                val content = contentRepository.getContentById(contentId)
+                content?.let {
+                    Log.d(TAG, "Contenido encontrado con ID $contentId: ${it.name}")
+                    loadContent(it)
+                } ?: Log.w(TAG, "No se encontró contenido con ID $contentId")
+            } catch (e: Exception) {
+                Log.e(TAG, "Error al cargar contenido: ${e.message}", e)
+            }
         }
     }
 
@@ -81,25 +93,33 @@ class ContentEditViewModel(
 
     fun updateContent() {
         viewModelScope.launch {
-            val selectedCategoryName = _selectedCategory.value?.name ?: return@launch
+            try {
+                val selectedCategoryName = _selectedCategory.value?.name ?: run {
+                    Log.w(TAG, "No hay categoría seleccionada.")
+                    return@launch
+                }
 
-            val isMovie = selectedCategoryName.equals("Película", ignoreCase = true)
-            val isSeries = selectedCategoryName.equals("Serie", ignoreCase = true)
-            val isAnime = selectedCategoryName.equals("Anime", ignoreCase = true)
-            val isCustom = !(isMovie || isSeries || isAnime)
+                val isMovie = selectedCategoryName.equals("Película", ignoreCase = true)
+                val isSeries = selectedCategoryName.equals("Serie", ignoreCase = true)
+                val isAnime = selectedCategoryName.equals("Anime", ignoreCase = true)
+                val isCustom = !(isMovie || isSeries || isAnime)
 
-            val updatedContent = Content(
-                id = contentId ?: return@launch,
-                name = name.value,
-                information = information.value,
-                categoryName = selectedCategoryName,
-                contentImageUri = imageUri.value,
-                duration = if (isMovie) duration.value.toIntOrNull() else null,
-                cantCap = if (isSeries || isAnime) cantCap.value.toIntOrNull() else null,
-                typeGender = if (isAnime) typeGenre.value else null,
-                typeContent = if (isCustom) selectedCategoryName else null
-            )
-            contentRepository.updateContent(updatedContent)
+                val updatedContent = Content(
+                    id = contentId ?: return@launch,
+                    name = name.value,
+                    information = information.value,
+                    categoryName = selectedCategoryName,
+                    contentImageUri = imageUri.value,
+                    duration = if (isMovie) duration.value.toIntOrNull() else null,
+                    cantCap = if (isSeries || isAnime) cantCap.value.toIntOrNull() else null,
+                    typeGender = if (isAnime) typeGenre.value else null,
+                    typeContent = if (isCustom) selectedCategoryName else null
+                )
+                contentRepository.updateContent(updatedContent)
+                Log.d(TAG, "Contenido actualizado: ${updatedContent.name}")
+            } catch (e: Exception) {
+                Log.e(TAG, "Error al actualizar contenido: ${e.message}", e)
+            }
         }
     }
 }
