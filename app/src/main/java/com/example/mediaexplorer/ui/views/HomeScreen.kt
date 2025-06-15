@@ -66,6 +66,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.mediaexplorer.EditCategorySc
+import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.data.entity.Category
 import com.example.mediaexplorer.ui.views.category.CategoryScreenViewModel
 import kotlinx.coroutines.launch
@@ -233,6 +234,9 @@ fun HomeScreen(
                     selectedCategory?.let {
                         coroutineScope.launch {
                             categoryScreenViewModel.deleteCategory(it)
+                            categoryScreenViewModel.loadCategories()
+                            val popped = navController.popBackStack()
+                            if (!popped) navController.navigate(Home)
                             showDeleteDialog = false
                         }
                     }

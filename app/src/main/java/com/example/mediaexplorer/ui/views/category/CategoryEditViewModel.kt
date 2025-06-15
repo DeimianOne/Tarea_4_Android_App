@@ -1,5 +1,6 @@
 package com.example.mediaexplorer.ui.views.category
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mediaexplorer.data.entity.Category
@@ -71,10 +72,13 @@ class CategoryEditViewModel(
                 _errorMessage.value = ""
                 _updatedSuccessfully.value = true
             } catch (e: IOException) {
+                Log.e("CategoryUpdateVM", "Sin conexión al servidor: ${e.message}")
                 _errorMessage.value = "No se pudo conectar con el servidor."
             } catch (e: HttpException) {
+                Log.e("CategoryUpdateVM", "Error del servidor: ${e.code()}")
                 _errorMessage.value = "Error del servidor: ${e.code()}"
             } catch (e: Exception) {
+                Log.e("CategoryUpdateVM", "Error inesperado: ${e.localizedMessage}")
                 _errorMessage.value = "Error inesperado: ${e.localizedMessage ?: "Desconocido"}"
             }
         }

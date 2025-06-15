@@ -3,12 +3,18 @@ package com.example.mediaexplorer.data.entity
 import com.google.gson.annotations.SerializedName
 
 data class Category(
+    @SerializedName("category_id")
     val id: Int = 0,
 
     val name: String,
 
-    @SerializedName("category_image_uri")
+    @SerializedName("image")
     val categoryImageUri: String?
 )
 
 
+data class CategoryUpdateDTO(
+    val name: String,
+    @SerializedName("image")
+    val categoryImageUri: String?
+)

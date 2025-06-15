@@ -2,6 +2,7 @@ package com.example.mediaexplorer.ui.views.category
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -140,7 +141,8 @@ fun CreateCategoryScreen(
         }
     ) { innerPadding ->
         Column(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier
+                .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
                 .imePadding(),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -214,6 +216,7 @@ fun CategoryForm(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Log.e("errorMessageOutlined", "CategoryForm: ${errorMessage}")
         OutlinedTextField(
             value = name,
             onValueChange = onNameChange,

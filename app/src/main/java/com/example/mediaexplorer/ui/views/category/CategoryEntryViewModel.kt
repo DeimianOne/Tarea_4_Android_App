@@ -44,6 +44,7 @@ class CategoryEntryViewModel(
         Log.d("CategoryEntryVM", "URI de imagen actualizada: $newUri")
     }
 
+
     fun saveCategory() {
         viewModelScope.launch {
             try {

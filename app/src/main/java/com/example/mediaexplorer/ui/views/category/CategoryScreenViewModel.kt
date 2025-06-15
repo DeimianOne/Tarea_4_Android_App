@@ -22,6 +22,20 @@ class CategoryScreenViewModel(
     private val _contents = MutableStateFlow<List<Content>>(emptyList())
     val contents: StateFlow<List<Content>> = _contents
 
+    private val _categories = MutableStateFlow<List<Category>>(emptyList())
+    val categories: StateFlow<List<Category>> = _categories
+
+    init {
+        loadCategories()
+    }
+
+    fun loadCategories() {
+        viewModelScope.launch {
+            categoryRepository.getAllCategoriesStream()
+                .collect { _categories.value = it }
+        }
+    }
+
     fun loadContentByCategory(categoryName: String) {
         viewModelScope.launch {
             contentRepository.getContentsByCategoryStream(categoryName)
@@ -49,7 +63,13 @@ class CategoryScreenViewModel(
             }
         }
     }
-
+    fun refreshCategories() {
+        viewModelScope.launch {
+            categoryRepository.getAllCategoriesStream().collect {
+                _categories.value = it
+            }
+        }
+    }
     fun clearContents() {
         _contents.value = emptyList()
     }

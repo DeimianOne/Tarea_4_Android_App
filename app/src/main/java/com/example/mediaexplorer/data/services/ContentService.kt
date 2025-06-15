@@ -5,7 +5,7 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface ContentService {
-    @GET("api/contents/category/{categoryName}")
+    @GET("api/categories/{categoryName}/contents")
     suspend fun getContentsByCategory(@Path("categoryName") categoryName: String): List<Content>
 
     @GET("api/contents/{id}")
