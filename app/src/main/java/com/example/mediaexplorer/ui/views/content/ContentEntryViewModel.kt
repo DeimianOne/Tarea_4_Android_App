@@ -78,8 +78,7 @@ class ContentEntryViewModel(
                     contentImageUri = imageUri.value,
                     duration = if (isMovie) duration.value.toIntOrNull() else null,
                     cantCap = if (isSeries || isAnime) cantCap.value.toIntOrNull() else null,
-                    typeGender = if (isAnime) typeGenre.value else null,
-                    typeContent = if (isCustom) categoryName else null
+                    typeGender = if (isAnime) typeGenre.value else null
                 )
 
                 contentRepository.insertContent(newContent)
