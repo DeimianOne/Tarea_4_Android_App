@@ -4,15 +4,20 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.R
 import com.example.mediaexplorer.data.entity.Category
 import com.example.mediaexplorer.data.entity.Content
 import com.example.mediaexplorer.data.repository.CategoryRepository
 import com.example.mediaexplorer.data.repository.ContentRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+
 
 class InitialLoadViewModel(
     private val contentRepository: ContentRepository,
@@ -20,9 +25,12 @@ class InitialLoadViewModel(
 ) : ViewModel() {
 
     private val TAG = "InitialLoadVM"
+    private val _initialLoadDone = MutableStateFlow(false)
+    val initialLoadDone: StateFlow<Boolean> get() = _initialLoadDone
 
     fun loadInitialData(context: Context) {
         viewModelScope.launch {
+            _initialLoadDone.value = false
             try {
                 val prefs = context.getSharedPreferences("mediaexplorer_prefs", Context.MODE_PRIVATE)
                 val alreadyLoaded = prefs.getBoolean("initial_data_loaded", false)
@@ -33,30 +41,30 @@ class InitialLoadViewModel(
 
                 val existingCategories = categoryRepository.getAllCategoriesStream().first()
                 val existingCategoryNames = existingCategories.map { it.name }
-
                 val pkg = context.packageName
 
-                if (!existingCategoryNames.contains("Película")) {
+                if ("Película" !in existingCategoryNames) {
                     categoryRepository.insertCategory(
                         Category(name = "Película", categoryImageUri = "android.resource://$pkg/${R.drawable.pelicula_ico}")
                     )
                     Log.d(TAG, "Categoría 'Película' insertada.")
                 }
-                if (!existingCategoryNames.contains("Serie")) {
+                if ("Serie" !in existingCategoryNames) {
                     categoryRepository.insertCategory(
                         Category(name = "Serie", categoryImageUri = "android.resource://$pkg/${R.drawable.serie_ico}")
                     )
                     Log.d(TAG, "Categoría 'Serie' insertada.")
                 }
-                if (!existingCategoryNames.contains("Anime")) {
+                if ("Anime" !in existingCategoryNames) {
                     categoryRepository.insertCategory(
                         Category(name = "Anime", categoryImageUri = "android.resource://$pkg/${R.drawable.anime_ico}")
                     )
                     Log.d(TAG, "Categoría 'Anime' insertada.")
                 }
 
-                val existingContents = contentRepository.getContentsByCategoryStream("Película").first()
-                if (existingContents.isEmpty()) {
+                val existingContents = categoryRepository.getCategoryById(1)
+
+                if (existingContents?.name == "Película") {
                     val res = context.resources
                     val contents = listOf(
                         Content(
@@ -82,6 +90,8 @@ class InitialLoadViewModel(
 
                 prefs.edit().putBoolean("initial_data_loaded", true).apply()
                 Log.d(TAG, "Datos iniciales cargados correctamente.")
+                _initialLoadDone.value = true
+
 
             } catch (e: IOException) {
                 Log.e(TAG, "No hay conexión: ${e.message}", e)
@@ -89,6 +99,8 @@ class InitialLoadViewModel(
                 Log.e(TAG, "Error del servidor (${e.code()}): ${e.message()}", e)
             } catch (e: Exception) {
                 Log.e(TAG, "Error inesperado: ${e.localizedMessage}", e)
+            }finally {
+                _initialLoadDone.value = true // <-- Asegura salida limpia
             }
         }
     }

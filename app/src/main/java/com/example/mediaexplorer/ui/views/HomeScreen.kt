@@ -56,12 +56,14 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -69,6 +71,7 @@ import com.example.mediaexplorer.EditCategorySc
 import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.data.entity.Category
 import com.example.mediaexplorer.ui.views.category.CategoryScreenViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -84,7 +87,6 @@ fun HomeScreen(
     var selectedCategory by remember { mutableStateOf<Category?>(null) }
     val coroutineScope = rememberCoroutineScope()
     var showDeleteDialog by remember { mutableStateOf(false) }
-
     var showHelpDialog by remember { mutableStateOf(false) }
 
         Scaffold(modifier = Modifier.fillMaxSize(),
