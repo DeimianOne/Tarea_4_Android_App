@@ -6,7 +6,8 @@ import okhttp3.OkHttpClient
 import com.google.gson.GsonBuilder
 
 object ApiClient {
-    private const val BASE_URL = "http://10.0.2.2:8000/" // Asegúrate de apuntar a /api/ si corresponde
+    private const val BASE_URL = "http://10.0.2.2:8000/"
+//    private const val BASE_URL = "http://192.168.157.207:8000/"
 
     fun create(): Retrofit {
         val client = OkHttpClient.Builder()
