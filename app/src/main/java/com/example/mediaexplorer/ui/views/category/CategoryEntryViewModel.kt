@@ -25,8 +25,8 @@ class CategoryEntryViewModel(
     private val _imageUri = MutableStateFlow<String?>(null)
     val imageUri: StateFlow<String?> = _imageUri
 
-    val categories: StateFlow<List<Category>> = repository.getAllCategoriesStream()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    private val _categories = MutableStateFlow<List<Category>>(emptyList())
+    val categories: StateFlow<List<Category>> = _categories
 
     private val _errorMessage = MutableStateFlow("")
     val errorMessage: StateFlow<String> = _errorMessage
@@ -44,6 +44,13 @@ class CategoryEntryViewModel(
         Log.d("CategoryEntryVM", "URI de imagen actualizada: $newUri")
     }
 
+    fun loadCategories() {
+        viewModelScope.launch {
+            repository.getAllCategoriesStream().collect {
+                _categories.value = it
+            }
+        }
+    }
 
     fun saveCategory() {
         viewModelScope.launch {

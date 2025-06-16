@@ -38,6 +38,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -51,6 +52,7 @@ import coil.compose.AsyncImage
 import com.example.mediaexplorer.Home
 import com.example.mediaexplorer.R
 import com.example.mediaexplorer.ui.views.AppViewModelProvider
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,6 +66,7 @@ fun CategoryEditScreen(
     val errorMessage by viewModel.errorMessage.collectAsState()
     val updatedSuccessfully by viewModel.updatedSuccessfully.collectAsState()
     Log.d("CategoryEditScreen", "Nombre actual: $name")
+    val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(categoryId) {
         viewModel.loadCategoryById(categoryId)
@@ -132,7 +135,9 @@ fun CategoryEditScreen(
                 ) {
                     Button(
                         onClick = {
-                            viewModel.updateCategory()
+                            coroutineScope.launch {
+                                viewModel.updateCategory()
+                            }
                         },
                         contentPadding = PaddingValues(horizontal = 20.dp),
                         colors = ButtonDefaults.buttonColors(

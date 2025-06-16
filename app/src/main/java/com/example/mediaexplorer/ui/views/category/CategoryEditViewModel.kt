@@ -31,6 +31,7 @@ class CategoryEditViewModel(
     private val _updatedSuccessfully = MutableStateFlow(false)
     val updatedSuccessfully: StateFlow<Boolean> = _updatedSuccessfully
 
+
     fun loadCategory(category: Category) {
         categoryId = category.id
         _name.value = category.name
@@ -80,6 +81,7 @@ class CategoryEditViewModel(
                 categoryRepository.updateCategory(updatedCategory)
                 _errorMessage.value = ""
                 _updatedSuccessfully.value = true
+
             } catch (e: IOException) {
                 Log.e("CategoryUpdateVM", "Sin conexión al servidor: ${e.message}")
                 _errorMessage.value = "No se pudo conectar con el servidor."

@@ -89,7 +89,11 @@ fun HomeScreen(
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showHelpDialog by remember { mutableStateOf(false) }
 
-        Scaffold(modifier = Modifier.fillMaxSize(),
+    LaunchedEffect(Unit) {
+        categoryEntryViewModel.loadCategories()
+    }
+
+    Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = {
