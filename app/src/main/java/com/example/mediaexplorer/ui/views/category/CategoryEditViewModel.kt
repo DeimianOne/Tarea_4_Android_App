@@ -40,13 +40,22 @@ class CategoryEditViewModel(
     fun loadCategoryById(categoryId: Int) {
         viewModelScope.launch {
             try {
+                Log.d("CategoryEditViewModel", "Buscando categoría con ID: $categoryId")
                 val category = categoryRepository.getCategoryById(categoryId)
-                category?.let { loadCategory(it) }
+                if (category != null) {
+                    Log.d("CategoryEditViewModel", "Categoría cargada: ${category.name}")
+                    loadCategory(category)
+                } else {
+                    Log.e("CategoryEditViewModel", "Categoría no encontrada para ID $categoryId")
+                    _errorMessage.value = "Categoría no encontrada."
+                }
             } catch (e: Exception) {
+                Log.e("CategoryEditViewModel", "Error al cargar la categoría: ${e.localizedMessage}")
                 _errorMessage.value = "Error al cargar la categoría: ${e.localizedMessage ?: "Desconocido"}"
             }
         }
     }
+
 
     fun onNameChanged(value: String) { _name.value = value }
     fun onImageUriChanged(value: String?) { _imageUri.value = value }

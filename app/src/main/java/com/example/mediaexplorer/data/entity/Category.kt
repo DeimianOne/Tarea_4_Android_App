@@ -3,7 +3,7 @@ package com.example.mediaexplorer.data.entity
 import com.google.gson.annotations.SerializedName
 
 data class Category(
-    @SerializedName("category_id")
+    @SerializedName("id")
     val id: Int = 0,
 
     val name: String,

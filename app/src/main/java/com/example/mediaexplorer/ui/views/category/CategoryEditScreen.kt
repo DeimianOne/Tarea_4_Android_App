@@ -2,6 +2,7 @@ package com.example.mediaexplorer.ui.views.category
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -62,6 +63,7 @@ fun CategoryEditScreen(
     val imageUri by viewModel.imageUri.collectAsState()
     val errorMessage by viewModel.errorMessage.collectAsState()
     val updatedSuccessfully by viewModel.updatedSuccessfully.collectAsState()
+    Log.d("CategoryEditScreen", "Nombre actual: $name")
 
     LaunchedEffect(categoryId) {
         viewModel.loadCategoryById(categoryId)
