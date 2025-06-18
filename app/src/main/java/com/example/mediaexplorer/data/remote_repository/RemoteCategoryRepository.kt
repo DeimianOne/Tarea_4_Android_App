@@ -1,10 +1,17 @@
 package com.example.mediaexplorer.data.remote_repository
 
+import android.content.Context
 import com.example.mediaexplorer.data.entity.Category
 import com.example.mediaexplorer.data.repository.CategoryRepository
 import com.example.mediaexplorer.data.services.CategoryService
+import com.example.mediaexplorer.ui.components_utils.uriToFilePath
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 
 class RemoteCategoryRepository(private val api: CategoryService) : CategoryRepository {
 
@@ -17,7 +24,7 @@ class RemoteCategoryRepository(private val api: CategoryService) : CategoryRepos
     }
 
     override suspend fun insertCategory(category: Category) {
-        api.createCategory(category)
+        TODO("Not yet implemented")
     }
 
     override suspend fun insertCategoryWithImage(name: String, imageUri: String?, context: Context) {
@@ -37,7 +44,20 @@ class RemoteCategoryRepository(private val api: CategoryService) : CategoryRepos
     }
 
     override suspend fun updateCategory(category: Category) {
-        api.updateCategory(category.id, category)
+        TODO("Not yet implemented")
+    }
+
+//    override suspend fun updateCategory(category: Category) {
+//        api.updateCategory(category.id, category)
+//    }
+
+    override suspend fun updateCategoryWithImage(
+        id: Int,
+        name: String,
+        imageUri: String?,
+        context: Context
+    ) {
+        TODO("Not yet implemented")
     }
 
     override suspend fun getCategoryById(id: Int): Category? {
