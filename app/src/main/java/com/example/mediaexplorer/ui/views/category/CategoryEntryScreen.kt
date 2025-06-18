@@ -63,6 +63,7 @@ fun CreateCategoryScreen(
     val imageUri by viewModel.imageUri.collectAsState()
     val errorMessage by viewModel.errorMessage.collectAsState()
     val savedSuccessfully by viewModel.savedSuccessfully.collectAsState()
+    val context = LocalContext.current
 
     // Launcher para seleccionar imagen
     val context = LocalContext.current
@@ -125,7 +126,7 @@ fun CreateCategoryScreen(
                 ) {
                     Button(
                         onClick = {
-                            viewModel.saveCategory()
+                            viewModel.saveCategory(context)
                         },
                         contentPadding = PaddingValues(horizontal = 20.dp),
                         colors = ButtonDefaults.buttonColors(

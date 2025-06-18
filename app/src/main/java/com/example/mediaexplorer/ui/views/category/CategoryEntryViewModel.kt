@@ -44,8 +44,7 @@ class CategoryEntryViewModel(
         Log.d("CategoryEntryVM", "URI de imagen actualizada: $newUri")
     }
 
-
-    fun saveCategory() {
+    fun saveCategory(context: Context) {
         viewModelScope.launch {
             try {
                 val nameTrimmed = name.value.trim()
@@ -53,16 +52,12 @@ class CategoryEntryViewModel(
                 val error = validateCategoryName(nameTrimmed, existing)
 
                 if (error != null) {
-                    Log.w("CategoryEntryVM", "Validación fallida: $error")
                     _errorMessage.value = error
                     _savedSuccessfully.value = false
                     return@launch
                 }
 
-                val category = Category(name = nameTrimmed, categoryImageUri = imageUri.value)
-                repository.insertCategory(category)
-
-                Log.d("CategoryEntryVM", "Categoría insertada correctamente: ${category.name}")
+                repository.insertCategoryWithImage(nameTrimmed, imageUri.value, context)
 
                 _name.value = ""
                 _imageUri.value = null
@@ -70,13 +65,10 @@ class CategoryEntryViewModel(
                 _savedSuccessfully.value = true
 
             } catch (e: IOException) {
-                Log.e("CategoryEntryVM", "Sin conexión al servidor: ${e.message}")
-                _errorMessage.value = "No se pudo conectar con el servidor. Verifica tu conexión a internet."
+                _errorMessage.value = "No se pudo conectar con el servidor"
             } catch (e: HttpException) {
-                Log.e("CategoryEntryVM", "Error del servidor: ${e.code()}")
                 _errorMessage.value = "Error del servidor: ${e.code()}"
             } catch (e: Exception) {
-                Log.e("CategoryEntryVM", "Error inesperado: ${e.localizedMessage}")
                 _errorMessage.value = "Error inesperado: ${e.localizedMessage ?: "Desconocido"}"
             }
         }

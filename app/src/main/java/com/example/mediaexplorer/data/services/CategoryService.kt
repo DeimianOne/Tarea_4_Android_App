@@ -11,11 +11,20 @@ interface CategoryService {
     @GET("api/categories/{id}")
     suspend fun getCategoryById(@Path("id") id: Int): Category
 
+    @Multipart
     @POST("api/categories")
-    suspend fun createCategory(@Body category: Category): Response<Unit>
+    suspend fun createCategory(
+        @Part("name") name: okhttp3.RequestBody,
+        @Part image: MultipartBody.Part?
+    ): Response<Unit>
 
+    @Multipart
     @PUT("api/categories/{id}")
-    suspend fun updateCategory(@Path("id") id: Int, @Body category: Category): Response<Unit>
+    suspend fun updateCategory(
+        @Path("id") id: Int,
+        @Part("name") name: okhttp3.RequestBody,
+        @Part image: MultipartBody.Part?
+    ): Response<Unit>
 
     @DELETE("api/categories/{id}")
     suspend fun deleteCategory(@Path("id") id: Int): Response<Unit>

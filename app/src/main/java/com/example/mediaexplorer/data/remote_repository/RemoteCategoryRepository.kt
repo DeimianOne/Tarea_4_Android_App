@@ -20,6 +20,18 @@ class RemoteCategoryRepository(private val api: CategoryService) : CategoryRepos
         api.createCategory(category)
     }
 
+    override suspend fun insertCategoryWithImage(name: String, imageUri: String?, context: Context) {
+        val namePart = name.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        val imagePart = imageUri?.let {
+            val file = File(uriToFilePath(context, it))
+            val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("image", file.name, requestFile)
+        }
+
+        api.createCategory(namePart, imagePart)
+    }
+
     override suspend fun deleteCategory(category: Category) {
         api.deleteCategory(category.id)
     }
